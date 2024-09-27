@@ -1,1 +1,1 @@
-# bandung-cuisine
+# Taste of Bandung
