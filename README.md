@@ -1,6 +1,10 @@
 # Taste of Bandung
 
-Taste of Bandung is a website designed to help users discover the best culinary experiences in Bandung. Whether you're a local or a tourist, this platform provides an easy way to explore various food spots in the city. The website offers a seamless user experience with features like bookmarking, ratings, and personalized recommendations to enhance your culinary journey.
+Pernahkah Anda merasa tersesat di tengah hiruk-pikuk jalanan Bandung, tanpa tahu ke mana harus pergi untuk menemukan pengalaman kuliner lokal yang autentik? Kini, Anda tidak perlu khawatir lagi. Kami hadir dengan solusi yang tepat untuk Anda—**Taste of Bandung**, sebuah platform yang dirancang khusus untuk menghadirkan informasi terkini, paling akurat, dan berperingkat tertinggi tentang kuliner lokal di sekitar Anda.
+
+Taste of Bandung diciptakan dengan detail oleh tim ahli kami, menghadirkan antarmuka yang mudah dan intuitif, memastikan Anda bisa dengan cepat menemukan rekomendasi terbaik untuk memaksimalkan waktu Anda di Bandung. Baik Anda penduduk lokal maupun wisatawan, menjelajahi platform kami akan menjadi keputusan yang tidak Anda sesali. Dengan fitur unggulan seperti penandaan, penyaringan, dan rekomendasi yang dipersonalisasi, **Taste of Bandung** memberikan pengalaman yang menyenangkan dan efisien.
+
+Ingin berbagi pengalaman kuliner Anda dengan komunitas? Kami juga menyediakan sistem ulasan, memungkinkan Anda untuk membagikan cerita dan kesan Anda selama menikmati kuliner di Bandung. Tunggu apa lagi? Segeralah bergabung dengan **Taste of Bandung** dan temukan dunia kuliner terbaik yang ditawarkan kota ini.
 
 ## Modules / Features
 
