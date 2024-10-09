@@ -23,10 +23,10 @@ Ingin berbagi pengalaman kuliner Anda dengan komunitas? Kami juga menyediakan si
 ## Daftar Modul
 
 | Nama Modul                | Nama Pekerja | Deskripsi                                                                                                                                                 |
-|---------------------------|--------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **Autentikasi**           | Nama 1       | Melakukan verifikasi informasi pengguna, dan hanya akan diberikan akses ke laman situs web pengguna terotentikasi bila infomrasi pengguna telah terotentikasi. |               
-| **Admin**                 | Nama 2       | Tampilan seperti pengguna biasa tetapi dengan kendali lebih seperti penambahan dan pengurangan produk, pengaturan situs, dll.                                  |                                             
-| **User Profile**          | Nama 3       | Informasi akun pengguna termasuk seperti nama akun, email akun, tanggal pembuatan akun, dll.                                                                   |
+|---------------------------|--------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------|                                        
+| **Login Page**            | Nama 1       | Melakukan verifikasi informasi pengguna, dan hanya akan diberikan akses ke laman situs web pengguna terotentikasi bila infomrasi pengguna telah terotentikasi. | 
+| **Registrasi Page**       | Nama 1       | Membuat akun pengguna, bila semua field sudah valid sesuai validasi, maka akan user akan ditujukan ke Login. |                                       
+| **User Profile Page**     | Nama 3       | Informasi akun pengguna termasuk seperti nama akun, email akun, tanggal pembuatan akun, dll.                                                                   |
 | **Home Page (Landing)**   | Nama 4       | Laman utama yang akan ditampilkan saat seorang pengguna telah berhasil terotentikasi dan diberikan akses ke situs web.                                         |
 | **Product Details Page**  | Nama 5       | Informasi mengenai produk yang ditampilkan. Merupakan laman dimana pengguna dapat memberikan ulasan terkait produk tersebut.                                   |
 | **Search Page**           | Nama 6       | Laman situs web dimana penggunna dapat melakukan pencari produk sesuai dengan filter yang telah ditentukan sebelumnya.                                         |
@@ -47,5 +47,4 @@ Sumber inisial dataset dapat dilihat dari [Sumber Dataset](https://github.com/pb
   Memiliki kendali penuh untuk menambah atau menghapus produk, mengelola pengguna, serta menetapkan aturan situs. Admin juga berwenang memoderasi ulasan pengguna biasa di setiap laman produk, memastikan konten yang ditampilkan sesuai dan layak.
 
 ## Deployment URL
-
-TBA
+http://rahardi-salim-tasteofbandung.pbp.cs.ui.ac.id/
