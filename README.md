@@ -33,18 +33,26 @@ Ingin berbagi pengalaman kuliner Anda dengan komunitas? Kami juga menyediakan si
 | **Last Activites Page**   | Nama 7       | Tampilan aplikasi web yang memperlihatkan segala kegiatan/aktivitas pengguna pada situs web sejak akun dibuat.                                                 |
 
 ## Sumber Inisial Dataset
-Sumber inisial dataset dapat dilihat dari [Sumber Dataset](https://github.com/pbpf12/taste-of-bandung) ini.
+Sumber inisial dataset dapat dilihat dari :
+- [Sumber Dataset](https://docs.google.com/spreadsheets/d/16gu9gPa8Nin2xFiqhyMezOKgs5oYMscOEMwLaojXCeM/edit?usp=sharing)
+- [GoFood](https://gofood.co.id/)
+- [Pergi Kuliner](https://pergikuliner.com/)
+- [GrabFood](https://www.grab.com/id/food/)
+- [BelahDoeren](https://belahdoeren.id/)
+- [Kedai Nyonya Rumah](https://www.kedainyonyarumah.com/)
+- [Instagram](https://www.instagram.com/)
+- [Facebook](https://web.facebook.com/)
 
 ## Peran Pengguna
 
-- **Pengguna Biasa (Terautentikasi)**  
+- **Pengguna**  
   Dapat mencari produk, menambahkan *bookmark*, meninggalkan ulasan, menyarankan produk baru, mengelola profil, dan menikmati fitur lainnya.
 
-- **Pengguna Biasa (Tidak Terautentikasi)**<br>
+- **Guest**<br>
   Hanya dapat mencari produk, mengakses informasi produk (tetapi tidak bisa memberikan ulasan), mengakses home page / landing.
 
-- **Pengguna Admin**  
+- **Admin**  
   Memiliki kendali penuh untuk menambah atau menghapus produk, mengelola pengguna, serta menetapkan aturan situs. Admin juga berwenang memoderasi ulasan pengguna biasa di setiap laman produk, memastikan konten yang ditampilkan sesuai dan layak.
 
 ## Deployment URL
-http://rahardi-salim-tasteofbandung.pbp.cs.ui.ac.id/
+Tautan Deployment dapat diakses melalui [link ini](http://rahardi-salim-tasteofbandung.pbp.cs.ui.ac.id/)
