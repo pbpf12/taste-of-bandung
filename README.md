@@ -29,7 +29,7 @@ Ingin berbagi pengalaman kuliner Anda dengan komunitas? Kami juga menyediakan si
 | **User Profile Page**     | Nama 3       | Informasi akun pengguna termasuk seperti nama akun, email akun, tanggal pembuatan akun, dll.                                                                   |
 | **Home Page (Landing)**   | Nama 4       | Laman utama yang akan ditampilkan saat seorang pengguna telah berhasil terotentikasi dan diberikan akses ke situs web.                                         |
 | **Product Details Page**  | Nama 5       | Informasi mengenai produk yang ditampilkan. Merupakan laman dimana pengguna dapat memberikan ulasan terkait produk tersebut.                                   |
-| **Search Page**           | Rafie       | Laman situs web dimana penggunna dapat melakukan pencari produk sesuai dengan filter yang telah ditentukan sebelumnya.                                         |
+| **Search Page**           | Rafie        | Laman situs web dimana penggunna dapat melakukan pencari produk sesuai dengan filter yang telah ditentukan sebelumnya.                                         |
 | **Last Activites Page**   | Nama 7       | Tampilan aplikasi web yang memperlihatkan segala kegiatan/aktivitas pengguna pada situs web sejak akun dibuat.                                                 |
 
 ## Sumber Inisial Dataset
