@@ -9,6 +9,48 @@ html {
 }
 </style>
 <script>
+    // Searching Logic dari Front-End
+    document.getElementById("search-form").addEventListener("submit", function (event) {
+        event.preventDefault();  // Prevent form from submitting normally
+
+        // Ambil CSRF token dari input hidden yang dihasilkan oleh Django
+        const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+
+        // Ambil value dari search input field
+        const name = document.querySelector('[name="name"]').value;
+        const type = document.querySelector('[name="type"]').value;
+        const priceMin = document.querySelector('[name="price_min"]').value;
+        const priceMax = document.querySelector('[name="price_max"]').value;
+        const category = document.querySelector('[name="category"]').value;
+        const sortBy = document.querySelector('[name="sort_by"]').value;
+
+        // Persiapkan form data
+        const formData = new FormData();
+        formData.append('name', name);
+        formData.append('type', type);
+        formData.append('price_min', priceMin);
+        formData.append('price_max', priceMax);
+        formData.append('category', category);
+        formData.append('sort_by', sortBy);
+
+        // Kirim POST request dengan fetch
+        fetch("/get_dishes/", {
+            method: "POST",
+            headers: {
+                'X-CSRFToken': csrfToken  // Menyertakan CSRF token
+            },
+            body: formData  // Kirim form data
+        })
+        .then(response => response.json())  // Parsing hasil JSON
+        .then(data => {
+            console.log(data);  // Menampilkan hasil data
+            // Lakukan sesuatu dengan data (misal menampilkan hasil di halaman)
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+    });
+
     // Toggle modal visibility
     function toggleModal() {
         const modal = document.getElementById('filterModal');
