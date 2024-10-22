@@ -1,0 +1,239 @@
+{% extends 'base.html' %}
+{% load static %}
+<!--------------------------------------   HEAD   -------------------------------------------->
+{% block meta %}
+<style>
+html {
+    min-height: 100%;
+    background: linear-gradient(to bottom,#d4a45c, #d6c06f, #ad9d64); /* Warna disesuaikan */
+}
+</style>
+<script>
+    // Toggle modal visibility
+    function toggleModal() {
+        const modal = document.getElementById('filterModal');
+        modal.classList.toggle('hidden');
+        modal.classList.toggle('flex');
+    }
+
+    // Close modal when clicking outside
+    window.onclick = function(event) {
+        const modal = document.getElementById('filterModal');
+        if (event.target == modal) {
+            toggleModal();
+        }
+    }
+</script>
+{% endblock meta %}
+<!---------------------------------------  BODY  ---------------------------------------------->
+{% block content %}
+
+<div class="h-10"></div>
+
+<!-- Input and Filter Button for small screens (sm and smaller) -->
+<div class="flex items-center justify-center m-4">
+    <div class="w-full max-w-md flex items-center bg-white rounded-lg shadow-lg overflow-hidden shadow-yellow-500 border-y-2 border-x-2">
+        <!-- Search Icon -->
+        <div class="pl-3 flex items-center">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M11 4a7 7 0 017 7c0 1.385-.354 2.69-1 3.843l5.293 5.293a1 1 0 01-1.414 1.414L15.586 16A7 7 0 1111 4zm0 2a5 5 0 100 10 5 5 0 000-10z"/>
+            </svg>
+        </div>
+        <!-- Input Field -->
+        <div class="relative flex-grow">
+            <input
+                type="text"
+                class="w-full h-full p-3 pl-5 bg-transparent border-none focus:outline-none focus:ring-0 placeholder-gray-500 text-gray-800"
+                placeholder="Search Products"
+                oninput="searchDebounceCallBack(this.value)"
+            >
+        </div>
+        <!-- Divider -->
+        <div class="h-full w-px bg-gray-300"></div>
+        <!-- Filter Button -->
+        <button class="bg-yellow-600 hover:bg-yellow-700 text-white py-3 px-3 flex items-center justify-center transition-colors duration-300 md:hidden lg:hidden" onclick="toggleModal()">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2a1 1 0 01-.293.707L15 12.414V19a1 1 0 01-.553.894l-4 2A1 1 0 019 21v-8.586L3.293 6.707A1 1 0 013 6V4z"/>
+            </svg>
+        </button>
+    </div>
+</div>
+
+<div class="h-4"></div>
+
+<!-- Search + Filters for larger screens (md and larger) -->
+<div class="hidden md:flex lg:flex justify-center m-4 flex-co">
+    <div class="w-full max-w-full bg-gray-100 rounded-lg shadow-lg overflow-hidden border-y-2 border-x-2 p-4">
+        <div class="grid grid-cols-5 gap-4">
+
+            <!-- Filter 1: Food Type (2 Radio Buttons) -->
+            <div class="col-span-1">
+                <label class="block mb-1 font-semibold text-gray-700">Type</label>
+                <div class="flex items-center">
+                    <label class="inline-flex items-center mr-4">
+                        <input type="radio" name="type" value="food" class="form-radio text-yellow-700">
+                        <span class="ml-2 text-black">Food</span>
+                    </label>
+                    <label class="inline-flex items-center">
+                        <input type="radio" name="type" value="drink" class="form-radio text-yellow-700">
+                        <span class="ml-2 text-black">Drink</span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Filter 2: Price Range -->
+            <div class="col-span-2">
+                <label class="block mb-1 font-semibold text-gray-700">Price Range</label>
+                <div class="flex">
+                    <input
+                        type="text"
+                        class="w-1/2 p-2 border border-gray-500 rounded-l-lg focus:outline-none focus:ring-2 focus:border-yellow-600"
+                        placeholder="Min Price"
+                    >
+                    <input
+                        type="text"
+                        class="w-1/2 p-2 border border-gray-500 rounded-r-lg focus:outline-none focus:ring-2 focus:border-yellow-600"
+                        placeholder="Max Price"
+                    >
+                </div>
+            </div>
+
+            <!-- Filter 3: Category -->
+            <div class="col-span-1">
+                <label for="category" class="block mb-1 font-semibold text-gray-700">Category</label>
+                <select id="category" class="w-full p-3 border border-gray-500 rounded-lg bg-gray-100 focus:outline-none focus:ring-2 focus:border-yellow-600">
+                    <option value="">All Restaurants</option>
+                    <option value="fastfood">Fast Food</option>
+                    <option value="fine_dining">Fine Dining</option>
+                    <option value="cafe">Cafe</option>
+                </select>
+            </div>
+
+            <!-- Filter 4: Sort By -->
+            <div class="col-span-1">
+                <label class="block mb-1 font-semibold text-gray-700">Sort By</label>
+                <select class="w-full p-3 border border-gray-500 rounded-lg bg-gray-100 focus:outline-none focus:ring-2 focus:border-yellow-600">
+                    <option value="cheapest">Cheapest</option>
+                    <option value="most_expensive">Most Expensive</option>
+                </select>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Filter Modal for smaller screens -->
+<div id="filterModal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black bg-opacity-50">
+    <div class="bg-gray-100 rounded-lg p-8 w-11/12 max-w-md relative">
+        <!-- Modal Header -->
+        <div class="flex flex-row justify-between items-center mb-4">
+            <h2 class="text-xl font-semibold text-yellow-700 mb-0">Filter Options</h2>
+            <button type="button" onclick="toggleModal()" class="focus:outline-none">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="4">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
+                </svg>
+            </button>
+        </div>
+
+        <!-- Modal Filters -->
+        <div class="mb-4">
+            <label class="block text-gray-700">Sort By</label>
+            <select class="w-full p-3 border border-gray-300 rounded-lg bg-gray-100 focus:outline-none focus:ring-2 focus:border-yellow-600">
+                <option value="cheapest">Cheapest</option>
+                <option value="most_expensive">Most Expensive</option>
+            </select>
+        </div>
+
+        <div class="mb-4">
+            <label class="block text-gray-700">Category:</label>
+            <select class="block w-full mt-1 p-2 border rounded bg-gray-100">
+                <option value="">All Restaurants</option>
+                <option value="fastfood">Fast Food</option>
+                <option value="fine_dining">Fine Dining</option>
+                <option value="cafe">Cafe</option>
+            </select>
+        </div>
+
+        <div class="mb-4">
+            <label class="block text-gray-700">Type:</label>
+            <div class="flex">
+                <label class="inline-flex items-center mr-4">
+                    <input type="radio" name="type" value="food" class="form-radio text-yellow-700">
+                    <span class="ml-2 text-black">Food</span>
+                </label>
+                <label class="inline-flex items-center">
+                    <input type="radio" name="type" value="drink" class="form-radio text-yellow-700">
+                    <span class="ml-2 text-black">Drink</span>
+                </label>
+            </div>
+        </div>
+
+        <div class="mb-4">
+            <label class="block text-gray-700">Price Range:</label>
+            <input type="text" class="block w-full mt-1 p-2 border rounded bg-gray-100" placeholder="Min Price">
+            <input type="text" class="block w-full mt-1 p-2 border rounded bg-gray-100" placeholder="Max Price">
+        </div>
+
+        <button class="w-full bg-yellow-600 hover:bg-yellow-700 text-white py-2 px-4 rounded-lg" onclick="toggleModal()">Search</button>
+    </div>
+</div>
+
+<div class="h-10"></div>
+
+{% if not dishes %}
+    <div class="flex flex-col items-center justify-center h-64">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 mb-4 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 2a10 10 0 100 20 10 10 0 000-20zm-2 14h4m-4-8h.01M16.5 8.5a.5.5 0 11-.5-.5.5.5 0 01.5.5zm-9 0a.5.5 0 11-.5-.5.5.5 0 01.5.5z"/>
+        </svg>
+        <p>No products available.</p>
+    </div>
+{% else %}
+    <div class="mx-5 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-5 justify-items-center">
+        {% for dish in dishes %}
+        <div class="relative group flex justify-center w-full">
+            <a class="shadow-yellow-600 shadow-2xl relative w-full h-0 pb-[80%] cursor-pointer transition duration-200" href="">
+                {% if dish.image_url %}
+                    <img src="{{ dish.image_url }}" class="absolute top-0 left-0 w-full h-full object-cover rounded-lg group-hover:opacity-80">
+                {% else %}
+                    <div class="absolute top-0 left-0 w-full h-full bg-gray-200 flex items-center justify-center rounded-lg">
+                        <svg class="w-16 h-16 text-gray-500" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm11.707 6.707l-3 3a1 1 0 01-1.414 0l-1.586-1.586a1 1 0 00-1.414 0l-3 3A1 1 0 015 11.293l3-3a1 1 0 011.414 0l1.586 1.586a1 1 0 001.414 0l3-3a1 1 0 011.414 1.414z"/>
+                        </svg>
+                    </div>
+                {% endif %}
+                <div class="absolute bottom-0 left-0 w-full bg-black bg-opacity-50 text-white p-2 rounded-b-lg">
+                    <h3 class="font-semibold truncate">{{ dish.name }}</h3>
+                </div>
+            </a>
+            <a class="absolute w-full h-0 pb-[80%] bg-gray-800 text-white opacity-0 group-hover:opacity-100 transition-all duration-300 ease-in-out transform group-hover:scale-110 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col z-10 group-hover:z-50 rounded-lg" href="">
+                <div class="relative w-full h-0 pb-[80%]">
+                    {% if dish.image_url %}
+                        <img src="{{ dish.image_url }}" class="absolute top-0 left-0 w-full h-full object-cover rounded-lg">
+                    {% else %}
+                        <div class="absolute top-0 left-0 w-full h-full bg-gray-200 flex items-center justify-center rounded-lg">
+                            <svg class="w-16 h-16 text-gray-500" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm11.707 6.707l-3 3a1 1 0 01-1.414 0l-1.586-1.586a1 1 0 00-1.414 0l-3 3A1 1 0 015 11.293l3-3a1 1 0 011.414 0l1.586 1.586a1 1 0 001.414 0l3-3a1 1 0 011.414 1.414z"/>
+                            </svg>
+                        </div>
+                    {% endif %}
+                    <div class="absolute bottom-0 left-0 w-full text-white p-2 rounded-b-lg bg-gradient-to-t from-black via-black/60">
+                        <h3 class="font-semibold truncate">{{ dish.name }}</h3>
+                        <p class="text-xs text-gray-300 line-clamp-2">{{ dish.description }}</p>
+                        <div class="flex flex-row justify-between">
+                            <p class="text-xs font-semibold text-white mt-2"><strong>Price:</strong> Rp.{{ dish.price }}</p>
+                            <div class="flex items-center mt-1 justify-end">
+                                {% for i in "12345" %}
+                                <svg class="w-3 h-3 text-yellow-400" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                                    <path d="M9.049 2.927C9.22 2.613 9.58 2.454 9.955 2.454c.374 0 .736.159.907.474l2.318 4.693 5.195.756c.378.055.707.294.876.638.169.345.14.75-.076 1.086l-3.762 3.669.889 5.18c.066.385-.094.779-.414 1.017-.32.239-.748.292-1.117.138l-4.656-2.448-4.656 2.448c-.369.154-.797.1-1.117-.138-.32-.238-.48-.632-.414-1.017l.889-5.18-3.762-3.669c-.217-.336-.245-.741-.076-1.086.17-.344.498-.583.876-.638l5.195-.756L9.049 2.927z"/>
+                                </svg>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+        {% endfor %}
+    </div>
+{% endif %}
+
+{% endblock %}
