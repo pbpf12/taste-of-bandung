@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block meta %}
+<link rel="stylesheet" href="{% static 'css/landpage.css' %}">
+<link rel="stylesheet" href="{% static 'css/landpage.scss' %}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+   
+</style>
+{% endblock meta %}
+{% block content %}
+<body>
+    <img src="{% static '/img/backroundbandung.png' %}" alt="">
+   
+    
+    <div class="header">
+        {% include 'navbar.html' %}
+    </div>
+    <div class="content">
+        <div class="welcome-message"> Welcome Back User!</div>
+        <div class="recommendations-message">see todays recommendations</div>
+    </div>
+    <div class="container-checkbox">
+        <div class="toggle-button" onclick="toggleButton(this)">
+            <div class="toggle-option active">Restaurant</div>
+            <div class="toggle-option">Food</div>
+            <div class="toggle-ball"></div>
+        </div>
+    </div>
+ 
+    <button class="critik">give us suggestions!</button>
+
+</body>
+<script>
+    function toggleButton(element) {
+        element.classList.toggle('active');
+        const options = element.querySelectorAll('.toggle-option');
+        options.forEach(option => option.classList.toggle('active'));
+    }
+</script>
+
+{% endblock content %}
