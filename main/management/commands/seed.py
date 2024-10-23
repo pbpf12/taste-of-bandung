@@ -2,8 +2,7 @@ from django.core.management.base import BaseCommand
 from django.contrib.auth.models import User
 from main.models import Restaurant, Dish, Category, Review, Bookmark, History
 from main.management.seeds.users import users_data
-from main.management.seeds.contoh import restaurants_contoh, dishes_contoh, reviews_contoh, bookmarks_contoh, history_contoh
-from main.management.seeds.rafie import restaurants_rafie, dishes_rafie, reviews_rafie, bookmarks_rafie, history_rafie
+from main.management.seeds.alex import restaurants_alex, dishes_alex, reviews_alex, bookmarks_alex, history_alex
 
 class Command(BaseCommand):
     help = 'Seed the database with example data for restaurants, dishes, reviews, bookmarks, and history.'
@@ -20,20 +19,16 @@ class Command(BaseCommand):
                 self.stdout.write(self.style.SUCCESS(f"Created user: {user.username}"))
 
         # Seed data from contoh and rafie
-        self.seed_restaurants_and_dishes(restaurants_contoh, dishes_contoh)
-        self.seed_restaurants_and_dishes(restaurants_rafie, dishes_rafie)
+        self.seed_restaurants_and_dishes(restaurants_alex, dishes_alex)
 
         # Seed reviews from both sources
-        self.seed_reviews(reviews_contoh)
-        self.seed_reviews(reviews_rafie)
+        self.seed_reviews(reviews_alex)
 
         # Seed bookmarks from both sources
-        self.seed_bookmarks(bookmarks_contoh)
-        self.seed_bookmarks(bookmarks_rafie)
+        self.seed_bookmarks(bookmarks_alex)
 
         # Seed History
-        self.seed_history(history_contoh)
-        self.seed_history(history_rafie)
+        self.seed_history(history_alex)
 
         self.stdout.write(self.style.SUCCESS('Seeding completed successfully!'))
 
