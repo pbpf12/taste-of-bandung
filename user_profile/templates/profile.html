@@ -1,14 +1,15 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block meta %}
-<style>
-    * {
-        background: black;
-        color: white
-    }
-</style>
+<title>{{ user.username }}'s Profile</title>
 {% endblock meta %}
 
 {% block content %}
-this page is for user profile
+{% include "navbar.html" %}
+<body class = bg-gray-600>
+    <div class="flex flex-row justify-center items-center h-20">
+        <p>test</p>
+    </div>
+</body>
 {% endblock content %}
