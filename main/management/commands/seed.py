@@ -2,7 +2,6 @@ from django.core.management.base import BaseCommand
 from django.contrib.auth.models import User
 from main.models import Restaurant, Dish, Category, Review, Bookmark, History
 from main.management.seeds.users import users_data
-from main.management.seeds.contoh import restaurants_contoh, dishes_contoh, reviews_contoh, bookmarks_contoh, history_contoh
 from main.management.seeds.rafie import restaurants_rafie, dishes_rafie, reviews_rafie, bookmarks_rafie, history_rafie
 from main.management.seeds.figo import *
 from main.management.seeds.rahardi import *
@@ -23,8 +22,7 @@ class Command(BaseCommand):
             if created:
                 self.stdout.write(self.style.SUCCESS(f"Created user: {user.username}"))
 
-        # Seed data from contoh and rafie
-        self.seed_restaurants_and_dishes(restaurants_contoh, dishes_contoh)
+        # Seed data from all sources
         self.seed_restaurants_and_dishes(restaurants1_figo, dishes1_figo)
         self.seed_restaurants_and_dishes(restaurants2_figo, dishes2_figo)
         self.seed_restaurants_and_dishes(restaurants_rahardi, dishes_rahardi)
@@ -32,24 +30,21 @@ class Command(BaseCommand):
         self.seed_restaurants_and_dishes(restaurants_zillan, dishes_zillan)
         self.seed_restaurants_and_dishes(restaurants_rafie,dishes_rafie)
 
-        # Seed reviews from both sources
-        self.seed_reviews(reviews_contoh)
+        # Seed reviews from all sources
         self.seed_reviews(reviews_figo)
         self.seed_reviews(reviews_rahardi)
         self.seed_reviews(reviews_alex)
         self.seed_reviews(reviews_zillan)
         self.seed_reviews(reviews_rafie)
 
-        # Seed bookmarks from both sources
-        self.seed_bookmarks(bookmarks_contoh)
+        # Seed bookmarks from all sources
         self.seed_bookmarks(bookmarks_figo)
         self.seed_bookmarks(bookmarks_rahardi)
         self.seed_bookmarks(bookmarks_alex)
         self.seed_bookmarks(bookmarks_zillan)
         self.seed_bookmarks(bookmarks_rafie)
 
-        # Seed History
-        self.seed_history(history_contoh)
+        # Seed History from all sources
         self.seed_history(history_figo)
         self.seed_history(history_rahardi)
         self.seed_history(history_alex)
