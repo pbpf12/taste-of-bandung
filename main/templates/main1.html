@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block meta %}
+<style>
+    * {
+        background: black;
+        color: white
+    }
+</style>
+{% endblock meta %}
+
+{% block content %}
+<div>
+    <p>PAGE 1</p>
+    <p>we're building this website</p>
+    <a href="{% url 'logout' %}">logout</a>
+</div>
+{% endblock content %}
