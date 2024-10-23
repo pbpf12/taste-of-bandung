@@ -7,5 +7,3 @@ class SearchForm(forms.Form):
     price_max = forms.IntegerField(required=False)
     category = forms.CharField(required=False)
     sort_by = forms.CharField(required=False)
-
-

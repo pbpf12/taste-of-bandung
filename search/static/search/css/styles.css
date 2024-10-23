@@ -1,0 +1,15 @@
+html {
+    min-height: 100%;
+    background: linear-gradient(to bottom,#d4a45c, #d6c06f, #ad9d64); /* Warna disesuaikan */
+}
+@keyframes fast-pulse {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.5;
+    }
+}
+.animate-fast-pulse {
+    animation: fast-pulse 0.75s infinite; /* Faster pulse, 0.75 seconds */
+}
