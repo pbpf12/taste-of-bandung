@@ -24,7 +24,6 @@ function setDishName(newDishName) {
         }
     }, 1000);
 }
-
 function setMinPrice(newMinPrice) {
     min_price = newMinPrice;
 
@@ -40,7 +39,6 @@ function setMinPrice(newMinPrice) {
         modalMinPrice.value = newMinPrice;
     }
 }
-
 function setMaxPrice(newMaxPrice) {
     max_price = newMaxPrice;
 
@@ -56,7 +54,6 @@ function setMaxPrice(newMaxPrice) {
         modalMaxPrice.value = newMaxPrice;
     }
 }
-
 function setSortBy(newSortBy) {
     sort_by = newSortBy;
 
@@ -74,7 +71,6 @@ function setSortBy(newSortBy) {
 
     retrieveDishes();
 }
-
 function setCategory(newCategory) {
     // Toggle behavior for radio buttons
     if (category === newCategory) {
@@ -105,8 +101,6 @@ function setCategory(newCategory) {
     // Refresh dishes with the new category
     retrieveDishes();
 }
-
-
 // Additional Function for price
 function resetPriceRange() {
     document.getElementById('minPriceInput').value = '';
@@ -114,7 +108,6 @@ function resetPriceRange() {
     min_price = '';
     max_price = '';
 }
-
 function submitPriceRange() {
     if (parseInt(min_price) > parseInt(max_price)) {
         alert("Min Price cannot be greater than Max Price.");
@@ -124,7 +117,6 @@ function submitPriceRange() {
     // If everything is valid, proceed to retrieve the data
     retrieveDishes();
 }
-
 async function getDishes() {
     const response = await fetch(getDishesUrl, {
         method: "POST",
@@ -146,7 +138,6 @@ async function getDishes() {
         return response.json();
     }
 }
-
 // Function to get CSRF token
 function getCookie(name) {
     let cookieValue = null;
@@ -163,8 +154,6 @@ function getCookie(name) {
     }
     return cookieValue;
 }
-
-
 // Get on Refresh and Get More Data
 async function retrieveDishes() {
     buildSkeletonCards()
@@ -201,7 +190,6 @@ async function retrieveMoreDishes() {
     // Process data of producst into html string
     buildCards(dishes)
 }
-
 // Build UI Components
 function buildSkeletonCards() {
     classNameString = ""
@@ -310,14 +298,12 @@ function buildCards(dishes) {
     document.getElementById("dish_list_view").innerHTML = htmlString;
     document.getElementById("dish_list_view").className = classNameString;
 }
-
 // Toggle modal visibility
 function toggleModal() {
     const modal = document.getElementById('filterModal');
     modal.classList.toggle('hidden');
     modal.classList.toggle('flex');
 }
-
 // Close modal when clicking outside
 window.onclick = function(event) {
     const modal = document.getElementById('filterModal');
@@ -325,7 +311,6 @@ window.onclick = function(event) {
         toggleModal();
     }
 }
-
 // When Reach Bottom add More Products
 window.addEventListener ('scroll', async () => {
     const {

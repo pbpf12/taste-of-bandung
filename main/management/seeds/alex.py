@@ -24,7 +24,7 @@ restaurants_alex = [
 dishes_alex = [
     {
         "restaurant": "Rumah Makan Padang Malah Dicubo",
-        "category": "Makanan",
+        "category": "Food",
         "name": "Nasi Gulai Babat",
         "description": "Nasi Campur Sayur Dan Sambel + gulai babat",
         "price": 35000,
@@ -32,7 +32,7 @@ dishes_alex = [
     },
     {
         "restaurant": "Rumah Makan Padang Malah Dicubo",
-        "category": "Makanan",
+        "category": "Food",
         "name": "Nasi Rendang",
         "description": "Campur sayur dan sambel + rendang",
         "price": 35000,
@@ -40,7 +40,7 @@ dishes_alex = [
     },
     {
         "restaurant": "Rumah Makan Padang Malah Dicubo",
-        "category": "Makanan",
+        "category": "Food",
         "name": "Nasi Gulai Ikan Gurame",
         "description": "Nasi campur sayur dan sambel + gulai gurame",
         "price": 37000,
@@ -48,7 +48,7 @@ dishes_alex = [
     },
     {
         "restaurant": "Rumah Makan Padang Malah Dicubo",
-        "category": "Makanan",
+        "category": "Food",
         "name": "Nasi Ikan Kembung",
         "description": "Nasi campur sayur dan sambel + ikan kembung",
         "price": 33000,
@@ -56,7 +56,7 @@ dishes_alex = [
     },
     {
         "restaurant": "Rumah Makan Padang Malah Dicubo",
-        "category": "Makanan",
+        "category": "Food",
         "name": "Nasi Ikan Salais",
         "description": "Nasi campur sayur dan sambel + ikan salais",
         "price": 42500,
@@ -64,7 +64,7 @@ dishes_alex = [
     },
     {
         "restaurant": "Rumah Makan Padang Malah Dicubo",
-        "category": "Makanan",
+        "category": "Food",
         "name": "Nasi Ayam Ijo",
         "description": "Nasi campur sayur dan sambel + ayam ijo",
         "price": 33000,
@@ -72,7 +72,7 @@ dishes_alex = [
     },
     {
         "restaurant": "Rumah Makan Padang Malah Dicubo",
-        "category": "Makanan",
+        "category": "Food",
         "name": "Nasi Ayam Pop",
         "description": "Nasi campur sayur dan sambel + ayam pop",
         "price": 33000,
@@ -80,7 +80,7 @@ dishes_alex = [
     },
     {
         "restaurant": "Rumah Makan Padang Malah Dicubo",
-        "category": "Makanan",
+        "category": "Food",
         "name": "Nasi Ayam Goreng",
         "description": "Nasi campur sayur dan sambel + ayam goreng",
         "price": 33000,
@@ -88,7 +88,7 @@ dishes_alex = [
     },
     {
         "restaurant": "Rumah Makan Padang Malah Dicubo",
-        "category": "Makanan",
+        "category": "Food",
         "name": "Nasi Udang",
         "description": "Nasi campur sayur dan sambel + udang",
         "price": 38500,
@@ -96,7 +96,7 @@ dishes_alex = [
     },
     {
         "restaurant": "Rumah Makan Padang Malah Dicubo",
-        "category": "Makanan",
+        "category": "Food",
         "name": "Nasi Kikil",
         "description": "Nasi campur sayur dan sambel + kikil",
         "price": 41000,
@@ -104,7 +104,7 @@ dishes_alex = [
     },
     {
         "restaurant": "Kartikasari, Kebon Jukut",
-        "category": "Makanan",
+        "category": "Food",
         "name": "Brownies Panggang",
         "description": "Brownies panggang coklat dengan topping almond yang kaya rasa. Nikmati kelembutan brownies ini dengan masa ketahanan hingga 7 hari.",
         "price": 92000,
@@ -112,7 +112,7 @@ dishes_alex = [
     },
     {
         "restaurant": "Kartikasari, Kebon Jukut",
-        "category": "Makanan",
+        "category": "Food",
         "name": "Pisang Bolen Coklat Keju",
         "description": "Perpaduan pisang manis, coklat yang lumer, dan keju gurih dalam setiap gigitan. Masa ketahanan 4 hari.",
         "price": 67500,
@@ -120,7 +120,7 @@ dishes_alex = [
     },
     {
         "restaurant": "Kartikasari, Kebon Jukut",
-        "category": "Makanan",
+        "category": "Food",
         "name": "Banana Roll Pandan",
         "description": "Pisang gulung lembut yang dibalut dengan bolu pandan, dilengkapi dengan coklat di setiap sisi. Masa ketahanan 4 hari.",
         "price": 52500,
@@ -128,7 +128,7 @@ dishes_alex = [
     },
     {
         "restaurant": "Kartikasari, Kebon Jukut",
-        "category": "Makanan",
+        "category": "Food",
         "name": "Cheese Roll",
         "description": "Puff pastry renyah dengan isian keju batang yang gurih dan lezat. Masa ketahanan 4 hari.",
         "price": 67500,
@@ -136,7 +136,7 @@ dishes_alex = [
     },
     {
         "restaurant": "Kartikasari, Kebon Jukut",
-        "category": "Makanan",
+        "category": "Food",
         "name": "Banana Crispy",
         "description": "Puff pastry pisang dengan kombinasi coklat, fla, dan keju yang sempurna. Masa ketahanan 3 hari.",
         "price": 65000,
@@ -144,7 +144,7 @@ dishes_alex = [
     },
     {
         "restaurant": "Kartikasari, Kebon Jukut",
-        "category": "Makanan",
+        "category": "Food",
         "name": "Brownies Gulung",
         "description": "Brownies kukus yang digulung dengan selai manis, cocok sebagai camilan. Masa ketahanan 4 hari.",
         "price": 47500,
@@ -152,7 +152,7 @@ dishes_alex = [
     },
     {
         "restaurant": "Kartikasari, Kebon Jukut",
-        "category": "Makanan",
+        "category": "Food",
         "name": "Brownies Kukus",
         "description": "Brownies kukus yang lembut dan kaya coklat. Masa ketahanan 4 hari.",
         "price": 70000,
@@ -160,7 +160,7 @@ dishes_alex = [
     },
     {
         "restaurant": "Kartikasari, Kebon Jukut",
-        "category": "Makanan",
+        "category": "Food",
         "name": "Cheese Stick",
         "description": "Puff pastry keju renyah dengan taburan keju parut yang melimpah. Masa ketahanan 4 hari.",
         "price": 67500,
@@ -168,7 +168,7 @@ dishes_alex = [
     },
     {
         "restaurant": "Kartikasari, Kebon Jukut",
-        "category": "Makanan",
+        "category": "Food",
         "name": "Choco Pastry",
         "description": "Puff pastry dengan isian coklat batang yang lumer di dalam. Masa ketahanan 4 hari.",
         "price": 55000,
@@ -176,7 +176,7 @@ dishes_alex = [
     },
     {
         "restaurant": "Kartikasari, Kebon Jukut",
-        "category": "Makanan",
+        "category": "Food",
         "name": "Picnic Roll Beef",
         "description": "Puff pastry dengan isi daging sapi, keju, dan telur, memberikan rasa yang kaya dan memuaskan. Masa ketahanan 2 hari.",
         "price": 75000,
