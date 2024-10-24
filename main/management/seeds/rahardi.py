@@ -135,7 +135,7 @@ dishes_rahardi = [
         "name": "Bakwan Sayur",
         "description": "10 Pcs Bakwan Sayur",
         "price": 20000,
-        "image": "https://i.gojekapi.com/darkroom/gofood-indonesia/v2/images/uploads/02e09b4d-4fe3-43d4-8f56-59a35c22231e_Go-Biz_20211022_210149.jpeg?auto=format",
+        "image": "https://i.gojekapi.com/darkroom/gofood-indonesia/v2/images/uploads/9ec4b136-3018-4f74-81e5-51b9b5a175cb_Go-Biz_20200903_155915.jpeg",
         "category": "Food",
         "restaurant": "Saung Rasa Lesehan"
     },
