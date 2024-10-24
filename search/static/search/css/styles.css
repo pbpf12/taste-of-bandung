@@ -1,16 +1,16 @@
 html {
     min-height: 100%;
     background: linear-gradient(to bottom, 
-    #d4a45c, /* Warna pertama */
-    #d5ab60, /* Warna transisi 1 */
-    #d6ad64, /* Warna transisi 2 */
-    #d6b56a, /* Warna transisi 3 */
-    #d6c06f, /* Warna kedua */
-    #c2b16b, /* Warna transisi 4 */
-    #ad9d64  /* Warna ketiga */
-);
-
+    #FFB845, /* Warna orange utama */
+    #FFC966, /* Warna transisi 1, kuning cerah */
+    #FFD57A, /* Warna transisi 2, kuning lebih lembut */
+    #FFE38E, /* Warna transisi 3, kuning pastel */
+    #FFF0A1, /* Warna transisi 4, kuning sangat terang */
+    #FFEB84, /* Warna transisi 5, hampir putih dengan sentuhan kuning */
+    #FFF7C2  /* Warna akhir, sangat terang */
+    );
 }
+
 @keyframes fast-pulse {
     0%, 100% {
         opacity: 1;
