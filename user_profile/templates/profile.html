@@ -8,8 +8,13 @@
 {% block content %}
 {% include "navbar.html" %}
 <body class = bg-gray-600>
-    <div class="flex flex-row justify-center items-center h-20">
-        <p>test</p>
+    <div class="flex flex-row justify-self-center mt-10 py-5 px-10 w-1/2 bg-gray-200/40 rounded-lg">
+        <div class="flex flex-col justify-between gap-5 items-center">
+            <div class="w-32 h-32 rounded-full bg-stone-600">
+                <img src="{% static 'images/default_profile.png' %}" class="w-32 h-32 rounded-full" alt="Profile Picture">
+            </div>
+            <p class="text-white text-2xl">{{ user.username }}</p>
+        </div>
     </div>
 </body>
 {% endblock content %}
