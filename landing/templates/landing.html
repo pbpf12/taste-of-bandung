@@ -10,7 +10,7 @@
 {% endblock meta %}
 {% block content %}
 <body>
-    <img src="{% static '/img/backroundbandung.png' %}" alt="">
+    <img src="{% static '/img/backroundbandung.png' %}" alt="" class="backround">
    
     
     <div class="header">
@@ -18,7 +18,7 @@
     </div>
 
     <div class="content">
-        <div class="welcome-message"> Welcome Back User!</div>
+        <div class="welcome-message"> Welcome Back {{ name }}!</div>
         <div class="recommendations-message">see todays recommendations</div>
     </div>
     
@@ -36,18 +36,25 @@
             give us suggestions!
           </button>
     </div>
-  
+    
     <h1>Top 3 Rated Dishes</h1>
-    <ul>
-        {% if top_dishes %}
-            {% for dish in top_dishes %}
-                <li>{{ dish.name }} - Rating: {{ dish.average_rating }} ({{ dish.review_count }} reviews)</li>
-            {% endfor %}
-        {% else %}
-            <p>{{ message }}</p>
-        {% endif %}
-    </ul>
-              
+    <div class="top-3-dishes">
+      <div class="dishes">
+          {% if top_dishes %}
+              <ul class="dishes-list">
+                  {% for dish in top_dishes %}
+                      <li class="dish-item">{{ dish.name }} - Rating: {{ dish.average_rating }}</li>
+                      <img src="{{ dish.image }}" alt="{{ dish.name }}" class="dish-image">
+                  {% endfor %}
+              </ul>
+          {% else %}
+              <p>{{ message }}</p>
+          {% endif %}
+      </div>
+  </div>
+  
+    
+    
 
     <div id="crudModal" tabindex="-1" aria-hidden="true" class="hidden fixed inset-0 z-50 w-full flex items-center justify-center bg-gray-800 bg-opacity-50 overflow-x-hidden overflow-y-auto transition-opacity duration-300 ease-out">
         <div id="crudModalContent" class="relative bg-white rounded-lg shadow-lg w-5/6 sm:w-3/4 md:w-1/2 lg:w-1/3 mx-4 sm:mx-0 transform scale-95 opacity-0 transition-transform transition-opacity duration-300 ease-out">

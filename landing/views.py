@@ -24,7 +24,7 @@ from django.db.models import Count
 from django.db.models import Avg, Count
 
 # Create your views here.
-@login_required(login_url="login")
+@login_required(login_url="login")# 
 def show_landing(request):
     # Annotate each dish with the number of reviews and the average rating from reviews
     top_dishes = Dish.objects.order_by('-average_rating')[:3]

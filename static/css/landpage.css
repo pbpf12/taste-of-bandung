@@ -5,14 +5,6 @@
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
 
-img {
-    position: absolute; /* Mengatur posisi menjadi absolut */
-    top: 0; /* Jarak dari atas */
-    left: 0; /* Jarak dari kiri */
-    width: 100%; /* Lebar gambar */
-    height: auto; /* Otomatis menyesuaikan tinggi sesuai aspek rasio */
-    z-index: -1; /* Jika ingin gambar di belakang konten lain */
-}
 
 body {
     
@@ -40,6 +32,15 @@ button {
     font-weight: 500;
 }
 
+
+.backround {
+    position: absolute; /* Mengatur posisi menjadi absolut */
+    top: 0; /* Jarak dari atas */
+    left: 0; /* Jarak dari kiri */
+    width: 100%; /* Lebar gambar */
+    height: auto; /* Otomatis menyesuaikan tinggi sesuai aspek rasio */
+    z-index: -1; /* Jika ingin gambar di belakang konten lain */
+}
 .welcome-message {
     color: white;
     font-size: 4em; /* Ubah ukuran font sesuai kebutuhan */
@@ -157,5 +158,43 @@ button {
     border-radius: 5px;
     cursor: pointer;
 }
-  
+
+.top-3-dishes{
+    position: relative;
+    padding: 10px 300px;
+    align-items: center;
+    justify-content: center;
+    height: 200px;
+    top: 200px;
+    background: rgba(176, 176, 176, 0.16);
+    backdrop-filter: blur(15px);
+
+}
+.dishes-list {
+    list-style-type: none;  /* Remove bullet points */
+    display: flex;          /* Activate flexbox */
+    justify-content: space-around; /* Spread items evenly */
+    padding: 0;
+    justify-content: center;
+    align-items: center;
+}
+
+.dish-item {
+    margin: 0 15px;         /* Add some space between items */
+    padding: 10px;
+    background-color: #f0f0f0;  /* Optional: background for visual separation */
+    border-radius: 8px;      /* Optional: rounded corners */
+    text-align: center;      /* Center the text inside each item */
+}
+
+.dish-image {
+    margin: 0 15px;         /* Add some space between items */
+    padding: 10px;
+    background-color: #f0f0f0;  /* Optional: background for visual separation */
+    border-radius: 8px;      /* Optional: rounded corners */
+    text-align: center;      /* Center the text inside each item */
+}
+
+
+
 
