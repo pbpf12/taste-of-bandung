@@ -9,18 +9,8 @@
 <!---------------------------------------  BODY  ---------------------------------------------->
 {% block content %}
 
-<div class="h-10"></div>
-
-<!-- Search Bar, Filter Button Show when screen < md -->
-{% include "search_bar.html" %}
-
-<div class="h-4"></div>
-
-<!-- Filters for larger screens (md and larger) -->
-{% include "filter_bar.html" %}
-
-<!-- Filter Modal for smaller screens -->
-{% include "filter_modal.html" %}
+{% include "components/searchfilter_skeleton.html" %}
+{% include "components/searchfilter.html" %}
 
 <div class="h-10"></div>
 

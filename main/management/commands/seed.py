@@ -25,7 +25,6 @@ class Command(BaseCommand):
                 self.stdout.write(self.style.SUCCESS(f"Created user: {user.username}"))
 
         # Seed data from contoh and rafie
-        self.seed_restaurants_and_dishes(restaurants_contoh, dishes_contoh)
         self.seed_restaurants_and_dishes(restaurants1_figo, dishes1_figo)
         self.seed_restaurants_and_dishes(restaurants2_figo, dishes2_figo)
         self.seed_restaurants_and_dishes(restaurants_rahardi, dishes_rahardi)
@@ -34,7 +33,6 @@ class Command(BaseCommand):
         self.seed_restaurants_and_dishes(restaurants_rafie,dishes_rafie)
 
         # Seed reviews from both sources
-        self.seed_reviews(reviews_contoh)
         self.seed_reviews(reviews_figo)
         self.seed_reviews(reviews_rahardi)
         self.seed_reviews(reviews_alex)
@@ -43,7 +41,6 @@ class Command(BaseCommand):
         self.seed_reviews(reviews_alex)
 
         # Seed bookmarks from both sources
-        self.seed_bookmarks(bookmarks_contoh)
         self.seed_bookmarks(bookmarks_figo)
         self.seed_bookmarks(bookmarks_rahardi)
         self.seed_bookmarks(bookmarks_alex)
@@ -52,7 +49,6 @@ class Command(BaseCommand):
         self.seed_bookmarks(bookmarks_alex)
 
         # Seed History
-        self.seed_history(history_contoh)
         self.seed_history(history_figo)
         self.seed_history(history_rahardi)
         self.seed_history(history_alex)

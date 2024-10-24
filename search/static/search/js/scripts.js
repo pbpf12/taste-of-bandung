@@ -1,5 +1,6 @@
 // Execute function for Initial page load 
 document.addEventListener("DOMContentLoaded", function () {
+    document.getElementById('searchfilter').classList.add('hidden');
     retrieveDishes()
 });
 // Pagination
@@ -13,6 +14,8 @@ let dish_name = "";
 let min_price = "";
 let max_price = "";
 let sort_by = "";
+// Store restaurants image url
+let restaurantsImageUrl = []
 
 // Searching and Filter Logic
 function setDishName(newDishName) {
@@ -117,6 +120,7 @@ function submitPriceRange() {
     // If everything is valid, proceed to retrieve the data
     retrieveDishes();
 }
+// Communicate with Back-End using Post Method
 async function getDishes() {
     const response = await fetch(getDishesUrl, {
         method: "POST",
@@ -132,6 +136,33 @@ async function getDishes() {
             'sort_by': sort_by,
             'page' : currentPage,
         }),
+    });
+
+    if (response.ok) {
+        return response.json();
+    }
+}
+// Communicate with Back-End using GET method
+async function getMoreDishes() {
+    // Membuat query string dari parameter yang ada
+    const queryParams = new URLSearchParams({
+        'name': dish_name,
+        'category': category,
+        'price_min': min_price,
+        'price_max': max_price,
+        'sort_by': sort_by,
+        'page': currentPage
+    }).toString();
+    
+    // Menggabungkan URL dengan query string
+    const urlWithParams = `${getDishesUrl}?${queryParams}`;
+
+    const response = await fetch(urlWithParams, {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json",
+            "X-CSRFToken": getCookie('csrftoken')  // Menambahkan CSRF token
+        }
     });
 
     if (response.ok) {
@@ -159,9 +190,8 @@ async function retrieveDishes() {
     buildSkeletonCards()
 
     // The real loading (fetching data from API)
-    currentPage = 1 // initial data from start COMINC SOONNNN
+    currentPage = 1 // initial data from start 
     const data = await getDishes();
-
 
     // Store data
     const dishes = data.dishes;
@@ -173,6 +203,8 @@ async function retrieveDishes() {
     classNameString = "";
     htmlString = "";
 
+    document.getElementById('searchfilter_skeleton').classList.add('hidden');
+    document.getElementById('searchfilter').classList.remove('hidden');
     if (dishes.length === 0) {
         buildNoData()
     } else {
@@ -182,7 +214,7 @@ async function retrieveDishes() {
 }
 async function retrieveMoreDishes() {
     // The real loading (fetching data from API)
-    const data = await getDishes();
+    const data = await getMoreDishes();
 
     // Store data
     const dishes = data.dishes;

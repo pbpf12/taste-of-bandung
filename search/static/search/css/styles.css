@@ -1,6 +1,15 @@
 html {
     min-height: 100%;
-    background: linear-gradient(to bottom,#d4a45c, #d6c06f, #ad9d64); /* Warna disesuaikan */
+    background: linear-gradient(to bottom, 
+    #d4a45c, /* Warna pertama */
+    #d5ab60, /* Warna transisi 1 */
+    #d6ad64, /* Warna transisi 2 */
+    #d6b56a, /* Warna transisi 3 */
+    #d6c06f, /* Warna kedua */
+    #c2b16b, /* Warna transisi 4 */
+    #ad9d64  /* Warna ketiga */
+);
+
 }
 @keyframes fast-pulse {
     0%, 100% {
