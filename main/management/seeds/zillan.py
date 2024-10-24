@@ -67,7 +67,7 @@ dishes_zillan = [
         "name": "Nasi Rames",
         "description": "Nasi Rames adalah hidangan nasi dengan berbagai macam lauk-pauk.",
         "price": 24000,
-        "image": "https://th.bing.com/th/id/R.c392dd411d8ed4c25c5357384e83d472?rik=vcXpnfWSXUjEHg&riu=http%3a%2f%2fchris-catering.com%2fwp-content%2fuploads%2f2020%2f07%2fnasi-box-rames-slempetan-khas-purwokerto.jpeg&ehk=eY3ZJ3XOe8tKZgLjLLYBiEUa09grYzknAmhhrbj7Obg%3d&risl=&pid=ImgRaw&r=0",  # Image 10
+        "image": "https://i.gojekapi.com/darkroom/gofood-indonesia/v2/images/uploads/da885034-c9b2-431c-b485-04733c8644ff_Go-Biz_20221029_162408.jpeg?auto=format",  # Image 10
         "category": "Food",
         "restaurant": "Lotek Mahmud"
     },
@@ -83,7 +83,7 @@ dishes_zillan = [
         "name": "Mie + Baso",
         "description": "Mie Bakut adalah hidangan mie dengan bakut sapi.",
         "price": 25000,
-        "image": "https://th.bing.com/th/id/R.cceb0afebfc4225f9336a9ec600d3aa0?rik=oBlx065Ntsezww&riu=http%3a%2f%2f3.bp.blogspot.com%2f-9GxNW-7nph4%2fVRm06gl3VUI%2fAAAAAAAAD3M%2fFbIrlkDzYNc%2fs1600%2fpix-for-gt-bakso-recipe.jpg&ehk=PVSxppll1irYenbt9oUopL7aA%2b0pyLlOPQQyWsBJ0pI%3d&risl=&pid=ImgRaw&r=0",  # Image 12
+        "image": "https://i.gojekapi.com/darkroom/gofood-indonesia/v2/images/uploads/ba31edc0-4410-4b4a-92f5-c4314d0dc1f1_Go-Biz_20210122_124420.jpeg?auto=format",  # Image 12
         "category": "Food",
         "restaurant": "Lotek Mahmud"
     },
