@@ -4,63 +4,157 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Last Activities</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1, h2 {
+            color: #333;
+            text-align: center;
+        }
+
+        .section {
+            margin: 40px 20px;
+        }
+
+        .separator {
+            height: 2px;
+            background-color: #333;
+            margin: 40px 0;
+        }
+
+        .container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr); /* 3 columns */
+            gap: 20px;
+        }
+
+        .card {
+            background-color: #7289da;
+            border-radius: 10px;
+            padding: 10px;
+            color: white;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border: 2px solid #5a6bbd;
+            position: relative; /* Allow absolute positioning for the delete button */
+        }
+
+        .card h3 {
+            font-size: 1.3em;
+            margin: 5px 0 10px 0; /* Reduce the top margin */
+            color: black; /* Set user name color to black */
+            margin-right: 80px; /* Keep space for the delete button */
+        }
+
+        .card p {
+            margin: 5px 0;
+            font-size: 1em;
+        }
+
+        /* Delete button */
+        .btn-delete {
+            position: absolute;
+            bottom: 10px; /* Positioned near the bottom */
+            right: 10px; /* Positioned near the right */
+            background-color: red;
+            color: white;
+            border-radius: 5px;
+            font-size: 0.9em;
+            cursor: pointer;
+            padding: 5px 10px;
+            border: none;
+        }
+
+        .btn-delete:hover {
+            background-color: #ff4d4d; /* Lighter red on hover */
+        }
+
+        .actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            margin-top: 10px;
+        }
+    </style>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+<body>
+    <h1>Last Activities</h1>
+
+    <!-- History Section -->
+    <div class="section">
+        <h2>History</h2>
+        <div class="container" id="history-container">
+            <!-- AJAX will populate the history cards here -->
+        </div>
+    </div>
+
+    <!-- Separator -->
+    <div class="separator"></div>
+
+    <!-- Bookmarks Section -->
+    <div class="section">
+        <h2>Bookmarks</h2>
+        <div class="container" id="bookmarks-container">
+            <!-- AJAX will populate the bookmark cards here -->
+        </div>
+    </div>
+
     <script type="text/javascript">
         $(document).ready(function(){
+            // Load cards and display them
             function loadLastActivities() {
                 $.ajax({
-                    url: "{% url 'last_activities' %}",  // This should match the URL pattern in urls.py
+                    url: "{% url 'last_activities' %}",
                     method: "GET",
                     success: function(data) {
-                        // Activities
-                        var activities = data.activities;
-                        var activityList = $("#activity-list");
-                        activityList.empty();  // Clear the list first
-                        activities.forEach(function(activity) {
-                            activityList.append('<li>' + activity.user + ' - ' + activity.content + '</li>');
-                        });
-
-                        // Bookmarks
-                        var bookmarks = data.bookmarks;
-                        var bookmarkList = $("#bookmark-list");
-                        bookmarkList.empty();  // Clear the list first
-                        bookmarks.forEach(function(bookmark) {
-                            bookmarkList.append('<li>' + bookmark.user + ' bookmarked ' + bookmark.item + '</li>');
-                        });
-
-                        // History
-                        var history = data.history;
-                        var historyList = $("#history-list");
-                        historyList.empty();  // Clear the list first
-                        history.forEach(function(historyItem) {
-                            historyList.append('<li>' + historyItem.user + ' viewed ' + historyItem.page + '</li>');
-                        });
+                        populateCards('bookmarks', data.bookmarks);
+                        populateCards('history', data.history);
                     }
                 });
             }
 
-            // Load activities, bookmarks, and history on page load
+            // Populate cards dynamically
+            function populateCards(type, items) {
+                const container = $('#' + type + '-container');
+                container.empty();
+                items.forEach(function(item) {
+                    container.append(
+                        '<div class="card">' +
+                            '<button class="btn-delete" onclick="deleteItem(' + item.id + ', \'' + type + '\')">Delete</button>' +
+                            '<h3>' + item.user + '</h3>' +
+                            '<p><strong>' + (type === 'history' ? 'Dish:' : 'Restaurant:') + '</strong> ' + (type === 'history' ? item.dish : item.restaurant) + '</p>' +
+                            (type === 'bookmarks' ? '<p><strong>Dish:</strong> ' + item.dish + '</p>' : '') +
+                        '</div>'
+                    );
+                });
+            }
+
+            // Function to delete an item
+            function deleteItem(itemId, type) {
+                $.ajax({
+                    url: '/delete_' + type + '/' + itemId,
+                    method: 'POST',
+                    data: {
+                        'csrfmiddlewaretoken': '{{ csrf_token }}'
+                    },
+                    success: function() {
+                        alert(type.charAt(0).toUpperCase() + type.slice(1) + ' deleted successfully');
+                        loadLastActivities(); // Reload data
+                    }
+                });
+            }
+
+            // Initial load
             loadLastActivities();
 
             // Optionally, reload every 30 seconds
-            setInterval(loadLastActivities, 30000);  // Refresh every 30 seconds
+            setInterval(loadLastActivities, 30000);
         });
     </script>
-</head>
-<body>
-    <h1>Recent Activities</h1>
-    <ul id="activity-list">
-        <!-- Activities will be populated here by AJAX -->
-    </ul>
-
-    <h2>Bookmarks</h2>
-    <ul id="bookmark-list">
-        <!-- Bookmarks will be populated here by AJAX -->
-    </ul>
-
-    <h2>History</h2>
-    <ul id="history-list">
-        <!-- History will be populated here by AJAX -->
-    </ul>
 </body>
 </html>

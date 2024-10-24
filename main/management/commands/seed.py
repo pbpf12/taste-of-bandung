@@ -4,7 +4,14 @@ from main.models import Restaurant, Dish, Category, Review, Bookmark, History
 from main.management.seeds.users import users_data
 from main.management.seeds.contoh import restaurants_contoh, dishes_contoh, reviews_contoh, bookmarks_contoh, history_contoh
 from main.management.seeds.rafie import restaurants_rafie, dishes_rafie, reviews_rafie, bookmarks_rafie, history_rafie
+<<<<<<< HEAD
 from main.management.seeds.figo import restaurants1_figo, dishes1_figo, restaurants2_figo, dishes2_figo, reviews_figo, bookmarks_figo, history_figo
+=======
+from main.management.seeds.figo import *
+from main.management.seeds.rahardi import *
+from main.management.seeds.alex import *
+from main.management.seeds.zillan import *
+>>>>>>> 7b6f8cf3a23cd0a489e3e2b1c3a6d39aa1864385
 
 class Command(BaseCommand):
     help = 'Seed the database with example data for restaurants, dishes, reviews, bookmarks, and history.'
@@ -21,6 +28,7 @@ class Command(BaseCommand):
                 self.stdout.write(self.style.SUCCESS(f"Created user: {user.username}"))
 
         # Seed data from contoh and rafie
+<<<<<<< HEAD
         # self.seed_restaurants_and_dishes(restaurants_contoh, dishes_contoh)
         # self.seed_restaurants_and_dishes(restaurants_rafie, dishes_rafie)
         self.seed_restaurants_and_dishes(restaurants1_figo, dishes1_figo)
@@ -41,6 +49,39 @@ class Command(BaseCommand):
         #self.seed_history(history_rafie)
         self.seed_history(history_figo)
         
+=======
+        self.seed_restaurants_and_dishes(restaurants_contoh, dishes_contoh)
+        self.seed_restaurants_and_dishes(restaurants1_figo, dishes1_figo)
+        self.seed_restaurants_and_dishes(restaurants2_figo, dishes2_figo)
+        self.seed_restaurants_and_dishes(restaurants_rahardi, dishes_rahardi)
+        self.seed_restaurants_and_dishes(restaurants_alex, dishes_alex)
+        self.seed_restaurants_and_dishes(restaurants_zillan, dishes_zillan)
+        self.seed_restaurants_and_dishes(restaurants_rafie,dishes_rafie)
+
+        # Seed reviews from both sources
+        self.seed_reviews(reviews_contoh)
+        self.seed_reviews(reviews_figo)
+        self.seed_reviews(reviews_rahardi)
+        self.seed_reviews(reviews_alex)
+        self.seed_reviews(reviews_zillan)
+        self.seed_reviews(reviews_rafie)
+
+        # Seed bookmarks from both sources
+        self.seed_bookmarks(bookmarks_contoh)
+        self.seed_bookmarks(bookmarks_figo)
+        self.seed_bookmarks(bookmarks_rahardi)
+        self.seed_bookmarks(bookmarks_alex)
+        self.seed_bookmarks(bookmarks_zillan)
+        self.seed_bookmarks(bookmarks_rafie)
+
+        # Seed History
+        self.seed_history(history_contoh)
+        self.seed_history(history_figo)
+        self.seed_history(history_rahardi)
+        self.seed_history(history_alex)
+        self.seed_history(history_zillan)
+        self.seed_history(history_rafie)
+>>>>>>> 7b6f8cf3a23cd0a489e3e2b1c3a6d39aa1864385
 
         self.stdout.write(self.style.SUCCESS('Seeding completed successfully!'))
 

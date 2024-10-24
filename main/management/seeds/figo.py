@@ -239,4 +239,3 @@ bookmarks_figo = [
         'dish': 'Durian Croissant'
     }
 ]
-

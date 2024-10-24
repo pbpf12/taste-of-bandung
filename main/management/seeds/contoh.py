@@ -71,7 +71,22 @@ history_contoh = [
     {
         'user': 'user2',
         'dish': 'Nasi Gulai Babat'
-    }
+    },
+        {
+        'user': 'user1',
+        'dish': 'Es Teh Manis'
+    },
+    {
+        'user': 'user2',
+        'dish': 'Nasi Gulai Babat'
+    },    {
+        'user': 'user1',
+        'dish': 'Es Teh Manis'
+    },
+    {
+        'user': 'user2',
+        'dish': 'Nasi Gulai Babat'
+    },
 ]
 
 # bookmarks_{nama}
@@ -85,6 +100,11 @@ bookmarks_contoh = [
         'user': 'user2',
         'restaurant': "Rumah Makan Padang Malah Dicubo",
         'dish': 'Nasi Gulai Babat'
-    }
+    },
+    {
+        'user': 'user2',
+        'restaurant': "Rumah Makan Padang Malah Dicubo",
+        'dish': 'Nasi Gulai Babat'
+    },
 ]
 
