@@ -5,7 +5,7 @@ restaurants_rafie = [
         "phone": "0851-0267-7787",
         "description": "Restoran Padang terkenal di kota ini.",
         "opening_hours": "10:00 - 21:00",
-        "image": "https://drive.google.com/uc?export=view&id=154IxFci_8LvIHIHQasIzfV0ebuNf_x7X",
+        "image": "https://i.postimg.cc/52ZHxQMK/cafedpakar.jpg",
         "price_range": ""
     },
     {
@@ -14,7 +14,7 @@ restaurants_rafie = [
         "phone": "022 7309718",
         "description": "Makanan sederhana dengan harga terjangkau.",
         "opening_hours": "10:00 - 22:00",
-        "image": "https://drive.google.com/uc?export=view&id=1McNGcX9tfMaKHZNKOq8A5splaDQlu_NP",
+        "image": "https://i.postimg.cc/yYpgbrpH/dapoerpandangwangi.jpg",
         "price_range": ""
     }
 ]
@@ -24,7 +24,7 @@ dishes_rafie = [
         "name": "Soto Mie",
         "description": "Mie kuning, daging, risol renyah, dan kuah gurih segar.",
         "price": 40000,
-        "image": "https://drive.google.com/uc?export=view&id=1mEubhQ7uTe_DLr24KnmCazp01OjSsgY1",
+        "image": "https://i.postimg.cc/vZD98dxT/1.jpg",
         "category": "Food",  # Reference by name
         "restaurant": "Cafe D'Pakar"  # Reference by name
     },
@@ -32,7 +32,7 @@ dishes_rafie = [
         "name": "Nasi Goreng Kambing",
         "description": "Gurih dengan daging empuk, telur ceplok, dan acar segar.",
         "price": 43000,
-        "image": "https://drive.google.com/uc?export=view&id=1XzIY4VvfBKdnA-w4aqfWuPH0snuS9B5g",
+        "image": "https://i.postimg.cc/J0PDmT1j/2.jpg",
         "category": "Food",  # Reference by name
         "restaurant": "Cafe D'Pakar"  # Reference by name
     },
@@ -40,7 +40,7 @@ dishes_rafie = [
         "name": "Pempek Palembang",
         "description": "Potongan tepung ikan goreng dengan kuah asam manis dan irisan mentimun segar serta mie kuning.",
         "price": 35000,
-        "image": "https://drive.google.com/uc?export=view&id=1XzIY4VvfBKdnA-w4aqfWuPH0snuS9B5g",
+        "image": "https://i.postimg.cc/4dvH2fqL/3.jpg",
         "category": "Food",  # Reference by name
         "restaurant": "Cafe D'Pakar"  # Reference by name
     },
@@ -48,7 +48,7 @@ dishes_rafie = [
         "name": "Nasi Liwet",
         "description": "Nasi bungkus daun, ayam goreng, tahu, tempe orek, ikan goreng, telur rebus, kerupuk, dan sambal pedas.",
         "price": 47000,
-        "image": "https://drive.google.com/uc?export=view&id=1YJ2eTecrTuipDh-MZs4BCYBJZlnLpCKs",
+        "image": "https://i.postimg.cc/XvCCFc80/4.jpg",
         "category": "Food",  # Reference by name
         "restaurant": "Cafe D'Pakar"  # Reference by name
     },
@@ -56,7 +56,7 @@ dishes_rafie = [
         "name": "Soto Bandung",
         "description": "Sup dengan potongan sayuran dan daging, disajikan bersama nasi putih dengan kerupuk.",
         "price": 33000,
-        "image": "https://drive.google.com/uc?export=view&id=1lQy1tnLfcwc0m2ksxBRAeZbQcLiUhXhx",
+        "image": "https://i.postimg.cc/mgq9t67w/5.jpg",
         "category": "Food",  # Reference by name
         "restaurant": "Cafe D'Pakar"  # Reference by name
     },
@@ -64,7 +64,7 @@ dishes_rafie = [
         "name": "Nasi Tutug Oncom Ayam Penyet",
         "description": "Nasi bungkus daun, ayam suwir pedas, tempe orek, tahu goreng, dan kerupuk, dilengkapi dengan lalapan tomat dan daun selada.",
         "price": 40000,
-        "image": "https://drive.google.com/uc?export=view&id=1yuaBAV5U9lFOkdTH9LxEmhYhFSViTnPg",
+        "image": "https://i.postimg.cc/Y0pG5cwp/6.jpg",
         "category": "Food",  # Reference by name
         "restaurant": "Cafe D'Pakar"  # Reference by name
     },
@@ -72,7 +72,7 @@ dishes_rafie = [
         "name": "Nasi Hainan",
         "description": "Nasi putih dengan ayam panggang berbumbu, disajikan bersama lalapan segar, irisan mentimun, dan tomat. Dilengkapi dengan kuah sup dan sambal sebagai pelengkap.",
         "price": 40000,
-        "image": "https://drive.google.com/uc?export=view&id=1yuaBAV5U9lFOkdTH9LxEmhYhFSViTnPg",
+        "image": "https://i.postimg.cc/XJ6ygGHB/7.jpg",
         "category": "Food",  # Reference by name
         "restaurant": "Cafe D'Pakar"  # Reference by name
     },
@@ -80,7 +80,7 @@ dishes_rafie = [
         "name": "Nasi Goreng Kencur",
         "description": "Nasi goreng dengan aroma kencur yang khas, disajikan dengan telur dadar, sayap ayam goreng, kerupuk udang, dan lalapan segar.",
         "price": 35000,
-        "image": "https://drive.google.com/uc?export=view&id=1wlH_mlMY0CzgwI9EiM7dp2jTcmuEtYQd",
+        "image": "https://i.postimg.cc/G3Qskpk9/8.jpg",
         "category": "Food",  # Reference by name
         "restaurant": "Cafe D'Pakar"  # Reference by name
     },
@@ -88,7 +88,7 @@ dishes_rafie = [
         "name": "Bitterballem",
         "description": "Bola-bola goreng renyah disajikan dengan lalapan dan dua jenis saus sebagai pelengkap",
         "price": 27000,
-        "image": "https://drive.google.com/uc?export=view&id=1qfKwHu4oNZgQNPRT21uvusnB4ogWydL0",
+        "image": "https://i.postimg.cc/Kv83QyNf/9.jpg",
         "category": "Food",  # Reference by name
         "restaurant": "Cafe D'Pakar"  # Reference by name
     },
