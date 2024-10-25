@@ -132,7 +132,6 @@ button {
     left: 125px; /* Moves the ball to the right */
     width: 70px;
 }
-
 .toggle-container {
     background-color: #3a3a3a;
     display: flex;
