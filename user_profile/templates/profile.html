@@ -6,7 +6,8 @@
 {% endblock meta %}
 
 {% block content %}
-<body class="flex flex-row bg-gray-600 px-4 sm:px-8 md:px-20 py-8 sm:py-16 md:py-32 justify-center min-h-screen">
+{% include 'navbar.html' %}
+<div class="flex flex-row bg-gray-600 w-full h-full px-4 sm:px-8 md:px-20 py-8 sm:py-16 md:py-32 justify-center min-h-screen">
     <div class="flex flex-row w-4/5 gap-4 py-8 px-4 bg-[#F2F0E6] rounded-lg">
 
         <!-- Profile Picture and Username -->   
@@ -123,7 +124,7 @@
             </div>
         </div>
     </div>
-</body>
+</div>
 
 <script>
     async function getUser() {
@@ -253,7 +254,7 @@
         var alertBox = document.createElement('div');
         alertBox.textContent = message;
 
-        alertBox.className = 'fixed top-5 right-5 px-4 py-2 rounded shadow-lg text-white z-50';
+        alertBox.className = 'fixed bottom-5 right-5 px-4 py-2 rounded shadow-lg text-white z-50';
         if (type === 'success') {
             alertBox.classList.add('bg-green-500');
         } else if (type === 'error') {
