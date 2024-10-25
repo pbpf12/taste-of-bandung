@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'login',
     'register',
     'search',
+    'landing',
     'user_profile',
 ]
 
