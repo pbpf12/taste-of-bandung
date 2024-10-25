@@ -133,7 +133,6 @@ button {
     left: 125px; /* Moves the ball to the right */
     width: 70px;
 }
-
 .toggle-container {
     background-color: #3a3a3a;
     display: flex;
@@ -164,12 +163,24 @@ button {
     padding: 10px 300px;
     align-items: center;
     justify-content: center;
-    height: 200px;
-    top: 200px;
+    height: 280px;
+    top: 100px;
     background: rgba(176, 176, 176, 0.16);
     backdrop-filter: blur(15px);
 
+
 }
+
+.item-box{
+    display: flex;
+    flex-direction: column; /* Vertical alignment */
+    align-items: center;
+    padding: 10px;
+    border: 1px solid #ddd; /* Optional styling */
+    margin-bottom: 10px;
+    text-align: center;
+}
+
 .dishes-list {
     list-style-type: none;  /* Remove bullet points */
     display: flex;          /* Activate flexbox */
@@ -182,17 +193,20 @@ button {
 .dish-item {
     margin: 0 15px;         /* Add some space between items */
     padding: 10px;
-    background-color: #f0f0f0;  /* Optional: background for visual separation */
+    color: white;
+   /* Optional: background for visual separation */
     border-radius: 8px;      /* Optional: rounded corners */
     text-align: center;      /* Center the text inside each item */
 }
 
 .dish-image {
+    height: 200px;
     margin: 0 15px;         /* Add some space between items */
     padding: 10px;
-    background-color: #f0f0f0;  /* Optional: background for visual separation */
+    background-color: #909090;  /* Optional: background for visual separation */
     border-radius: 8px;      /* Optional: rounded corners */
     text-align: center;      /* Center the text inside each item */
+    align-items: center;
 }
 
 

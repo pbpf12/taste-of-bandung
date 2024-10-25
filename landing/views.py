@@ -1,6 +1,7 @@
 from landing.models import Suggestion
 from landing.forms import SuggestionForm
 from main.models import Dish
+from main.models import Restaurant
 
 from django.shortcuts import render
 import smtplib
@@ -28,11 +29,15 @@ from django.db.models import Avg, Count
 def show_landing(request):
     # Annotate each dish with the number of reviews and the average rating from reviews
     top_dishes = Dish.objects.order_by('-average_rating')[:3]
+    top_restaurant = Restaurant.objects.order_by('-average_rating')[:3]
+
 
     # Prepare the context to pass to the template
     context = {
         'name': request.user.username,  # User's name
         'top_dishes': top_dishes,  # Top-rated dishes
+        'top_restaurant' : top_restaurant,
+        'star_range': range(5),
     }
 
     # If no top dishes exist, you can still pass an optional message
@@ -88,19 +93,20 @@ def send_email(to_email, subject, body):
 @csrf_exempt
 @require_POST
 def add_suggestion_entry_ajax(request):
-    
     suggestionMessage = strip_tags(request.POST.get("suggestion"))
-    print(suggestionMessage)
-    
+    name = request.user.username
+
     if not suggestionMessage:
-        print("none detected")
         return HttpResponse(b"Bad Request: Suggestion message is required", status=400)
 
+    # Save suggestion with user information
     new_suggestion = Suggestion(suggestionMessage=suggestionMessage)
-    new_suggestion.save()  # Save the new suggestion to the database
+    new_suggestion.save()
+    print(f'Suggestion From User {name}')
 
-    send_email('pbp2024f12@gmail.com', 'Suggestion From User', suggestionMessage)
-    return HttpResponse(b"CREATED", status=201)
+    send_email('pbp2024f12@gmail.com', f'Suggestion From User {name}', suggestionMessage)
+    return HttpResponse(b"CREATED", status=201)    
+    
 
 
 def top_rated_dishes(request):

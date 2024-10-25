@@ -12,6 +12,7 @@ dishes_zillan = [
         "description": "Siomay adalah makanan khas Jawa Barat yang disajikan dengan bumbu kacang.",
         "price": 40000,
         "image": "https://4.bp.blogspot.com/-OoAj8RWG7qw/VPBiKiTfaEI/AAAAAAAAAkc/kbwZLD_tzYY/s1600/siomay-tokomesin.jpg",  # Image 2
+        "category": "Food",
         "restaurant": "Batagor Abuy"
     },
     {
@@ -66,7 +67,7 @@ dishes_zillan = [
         "name": "Nasi Rames",
         "description": "Nasi Rames adalah hidangan nasi dengan berbagai macam lauk-pauk.",
         "price": 24000,
-        "image": "https://th.bing.com/th/id/R.c392dd411d8ed4c25c5357384e83d472?rik=vcXpnfWSXUjEHg&riu=http%3a%2f%2fchris-catering.com%2fwp-content%2fuploads%2f2020%2f07%2fnasi-box-rames-slempetan-khas-purwokerto.jpeg&ehk=eY3ZJ3XOe8tKZgLjLLYBiEUa09grYzknAmhhrbj7Obg%3d&risl=&pid=ImgRaw&r=0",  # Image 10
+        "image": "https://i.gojekapi.com/darkroom/gofood-indonesia/v2/images/uploads/da885034-c9b2-431c-b485-04733c8644ff_Go-Biz_20221029_162408.jpeg?auto=format",  # Image 10
         "category": "Food",
         "restaurant": "Lotek Mahmud"
     },
@@ -82,7 +83,7 @@ dishes_zillan = [
         "name": "Mie + Baso",
         "description": "Mie Bakut adalah hidangan mie dengan bakut sapi.",
         "price": 25000,
-        "image": "https://th.bing.com/th/id/R.cceb0afebfc4225f9336a9ec600d3aa0?rik=oBlx065Ntsezww&riu=http%3a%2f%2f3.bp.blogspot.com%2f-9GxNW-7nph4%2fVRm06gl3VUI%2fAAAAAAAAD3M%2fFbIrlkDzYNc%2fs1600%2fpix-for-gt-bakso-recipe.jpg&ehk=PVSxppll1irYenbt9oUopL7aA%2b0pyLlOPQQyWsBJ0pI%3d&risl=&pid=ImgRaw&r=0",  # Image 12
+        "image": "https://i.gojekapi.com/darkroom/gofood-indonesia/v2/images/uploads/ba31edc0-4410-4b4a-92f5-c4314d0dc1f1_Go-Biz_20210122_124420.jpeg?auto=format",  # Image 12
         "category": "Food",
         "restaurant": "Lotek Mahmud"
     },
@@ -160,7 +161,6 @@ dishes_zillan = [
     }
 ]
 
-
 restaurants_zillan = [
     {
         "name": "Batagor Abuy",
@@ -199,4 +199,87 @@ restaurants_zillan = [
         "price_range": ""
     },
   
+]
+
+reviews_zillan = [
+    {
+        'user': 'user1',
+        'restaurant': 'Batagor Abuy',
+        'dish': 'Batagor',
+        'rating': 5,
+        'comment': 'Batagor-nya sangat lezat, teksturnya renyah dan bumbu kacangnya mantap!',
+    },
+    {
+        'user': 'user2',
+        'restaurant': 'Batagor Abuy',
+        'dish': 'Siomay',
+        'rating': 4,
+        'comment': 'Siomaynya enak, bumbu kacangnya pas, tapi porsinya agak kurang.',
+    },
+    {
+        'user': 'user1',
+        'restaurant': 'Mie Kocok gorowok persib',
+        'dish': 'Mie Kocok Spesial',
+        'rating': 5,
+        'comment': 'Mie Kocok Spesialnya sangat lezat, bakso dan kikilnya memberikan rasa yang unik.',
+    },
+    {
+        'user': 'user2',
+        'restaurant': 'Mie Kocok gorowok persib',
+        'dish': 'Mie Baso',
+        'rating': 4,
+        'comment': 'Mie Baso-nya enak, tapi kuahnya agak kurang gurih menurut saya.',
+    },
+    {
+        'user': 'user1',
+        'restaurant': 'Lotek Mahmud',
+        'dish': 'Gado-Gado',
+        'rating': 5,
+        'comment': 'Gado-Gadonya segar dan bumbu kacangnya kaya rasa, sangat direkomendasikan.',
+    },
+    {
+        'user': 'user2',
+        'restaurant': 'Lotek Mahmud',
+        'dish': 'Nasi Rames',
+        'rating': 4,
+        'comment': 'Nasi Ramesnya enak dan variatif, tapi lauknya kurang banyak.',
+    },
+    {
+        'user': 'user1',
+        'restaurant': 'cimol candu',
+        'dish': 'Cimol Ori Pedas',
+        'rating': 5,
+        'comment': 'Cimolnya renyah dengan bubuk cabai yang pedas, sangat menggugah selera!',
+    },
+    {
+        'user': 'user2',
+        'restaurant': 'cimol candu',
+        'dish': 'Cimol Original Mix Basreng',
+        'rating': 5,
+        'comment': 'Kombinasi cimol dan basrengnya sangat nikmat, gurih dan renyah.',
+    }
+]
+
+history_zillan = [
+    {
+        'user': 'user1',
+        'dish': 'Batagor'
+    },
+    {
+        'user': 'user2',
+        'dish': 'Siomay'
+    }
+]
+
+bookmarks_zillan = [
+    {
+        'user': 'user1',
+        'restaurant': 'Batagor Abuy',
+        'dish': 'Batagor'
+    },
+    {
+        'user': 'user2',
+        'restaurant': 'Mie Kocok gorowok persib',
+        'dish': 'Mie Kocok Spesial'
+    }
 ]
