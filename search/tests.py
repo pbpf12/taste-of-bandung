@@ -1,3 +1,162 @@
 from django.test import TestCase
+from django.urls import reverse
+from django.contrib.auth.models import User
+from main.models import Category, Restaurant, Dish
+import json
 
-# Create your tests here.
+# Sementara taro sini dlu
+# Harus di set ulang usernya karena tiap fungsi terisolasi
+class AuthenticationTest(TestCase):
+    
+    def test_register_user(self):
+        # Register user
+        response = self.client.post(reverse('register'), {
+            'username': 'newuser',
+            'password1': 'newpassword123',
+            'password2': 'newpassword123',
+        })
+        
+        # Cek apakah user berhasil dibuat
+        user_exists = User.objects.filter(username='newuser').exists()
+        self.assertTrue(user_exists)
+
+    def test_login_user(self):
+        # Register dengan fungsi sebelumnya
+        self.test_register_user()
+
+        # Log in user
+        response = self.client.post(reverse('login'), {
+            'username': 'newuser',
+            'password': 'newpassword123',
+        })
+        
+        # Cek apakah cookies sudah di set
+        self.assertNotEqual(response.cookies['last_login'].value, '')
+
+    def test_logout_user(self):
+        # Register dan Login dengan fungsi sebelumnya
+        self.test_register_user()
+        self.test_login_user()
+
+        # Log out
+        response = self.client.get(reverse('logout'))
+
+        # Cek apakah cookies sudah di-delete
+        self.assertTrue('last_login' in response.cookies)
+        self.assertEqual(response.cookies['last_login'].value, '')
+
+class SearchTest(TestCase):
+    @classmethod
+    def setUpTestData(cls):
+        # Create categories
+        cls.category_italian = Category.objects.create(name="Italian")
+        cls.category_japanese = Category.objects.create(name="Japanese")
+
+        # Create restaurants
+        cls.restaurant1 = Restaurant.objects.create(
+            name="Italiano",
+            address="123 Italian St",
+            phone="1234567890",
+            description="Italian cuisine",
+            average_rating=4.5,
+            opening_hours="9 AM - 9 PM",
+            image="http://example.com/image1.jpg",
+            price_range="$$"
+        )
+
+        cls.restaurant2 = Restaurant.objects.create(
+            name="Sushi Place",
+            address="456 Sushi St",
+            phone="0987654321",
+            description="Japanese cuisine",
+            average_rating=4.2,
+            opening_hours="10 AM - 10 PM",
+            image="http://example.com/image2.jpg",
+            price_range="$$$"
+        )
+
+        # Create dishes
+        Dish.objects.create(
+            restaurant=cls.restaurant1,
+            category=cls.category_italian,
+            name="Pizza",
+            description="Classic Italian Pizza",
+            average_rating=4.8,
+            price=12.99,
+            image="http://example.com/pizza.jpg",
+            bookmark_count=15
+        )
+
+        Dish.objects.create(
+            restaurant=cls.restaurant2,
+            category=cls.category_japanese,
+            name="Sushi Roll",
+            description="Fresh Sushi Roll",
+            average_rating=4.7,
+            price=9.99,
+            image="http://example.com/sushi.jpg",
+            bookmark_count=20
+        )
+    
+    def test_show_search_page(self):
+        # Coba masuk sebelum login
+        response = self.client.get(reverse('search'))
+        self.assertRedirects(response, f"{reverse('login')}?next={reverse('search')}")
+        
+        # Gagal, maka register & login dlu
+        User.objects.create_user(username='testuser', password='password123')
+        self.client.login(username='testuser', password='password123')
+        
+        # Coba masuk setelah login
+        response = self.client.get(reverse('search'))
+        
+        # Cek apakah beneran masuk apa nga (di generate templatenya)
+        self.assertTemplateUsed(response, 'search_page.html')
+
+    def test_get_dishes_with_post_request(self):
+        # Use the category ID in the POST data
+        data = {
+            'name': 'Sushi Roll',
+            'category': self.category_japanese.id,  # Use the ID here instead of the name
+            'price_min': 5,
+            'price_max': 15,
+            'sort_by': 'cheapest',
+            'page': 1
+        }
+        response = self.client.post(
+            reverse('get_dishes'),
+            data=json.dumps(data),
+            content_type='application/json'
+        )
+        
+        self.assertEqual(response.status_code, 200)
+
+        # Verify that the correct dish is returned
+        data = response.json()
+        self.assertEqual(len(data['dishes']), 1)
+        self.assertEqual(data['dishes'][0]['name'], 'Sushi Roll')
+    
+    def test_get_dishes_with_get_request(self):
+        # Test fetching dishes with a GET request and filtering by name
+        response = self.client.get(reverse('get_dishes'), {
+            'name': 'Pizza',
+            'category': self.category_italian.id,
+            'price_min': 10,
+            'price_max': 15,
+            'sort_by': 'cheapest',
+            'page': 1
+        })
+        
+        self.assertEqual(response.status_code, 200)
+
+        # Verify that the correct dish is returned
+        data = response.json()
+        self.assertEqual(len(data['dishes']), 1)
+        self.assertEqual(data['dishes'][0]['name'], 'Pizza')
+        self.assertEqual(data['dishes'][0]['price'], '12.99')
+
+        # Verify pagination information by converting current_page to an integer
+        self.assertEqual(int(data['current_page']), 1)
+        self.assertEqual(data['min_page'], 1)
+        self.assertEqual(data['max_page'], 1)
+

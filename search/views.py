@@ -18,12 +18,7 @@ from search.forms import *
 
 @login_required(login_url="login")
 def show_search_page(request):
-    dishes = Dish.objects.all()
-
-    context = {
-        'dishes' : dishes
-    }
-    return render(request, 'search_page.html', context)
+    return render(request, 'search_page.html')
 
 def get_dishes(request):
     if request.method == "POST":
