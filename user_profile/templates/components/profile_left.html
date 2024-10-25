@@ -1,0 +1,17 @@
+{% load static %}
+
+<!-- Profile Picture and Username -->   
+<div class="flex flex-col gap-4">
+    <div class="flex flex-col space-y-4 items-center w-full">
+        <div class="w-32 h-32 rounded-full bg-stone-600">
+            <img src="{% static 'img/profile.png' %}" class="w-32 h-32 rounded-full aspect-square" alt="Profile Picture">
+        </div>
+        <p id="user-full-name" class="text-stone-600 text-xl font-bold">{{ user.first_name }} {{ user.last_name }}</p>
+        <p class="text-stone-600 text-md">{{ user.username }}</p>
+    </div>
+
+    <!-- Delete Account Button -->
+    <div class="flex flex-col">
+        <button id="delete-account-btn" class="bg-red-500 text-white px-4 py-2 rounded">Delete Account</button>
+    </div>
+</div>

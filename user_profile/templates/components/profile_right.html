@@ -1,0 +1,53 @@
+<!-- Alert for Incomplete Profile -->
+<div id="incomplete-profile-alert" class="{% if user.first_name and user.last_name and user.email %}hidden{% endif %} bg-yellow-100 border border-yellow-400 text-yellow-700 px-4 py-3 rounded mb-6 w-full" role="alert">
+    <strong class="font-bold">Incomplete Profile!</strong>
+    <span class="block sm:inline">Please complete your profile by providing your first name, last name, and email.</span>
+</div>
+
+<!-- Profile Header -->
+<div class="flex flex-row items-center align-center mb-4 justify-between w-full">
+    <p class="text-stone-600 text-4xl font-bold">Your Profile</p>
+
+    <!-- Edit Profile Button -->    
+    <div class="flex flex-row text-stone-100 items-center">
+        <button id="editProfileBtn" class="bg-blue-500 text-white px-4 py-2 rounded">
+            Edit Profile
+        </button>
+    </div>
+</div>
+
+<!-- Profile Body-->
+<div id="user_profile" class="flex flex-col space-y-4 mb-4">
+    <div class="flex flex-row justify-space-between gap-32">
+        <div class="flex flex-col">
+            <label>First Name</label>
+            <p id="profile-first-name">
+                {% if user.first_name %}
+                    {{ user.first_name }}
+                {% else %}
+                    Not Provided
+                {% endif %}
+            </p>
+        </div>
+        <div class="flex flex-col">
+            <label>Last Name</label>
+            <p id="profile-last-name">
+                {% if user.last_name %}
+                    {{ user.last_name }}
+                {% else %}
+                    Not Provided
+                {% endif %}
+            </p>
+        </div>
+    </div>
+    <div class="flex flex-col">
+        <label>Email</label>
+        <p id="profile-email">
+            {% if user.email %}
+                {{ user.email }}
+            {% else %}
+                Not Provided
+            {% endif %}
+        </p>
+    </div>
+</div>
