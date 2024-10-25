@@ -6,15 +6,303 @@
 {% endblock meta %}
 
 {% block content %}
-{% include "navbar.html" %}
-<body class = bg-gray-600>
-    <div class="flex flex-row justify-self-center mt-10 py-5 px-10 w-1/2 bg-gray-200/40 rounded-lg">
-        <div class="flex flex-col justify-between gap-5 items-center">
-            <div class="w-32 h-32 rounded-full bg-stone-600">
-                <img src="{% static 'images/default_profile.png' %}" class="w-32 h-32 rounded-full" alt="Profile Picture">
+<body class="flex flex-row bg-gray-600 px-4 sm:px-8 md:px-20 py-8 sm:py-16 md:py-32 justify-center min-h-screen">
+    <div class="flex flex-row w-4/5 gap-4 py-8 px-4 bg-[#F2F0E6] rounded-lg">
+
+        <!-- Profile Picture and Username -->   
+        <div class="flex flex-col justify-between">
+            <div class="flex flex-col space-y-4 items-center w-full">
+                <div class="w-32 h-32 rounded-full bg-stone-600">
+                    <img src="{% static 'img/profile.png' %}" class="w-32 h-32 rounded-full aspect-square" alt="Profile Picture">
+                </div>
+                <p id="user-full-name" class="text-stone-600 text-xl font-bold">{{ user.first_name }} {{ user.last_name }}</p>
+                <p class="text-stone-600 text-md">{{ user.username }}</p>
             </div>
-            <p class="text-white text-2xl">{{ user.username }}</p>
+
+            <!-- Delete Account Button -->
+            <div class="flex flex-col mt-auto">
+                <button id="delete-account-btn" class="bg-red-500 text-white px-4 py-2 rounded">Delete Account</button>
+            </div>
+        </div>
+
+        <div class="flex flex-col space-y-4 border-l-2 border-solid border-stone-800 pl-8 w-4/5">
+            <!-- Alert for Incomplete Profile -->
+            <div id="incomplete-profile-alert" class="{% if user.first_name and user.last_name and user.email %}hidden{% endif %} bg-yellow-100 border border-yellow-400 text-yellow-700 px-4 py-3 rounded mb-6 w-full" role="alert">
+                <strong class="font-bold">Incomplete Profile!</strong>
+                <span class="block sm:inline">Please complete your profile by providing your first name, last name, and email.</span>
+            </div>
+
+            <!-- Profile Header -->
+            <div class="flex flex-row items-center justify-between w-full">
+                <p class="text-stone-600 text-4xl font-bold">Your Profile</p>
+
+                <!-- Edit Profile Button -->    
+                <div class="flex flex-row text-stone-100 items-center">
+                    <button id="editProfileBtn" class="bg-blue-500 text-white px-4 py-2 rounded">
+                        Edit Profile
+                    </button>
+                </div>
+
+                <!-- Modal -->
+                <div id="crudModal" class="hidden fixed inset-0 z-50 w-full flex items-center justify-center bg-gray-600 bg-opacity-50 overflow-x-hidden overflow-y-auto">
+                    <div id="crudModalContent" class="relative bg-white rounded-lg shadow-lg w-5/6 sm:w-3/4 md:w-1/2 lg:w-1/3 mx-4 sm:mx-0 transform scale-95 opacity-0 transition-all duration-300 ease-out">
+                        <!-- Modal header -->
+                        <div class="flex items-center justify-between p-4 border-b rounded-t">
+                            <h3 class="text-xl font-semibold text-gray-900">
+                                Edit Profile
+                            </h3>
+                            <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center" id="closeModalBtn">
+                                <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                    <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+                                </svg>
+                                <span class="sr-only">Close modal</span>
+                            </button>
+                        </div>
+                        
+                        <!-- Modal body -->
+                        <div class="px-6 py-4 space-y-6 form-style">
+                            <form id="userForm">
+                                <div class="mb-4">  
+                                    <label for="first_name" class="block text-sm font-medium text-gray-700">First Name</label>
+                                    <input type="text" id="first_name" name="first_name" class="mt-1 block w-full border border-gray-300 rounded-md p-2 hover:border-indigo-700" placeholder="Enter first name" required>
+                                </div>
+                                <div class="mb-4">
+                                    <label for="last_name" class="block text-sm font-medium text-gray-700">Last Name</label>
+                                    <input type="text" id="last_name" name="last_name" class="mt-1 block w-full border border-gray-300 rounded-md p-2 hover:border-indigo-700" placeholder="Enter last name" required>
+                                </div>
+                                <div>
+                                    <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
+                                    <input type="email" id="email" name="email" class="mt-1 block w-full border border-gray-300 rounded-md p-2 hover:border-indigo-700" placeholder="Enter email" required>
+                                </div>
+                            </form>
+                        </div>
+                       
+                        <!-- Modal footer -->
+                        <div class="flex flex-col space-y-2 md:flex-row md:space-y-0 md:space-x-2 p-6 border-t border-gray-200 rounded-b justify-center md:justify-end">
+                            <button type="button" class="bg-gray-300 hover:bg-gray-400 text-stone-800 font-bold py-2 px-4 rounded-lg" id="cancelButton">Cancel</button>
+                            <button type="submit" id="submitUser" form="userForm" class="bg-stone-800 hover:bg-stone-900 text-white font-bold py-2 px-4 rounded-lg">Save</button>
+                        </div>
+                    </div>
+                </div>  
+            </div>
+
+            <!-- Profile Body-->
+            <div id="user_profile" class="flex flex-col space-y-4">
+                <div class="flex flex-row justify-space-between gap-32">
+                    <div class="flex flex-col">
+                        <label>First Name</label>
+                        <p id="profile-first-name">
+                            {% if user.first_name %}
+                                {{ user.first_name }}
+                            {% else %}
+                                Not Provided
+                            {% endif %}
+                        </p>
+                    </div>
+                    <div class="flex flex-col">
+                        <label>Last Name</label>
+                        <p id="profile-last-name">
+                            {% if user.last_name %}
+                                {{ user.last_name }}
+                            {% else %}
+                                Not Provided
+                            {% endif %}
+                        </p>
+                    </div>
+                </div>
+                <div class="flex flex-col">
+                    <label>Email</label>
+                    <p id="profile-email">
+                        {% if user.email %}
+                            {{ user.email }}
+                        {% else %}
+                            Not Provided
+                        {% endif %}
+                    </p>
+                </div>
+            </div>
         </div>
     </div>
 </body>
+
+<script>
+    async function getUser() {
+        try {
+            const response = await fetch("{% url 'show_json' %}");
+            if (!response.ok) {
+                throw new Error('Failed to fetch user data');
+            }
+            return await response.json();
+        } catch (error) {
+            console.error('Error fetching user data:', error);
+            showAlert('Failed to fetch user data', 'error');
+            return null;
+        }
+    }
+
+    async function refreshProfile() {
+        try {
+            const response = await fetch("{% url 'show_json' %}");
+            if (!response.ok) {
+                throw new Error('Failed to fetch user data');
+            }
+            const user = await response.json();
+        
+            // Log the received data to check what we're getting
+            console.log('Received user data:', user);
+
+            // Update profile information if the data exists
+            if (user) {
+                // Update profile fields
+                document.getElementById('profile-first-name').textContent = user.first_name || 'Not Provided';
+                document.getElementById('profile-last-name').textContent = user.last_name || 'Not Provided';
+                document.getElementById('profile-email').textContent = user.email || 'Not Provided';
+                
+                // Update full name in the profile picture section
+                const fullName = [user.first_name, user.last_name].filter(Boolean).join(' ') || 'Not Provided';
+                document.getElementById('user-full-name').textContent = fullName;
+
+                // Toggle incomplete profile alert
+                const alertElement = document.getElementById('incomplete-profile-alert');
+                if (user.first_name && user.last_name && user.email) {
+                    alertElement.classList.add('hidden');
+                } else {
+                    alertElement.classList.remove('hidden');
+                }
+
+                // Update form fields
+                document.getElementById('first_name').value = user.first_name || '';
+                document.getElementById('last_name').value = user.last_name || '';
+                document.getElementById('email').value = user.email || '';
+            }
+        } catch (error) {
+            console.error('Error refreshing profile:', error);
+            showAlert('Failed to refresh profile data', 'error');
+        }
+    }
+
+    function showModal() {
+        const modal = document.getElementById('crudModal');
+        const modalContent = document.getElementById('crudModalContent');
+        
+        modal.classList.remove('hidden');
+        setTimeout(() => {
+            modalContent.classList.remove('opacity-0', 'scale-95');
+            modalContent.classList.add('opacity-100', 'scale-100');
+        }, 50);
+    }
+
+    function hideModal() {
+        const modal = document.getElementById('crudModal');
+        const modalContent = document.getElementById('crudModalContent');
+        
+        modalContent.classList.remove('opacity-100', 'scale-100');
+        modalContent.classList.add('opacity-0', 'scale-95');
+        
+        setTimeout(() => {
+            modal.classList.add('hidden');
+        }, 300);
+    }
+
+    async function edit_profile(e) {
+        e.preventDefault();
+        try {
+            const form = document.getElementById('userForm');
+            const formData = new FormData(form);
+            
+            const response = await fetch('{% url "edit_profile" %}', {
+                method: 'POST',
+                headers: {
+                    'X-CSRFToken': '{{ csrf_token }}',
+                },
+                body: formData,
+                credentials: 'same-origin'  // This ensures cookies are sent
+            });
+
+            const data = await response.json();  // Get the response data
+
+            if (!response.ok) {
+                throw new Error(data.message || 'Failed to update profile');
+            }
+
+            // Refresh the profile data immediately
+            await refreshProfile();
+            document.getElementById('userForm').reset();
+            hideModal();
+            showAlert('Profile updated successfully', 'success');
+        } catch (error) {
+            console.error('Error updating profile:', error);
+            showAlert(error.message || 'Failed to update profile', 'error');
+        }
+    }
+
+    // Add this function to make sure form data is being collected correctly
+    function getFormData() {
+        const form = document.getElementById('userForm');
+        const formData = new FormData(form);
+        
+        // Log the form data to check what's being sent
+        for (let pair of formData.entries()) {
+            console.log(pair[0] + ': ' + pair[1]);
+        }
+        
+    return formData;
+    }
+
+    function showAlert(message, type) {
+        var alertBox = document.createElement('div');
+        alertBox.textContent = message;
+
+        alertBox.className = 'fixed top-5 right-5 px-4 py-2 rounded shadow-lg text-white z-50';
+        if (type === 'success') {
+            alertBox.classList.add('bg-green-500');
+        } else if (type === 'error') {
+            alertBox.classList.add('bg-red-500');
+        } else {
+            alertBox.classList.add('bg-blue-500');
+        }
+
+        document.body.appendChild(alertBox);
+
+        setTimeout(function() {
+            alertBox.remove();
+        }, 3000);
+    }
+
+    // Event Listeners
+    document.getElementById('editProfileBtn').addEventListener('click', showModal);
+    document.getElementById('closeModalBtn').addEventListener('click', hideModal);
+    document.getElementById('cancelButton').addEventListener('click', hideModal);
+    document.getElementById('userForm').addEventListener('submit', edit_profile);
+
+    // Initialize profile on page load
+    refreshProfile();
+
+    // Delete account functionality
+    document.getElementById('delete-account-btn').addEventListener('click', function() {
+        if (confirm('Are you sure you want to delete your account? This action cannot be undone.')) {
+            fetch('{% url "delete_user" %}', {
+                method: 'DELETE',
+                headers: {
+                    'X-CSRFToken': '{{ csrf_token }}',
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(response => {
+                if (response.ok) {
+                    showAlert('Account deleted successfully.', 'success');
+                    setTimeout(() => {
+                        window.location.href = '{% url "login" %}';
+                    }, 500);
+                } else {
+                    showAlert('Failed to delete account.', 'error');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                showAlert('An error occurred. Please try again.', 'error');
+            });
+        }
+    });
+</script>
 {% endblock content %}
