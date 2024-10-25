@@ -3,15 +3,16 @@
 
 {% block meta %}
 <title>{{ user.username }}'s Profile</title>
+<script src="https://cdn.jsdelivr.net/npm/dompurify@3.1.7/dist/purify.min.js"></script>
 {% endblock meta %}
 
 {% block content %}
 {% include 'navbar.html' %}
 <div class="flex flex-row bg-gray-600 w-full h-full px-4 sm:px-8 md:px-20 py-8 sm:py-16 md:py-32 justify-center min-h-screen">
-    <div class="flex flex-row w-4/5 gap-4 py-8 px-4 bg-[#F2F0E6] rounded-lg">
+    <div class="flex flex-row w-4/5 gap-4 py-8 px-4 bg-[#F2F0E6] rounded-lg shadow-md shadow-[#F2F0E6]/40">
 
         <!-- Profile Picture and Username -->   
-        <div class="flex flex-col justify-between">
+        <div class="flex flex-col gap-4">
             <div class="flex flex-col space-y-4 items-center w-full">
                 <div class="w-32 h-32 rounded-full bg-stone-600">
                     <img src="{% static 'img/profile.png' %}" class="w-32 h-32 rounded-full aspect-square" alt="Profile Picture">
@@ -21,12 +22,12 @@
             </div>
 
             <!-- Delete Account Button -->
-            <div class="flex flex-col mt-auto">
+            <div class="flex flex-col">
                 <button id="delete-account-btn" class="bg-red-500 text-white px-4 py-2 rounded">Delete Account</button>
             </div>
         </div>
 
-        <div class="flex flex-col space-y-4 border-l-2 border-solid border-stone-800 pl-8 w-4/5">
+        <div class="flex flex-col border-l-2 border-solid border-stone-800 pl-8 w-4/5">
             <!-- Alert for Incomplete Profile -->
             <div id="incomplete-profile-alert" class="{% if user.first_name and user.last_name and user.email %}hidden{% endif %} bg-yellow-100 border border-yellow-400 text-yellow-700 px-4 py-3 rounded mb-6 w-full" role="alert">
                 <strong class="font-bold">Incomplete Profile!</strong>
@@ -34,7 +35,7 @@
             </div>
 
             <!-- Profile Header -->
-            <div class="flex flex-row items-center justify-between w-full">
+            <div class="flex flex-row items-center align-center mb-4 justify-between w-full">
                 <p class="text-stone-600 text-4xl font-bold">Your Profile</p>
 
                 <!-- Edit Profile Button -->    
@@ -88,7 +89,7 @@
             </div>
 
             <!-- Profile Body-->
-            <div id="user_profile" class="flex flex-col space-y-4">
+            <div id="user_profile" class="flex flex-col space-y-4 mb-4">
                 <div class="flex flex-row justify-space-between gap-32">
                     <div class="flex flex-col">
                         <label>First Name</label>
@@ -122,6 +123,22 @@
                     </p>
                 </div>
             </div>
+
+            <!-- History Header-->
+            <div class="flex flex-row items-center align-center mb-4 justify-between w-full">
+                <p class="text-stone-600 text-4xl font-bold">History</p>
+
+                <!-- Edit Profile Button -->    
+                <div class="flex flex-row text-stone-100 items-center">
+                    <button id="clearHistoryBtn" class="bg-blue-500 text-white px-4 py-2 rounded">
+                        Clear History
+                    </button>
+                </div>
+            </div>
+
+            <!-- History Body-->
+            <div id="user_history" class="flex flex-col space-y-4 mb-4">
+            </div>
         </div>
     </div>
 </div>
@@ -141,6 +158,112 @@
         }
     }
 
+    async function getUserHistory() {
+        try {
+            const response = await fetch("{% url 'show_history' %}");
+            if (!response.ok) {
+                showAlert('Failed to fetch user history', 'error');
+            }
+            return await response.json();
+        }
+        catch (error) {
+            console.error('Error fetching user history:', error);
+            showAlert('Failed to fetch user history', 'error');
+            return null;
+        }
+    }
+
+    async function refreshHistory() {
+    const history = await getUserHistory();
+    const historyContainer = document.getElementById('user_history');
+    
+    if (history && history.history && history.history.length > 0) {
+        historyContainer.innerHTML = ''; // Clear existing history
+        
+        // Create a container for all history items
+        const historyList = document.createElement('div');
+        historyList.className = 'space-y-4';
+        
+        const limitedHistory = history.history.slice(0, 5);
+
+        limitedHistory.forEach(item => {
+            // Create card for each history item
+            const card = document.createElement('div');
+            card.className = 'bg-white p-4 rounded-lg shadow-md';
+            
+            // Create flex container for image and details
+            const flexContainer = document.createElement('div');
+            flexContainer.className = 'flex gap-4';
+            
+            // Image section
+            const imageSection = document.createElement('div');
+            imageSection.className = 'w-24 h-24 flex-shrink-0';
+            const img = document.createElement('img');
+            img.src = item.dish.image;
+            img.className = 'w-full h-full object-cover rounded-md';
+            img.alt = item.dish.name;
+            imageSection.appendChild(img);
+            
+            // Details section
+            const details = document.createElement('div');
+            details.className = 'flex flex-col flex-grow';
+            
+            // Dish name and restaurant
+            const nameRestaurant = document.createElement('div');
+            nameRestaurant.className = 'flex justify-between items-start mb-2';
+            
+            const dishName = document.createElement('h3');
+            dishName.className = 'text-lg font-semibold text-stone-800';
+            dishName.textContent = item.dish.name;
+            
+            const restaurant = document.createElement('p');
+            restaurant.className = 'text-sm text-stone-600';
+            restaurant.textContent = item.dish.restaurant;
+            
+            nameRestaurant.appendChild(dishName);
+            nameRestaurant.appendChild(restaurant);
+            
+            // Price and date
+            const priceDate = document.createElement('div');
+            priceDate.className = 'flex justify-between items-end mt-auto';
+            
+            const price = document.createElement('p');
+            price.className = 'text-stone-800 font-medium';
+            price.textContent = `$${parseFloat(item.dish.price).toFixed(2)}`;
+            
+            const date = document.createElement('p');
+            date.className = 'text-sm text-stone-500';
+            date.textContent = new Date(item.created_at).toLocaleDateString();
+            
+            priceDate.appendChild(price);
+            priceDate.appendChild(date);
+            
+            // Assemble the details section
+            details.appendChild(nameRestaurant);
+            details.appendChild(priceDate);
+            
+            // Assemble the flex container
+            flexContainer.appendChild(imageSection);
+            flexContainer.appendChild(details);
+            
+            // Add flex container to card
+            card.appendChild(flexContainer);
+            
+            // Add card to history list
+            historyList.appendChild(card);
+        });
+        
+        // Add the history list to the container
+        historyContainer.appendChild(historyList);
+    } else {
+        historyContainer.innerHTML = `
+            <div class="text-center py-8 text-stone-600">
+                <p>No history available</p>
+            </div>
+        `;
+    }
+}
+
     async function refreshProfile() {
         try {
             const response = await fetch("{% url 'show_json' %}");
@@ -154,28 +277,35 @@
 
             // Update profile information if the data exists
             if (user) {
+                // Sanitize the user data
+                first_name = DOMPurify.sanitize(user.first_name);
+                last_name = DOMPurify.sanitize(user.last_name);
+                email = DOMPurify.sanitize(user.email);
+
                 // Update profile fields
-                document.getElementById('profile-first-name').textContent = user.first_name || 'Not Provided';
-                document.getElementById('profile-last-name').textContent = user.last_name || 'Not Provided';
-                document.getElementById('profile-email').textContent = user.email || 'Not Provided';
+                document.getElementById('profile-first-name').textContent = first_name || 'Not Provided';
+                document.getElementById('profile-last-name').textContent = last_name || 'Not Provided';
+                document.getElementById('profile-email').textContent = email || 'Not Provided';
                 
                 // Update full name in the profile picture section
-                const fullName = [user.first_name, user.last_name].filter(Boolean).join(' ') || 'Not Provided';
+                const fullName = [first_name, last_name].filter(Boolean).join(' ') || 'Not Provided';
                 document.getElementById('user-full-name').textContent = fullName;
 
                 // Toggle incomplete profile alert
                 const alertElement = document.getElementById('incomplete-profile-alert');
-                if (user.first_name && user.last_name && user.email) {
+                if (first_name && last_name && email) {
                     alertElement.classList.add('hidden');
                 } else {
                     alertElement.classList.remove('hidden');
                 }
 
                 // Update form fields
-                document.getElementById('first_name').value = user.first_name || '';
-                document.getElementById('last_name').value = user.last_name || '';
-                document.getElementById('email').value = user.email || '';
+                document.getElementById('first_name').value = first_name || '';
+                document.getElementById('last_name').value = last_name || '';
+                document.getElementById('email').value = email || '';
             }
+            
+            await refreshHistory();
         } catch (error) {
             console.error('Error refreshing profile:', error);
             showAlert('Failed to refresh profile data', 'error');
@@ -251,6 +381,11 @@
     }
 
     function showAlert(message, type) {
+        // Check if the current page is the profile page
+        if (!document.getElementById('profile-page')) {
+            return; // Exit if not on the profile page
+        }
+
         var alertBox = document.createElement('div');
         alertBox.textContent = message;
 
@@ -268,9 +403,24 @@
         setTimeout(function() {
             alertBox.remove();
         }, 3000);
+
+        document.addEventListener('DOMContentLoaded', refreshProfile);
+    }
+
+    function clearHistory() {
+        if (confirm('Clear history? This action cannot be undone.')) {
+            fetch('{% url "clear_history" %}', {
+                method: 'DELETE',
+                headers: {
+                    'X-CSRFToken': '{{ csrf_token }}',
+                    'Content-Type': 'application/json'
+                }
+            })
+        }
     }
 
     // Event Listeners
+    document.getElementById('clearHistoryBtn').addEventListener('click', clearHistory);
     document.getElementById('editProfileBtn').addEventListener('click', showModal);
     document.getElementById('closeModalBtn').addEventListener('click', hideModal);
     document.getElementById('cancelButton').addEventListener('click', hideModal);
