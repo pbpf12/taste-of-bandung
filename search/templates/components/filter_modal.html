@@ -1,0 +1,70 @@
+<div id="filterModal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black bg-opacity-50">
+    <div class="bg-gray-100 rounded-lg p-8 w-11/12 max-w-md relative">
+        <!-- Modal Header -->
+        <div class="flex flex-row justify-between items-center mb-4">
+            <h2 class="text-xl font-semibold text-yellow-700 mb-0">Filter Options</h2>
+            <button type="button" onclick="toggleModal()" class="focus:outline-none">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="4">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
+                </svg>
+            </button>
+        </div>
+
+        <!-- Modal Filters -->
+        <div class="mb-4">
+            <label class="block text-gray-700">Sort By</label>
+            <select id="modalSortBy" class="w-full p-3 border border-gray-300 rounded-lg bg-gray-100 focus:outline-none focus:ring-2 focus:border-yellow-600"
+                onchange="setSortBy(this.value)">
+                <option value=""><b><i>~~~~~</i></b></option>
+                <option value="cheapest">Cheapest</option>
+                <option value="most_expensive">Most Expensive</option>
+            </select>
+        </div>
+
+        <!-- Category Radio Buttons for Filter Modal -->
+        <div class="mb-4">
+            <label class="block text-gray-700">Category:</label>
+            <div class="flex">
+                <label class="inline-flex items-center mr-4">
+                    <input type="radio" name="modalCategory" value="1" class="form-radio text-yellow-700" onchange="setCategory(this.value)">
+                    <span class="ml-2 text-black">Food</span>
+                </label>
+                <label class="inline-flex items-center mr-4">
+                    <input type="radio" name="modalCategory" value="2" class="form-radio text-yellow-700" onchange="setCategory(this.value)">
+                    <span class="ml-2 text-black">Drink</span>
+                </label>
+                <label class="inline-flex items-center">
+                    <input type="radio" name="modalCategory" value="" class="form-radio text-yellow-700" checked="true" onchange="setCategory(this.value)">
+                    <span class="ml-2 text-black"><b><i>~Both~</i></b></span>
+                </label>
+            </div>
+        </div>
+
+        <!-- Price Range -->
+        <div class="mb-4">
+            <div class="flex flex-row justify-between">
+                <label class="block text-gray-700">Price Range:</label>
+                <div class="flex space-x-2">
+                    <!-- Reset Button (SVG) -->
+                    <button type="button" onclick="resetPriceRange()" class="p-2 bg-gray-100 rounded-lg hover:bg-gray-300 transition duration-300">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-700 hover:text-gray-900" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582a8 8 0 106.292-3.293L8 8m4-4H4" />
+                        </svg>
+                    </button>
+                
+                    <!-- Submit Button (SVG) -->
+                    <button type="button" onclick="submitPriceRange()" class="p-2 bg-yellow-100 rounded-lg hover:bg-yellow-200 transition duration-300">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-yellow-600 hover:text-yellow-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                        </svg>
+                    </button>
+                </div>
+                
+            </div>
+            <input id="modalMinPrice" type="number" class="block w-full mt-1 p-2 border rounded bg-gray-100" placeholder="Min Price" 
+                oninput="setMinPrice(this.value)">
+            <input id="modalMaxPrice" type="number" class="block w-full mt-1 p-2 border rounded bg-gray-100" placeholder="Max Price" 
+                oninput="setMaxPrice(this.value)">
+        </div>
+    </div>
+</div>

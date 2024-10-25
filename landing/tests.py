@@ -43,7 +43,7 @@ class SuggestionEntryTestCase(TestCase):
         self.client = Client()
         self.client.login(username=self.username, password=self.password)
         # Include the app name in the reverse call
-        self.url = reverse('landing:add_suggestion_entry_ajax')  # Use the namespace here
+        self.url = reverse('add_suggestion_entry_ajax')  # Use the namespace here
 
     def test_add_suggestion_success(self):
         response = self.client.post(self.url, {'suggestion': 'This is a test suggestion.'})

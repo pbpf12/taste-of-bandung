@@ -1,0 +1,16 @@
+<div id="searchfilter" class="relative flex h-80 sm:h-80 md:h-1/2 lg:h-1/2 bg-gray-500 bg-opacity-50 flex-col justify-end">
+    <div class="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-50" style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/7/77/Gedung_Sate_Bandung_Jawa_Barat.jpg');"></div>
+
+    <div class="relative z-10">
+        <div class="flex flex-row justify-start ml-5 mt-10">
+            <h1 class="text-white font-bold text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-sans tracking-widest drop-shadow-lg">
+                Jelajahi Rasa Autentik Bandung
+            </h1>
+        </div>
+        <div class="h-10"></div>
+        {% include "components/search_bar.html" %}
+        <div class="h-4"></div>
+        {% include "components/filter_bar.html" %}
+    </div>
+    {% include "components/filter_modal.html" %}
+</div>
