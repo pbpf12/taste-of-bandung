@@ -191,8 +191,6 @@ reviews_alex = [
         "dish": "Nasi Rendang",
         "rating": 5,
         "comment": "Rendangnya luar biasa! Dagingnya empuk, bumbunya meresap sempurna. Ini rendang terenak yang pernah saya coba.",
-        "upvotes": 25,
-        "downvotes": 0
     },
     {
         "user": "user2",
@@ -200,8 +198,6 @@ reviews_alex = [
         "dish": "Nasi Gulai Ikan Gurame",
         "rating": 4,
         "comment": "Ikan guramenya segar dan bumbunya lezat, tapi porsinya agak kecil untuk harganya.",
-        "upvotes": 18,
-        "downvotes": 3
     },
     {
         "user": "user1",
@@ -209,8 +205,6 @@ reviews_alex = [
         "dish": "Nasi Ikan Kembung",
         "rating": 3,
         "comment": "Ikan kembungnya lumayan, tapi menurut saya bisa lebih gurih lagi.",
-        "upvotes": 10,
-        "downvotes": 5
     },
     {
         "user": "user2",
@@ -218,8 +212,6 @@ reviews_alex = [
         "dish": "Nasi Ayam Ijo",
         "rating": 4,
         "comment": "Sambal hijau ayamnya pas banget pedasnya, cuma ayamnya sedikit keras.",
-        "upvotes": 22,
-        "downvotes": 2
     },
     {
         "user": "user1",
@@ -227,8 +219,6 @@ reviews_alex = [
         "dish": "Nasi Kikil",
         "rating": 5,
         "comment": "Kikilnya benar-benar lembut dan gurih. Nggak nyangka bisa selezat ini!",
-        "upvotes": 30,
-        "downvotes": 1
     },
     {
         "user": "user2",
@@ -236,8 +226,6 @@ reviews_alex = [
         "dish": "Nasi Udang",
         "rating": 3,
         "comment": "Udangnya oke, tapi sayur dan sambalnya kurang mantap untuk selera saya.",
-        "upvotes": 12,
-        "downvotes": 6
     },
     {
         "user": "user1",
@@ -245,8 +233,6 @@ reviews_alex = [
         "dish": "Nasi Ayam Pop",
         "rating": 4,
         "comment": "Ayam Popnya enak dan gurih, tapi rasanya kurang nendang tanpa sambal.",
-        "upvotes": 20,
-        "downvotes": 3
     },
     {
         "user": "user2",
@@ -254,8 +240,6 @@ reviews_alex = [
         "dish": "Nasi Ikan Salais",
         "rating": 5,
         "comment": "Ikan Salaisnya unik dan bumbunya mantap. Pasti bakal balik lagi!",
-        "upvotes": 27,
-        "downvotes": 1
     }
 ]
 

@@ -189,8 +189,6 @@ reviews_rafie = [
         'dish': 'Soto Mie',
         'rating': 5,
         'comment': 'Soto Mie nya enak banget, bumbu gurih dan segar!',
-        'upvotes': 25,
-        'downvotes': 2
     },
     {
         'user': 'user2',
@@ -198,8 +196,6 @@ reviews_rafie = [
         'dish': 'Nasi Goreng Kambing',
         'rating': 4,
         'comment': 'Nasi Goreng Kambing cukup enak, tapi porsinya kurang besar.',
-        'upvotes': 15,
-        'downvotes': 1
     },
     {
         'user': 'user1',
@@ -207,8 +203,6 @@ reviews_rafie = [
         'dish': 'Es Halimoen',
         'rating': 5,
         'comment': 'Es Halimoennya sangat menyegarkan, cocok untuk cuaca panas!',
-        'upvotes': 30,
-        'downvotes': 0
     },
     {
         'user': 'user2',
@@ -216,8 +210,6 @@ reviews_rafie = [
         'dish': 'Pepes Tahu',
         'rating': 4,
         'comment': 'Pepes Tahunya lembut dan enak, harga juga terjangkau.',
-        'upvotes': 18,
-        'downvotes': 3
     }
 ]
 

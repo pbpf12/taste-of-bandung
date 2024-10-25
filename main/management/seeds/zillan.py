@@ -208,8 +208,6 @@ reviews_zillan = [
         'dish': 'Batagor',
         'rating': 5,
         'comment': 'Batagor-nya sangat lezat, teksturnya renyah dan bumbu kacangnya mantap!',
-        'upvotes': 50,
-        'downvotes': 1
     },
     {
         'user': 'user2',
@@ -217,8 +215,6 @@ reviews_zillan = [
         'dish': 'Siomay',
         'rating': 4,
         'comment': 'Siomaynya enak, bumbu kacangnya pas, tapi porsinya agak kurang.',
-        'upvotes': 30,
-        'downvotes': 2
     },
     {
         'user': 'user1',
@@ -226,8 +222,6 @@ reviews_zillan = [
         'dish': 'Mie Kocok Spesial',
         'rating': 5,
         'comment': 'Mie Kocok Spesialnya sangat lezat, bakso dan kikilnya memberikan rasa yang unik.',
-        'upvotes': 45,
-        'downvotes': 0
     },
     {
         'user': 'user2',
@@ -235,8 +229,6 @@ reviews_zillan = [
         'dish': 'Mie Baso',
         'rating': 4,
         'comment': 'Mie Baso-nya enak, tapi kuahnya agak kurang gurih menurut saya.',
-        'upvotes': 25,
-        'downvotes': 3
     },
     {
         'user': 'user1',
@@ -244,8 +236,6 @@ reviews_zillan = [
         'dish': 'Gado-Gado',
         'rating': 5,
         'comment': 'Gado-Gadonya segar dan bumbu kacangnya kaya rasa, sangat direkomendasikan.',
-        'upvotes': 40,
-        'downvotes': 0
     },
     {
         'user': 'user2',
@@ -253,8 +243,6 @@ reviews_zillan = [
         'dish': 'Nasi Rames',
         'rating': 4,
         'comment': 'Nasi Ramesnya enak dan variatif, tapi lauknya kurang banyak.',
-        'upvotes': 35,
-        'downvotes': 2
     },
     {
         'user': 'user1',
@@ -262,8 +250,6 @@ reviews_zillan = [
         'dish': 'Cimol Ori Pedas',
         'rating': 5,
         'comment': 'Cimolnya renyah dengan bubuk cabai yang pedas, sangat menggugah selera!',
-        'upvotes': 55,
-        'downvotes': 1
     },
     {
         'user': 'user2',
@@ -271,8 +257,6 @@ reviews_zillan = [
         'dish': 'Cimol Original Mix Basreng',
         'rating': 5,
         'comment': 'Kombinasi cimol dan basrengnya sangat nikmat, gurih dan renyah.',
-        'upvotes': 48,
-        'downvotes': 0
     }
 ]
 

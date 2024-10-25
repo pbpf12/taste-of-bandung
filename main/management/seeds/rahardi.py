@@ -180,8 +180,6 @@ reviews_rahardi = [
         'dish': 'Paket Komplit Nasi Ayam Bakar Bumbu Sunda',
         'rating': 5,
         'comment': 'Rasa ayam bakarnya sangat lezat, bumbu Sundanya terasa otentik.',
-        'upvotes': 35,
-        'downvotes': 2
     },
     {
         'user': 'user2',
@@ -189,8 +187,6 @@ reviews_rahardi = [
         'dish': 'Soto Betawi Daging',
         'rating': 4,
         'comment': 'Soto Betawinya cukup enak, tapi agak kurang asin menurut saya.',
-        'upvotes': 20,
-        'downvotes': 1
     },
     {
         'user': 'user1',
@@ -198,8 +194,6 @@ reviews_rahardi = [
         'dish': 'Paket Komplit Nasi Ayam Geprek Sambal Bawang Pedas',
         'rating': 5,
         'comment': 'Ayam gepreknya pedas dan sambalnya mantap!',
-        'upvotes': 45,
-        'downvotes': 0
     },
     {
         'user': 'user2',
@@ -207,8 +201,6 @@ reviews_rahardi = [
         'dish': 'Tahu Gejrot',
         'rating': 4,
         'comment': 'Tahu Gejrotnya segar, tapi porsinya sedikit kurang.',
-        'upvotes': 18,
-        'downvotes': 2
     }
 ]
 
