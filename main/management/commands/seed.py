@@ -107,8 +107,6 @@ class Command(BaseCommand):
                 defaults={
                     'rating': review_data['rating'],
                     'comment': review_data['comment'],
-                    'upvotes': review_data.get('upvotes', 0),
-                    'downvotes': review_data.get('downvotes', 0)
                 }
             )
             if created:

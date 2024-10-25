@@ -269,7 +269,7 @@ function buildNoData() {
         <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 mb-4 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 2a10 10 0 100 20 10 10 0 000-20zm-2 14h4m-4-8h.01M16.5 8.5a.5.5 0 11-.5-.5.5.5 0 01.5.5zm-9 0a.5.5 0 11-.5-.5.5.5 0 01.5.5z"/>
         </svg>
-        <p>There's no data, please contact the owner</p>
+        <p>Can't find anything</p>
     `;
     document.getElementById("dish_list_view").innerHTML = htmlString;
     document.getElementById("dish_list_view").className = classNameString;
