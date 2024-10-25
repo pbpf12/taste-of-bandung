@@ -114,30 +114,30 @@ class SearchTest(TestCase):
         self.assertTemplateUsed(response, 'search_page.html')
 
     def test_get_dishes_with_post_request(self):
-        # Use the category ID in the POST data
+        # Buat Bodynya untuk filtering
         data = {
             'name': 'Sushi Roll',
-            'category': self.category_japanese.id,  # Use the ID here instead of the name
+            'category': self.category_japanese.id,  # Harus id yang dipass
             'price_min': 5,
             'price_max': 15,
             'sort_by': 'cheapest',
             'page': 1
         }
+        # Fetch 
         response = self.client.post(
             reverse('get_dishes'),
             data=json.dumps(data),
             content_type='application/json'
         )
         
+        # Cek apakah sushi roll yang diambil
         self.assertEqual(response.status_code, 200)
-
-        # Verify that the correct dish is returned
         data = response.json()
         self.assertEqual(len(data['dishes']), 1)
         self.assertEqual(data['dishes'][0]['name'], 'Sushi Roll')
     
     def test_get_dishes_with_get_request(self):
-        # Test fetching dishes with a GET request and filtering by name
+        # Buat URL Search Param nya / Query lalu fetch
         response = self.client.get(reverse('get_dishes'), {
             'name': 'Pizza',
             'category': self.category_italian.id,
@@ -147,15 +147,14 @@ class SearchTest(TestCase):
             'page': 1
         })
         
+        # Cek apakah pizaa yang diambil
         self.assertEqual(response.status_code, 200)
-
-        # Verify that the correct dish is returned
         data = response.json()
         self.assertEqual(len(data['dishes']), 1)
         self.assertEqual(data['dishes'][0]['name'], 'Pizza')
         self.assertEqual(data['dishes'][0]['price'], '12.99')
 
-        # Verify pagination information by converting current_page to an integer
+        # Cek apakah semua komponent pagination 1, karena cuman ada 2 item
         self.assertEqual(int(data['current_page']), 1)
         self.assertEqual(data['min_page'], 1)
         self.assertEqual(data['max_page'], 1)
