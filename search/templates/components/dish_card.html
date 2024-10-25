@@ -1,0 +1,43 @@
+<div class="relative group flex justify-center w-full">
+    <a class="shadow-yellow-600 shadow-2xl relative w-full h-0 pb-[80%] cursor-pointer transition duration-200" href="">
+        {% if dish.image_url %}
+            <img src="{{ dish.image_url }}" class="absolute top-0 left-0 w-full h-full object-cover rounded-lg group-hover:opacity-80">
+        {% else %}
+            <div class="absolute top-0 left-0 w-full h-full bg-gray-200 flex items-center justify-center rounded-lg">
+                <svg class="w-16 h-16 text-gray-500" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm11.707 6.707l-3 3a1 1 0 01-1.414 0l-1.586-1.586a1 1 0 00-1.414 0l-3 3A1 1 0 015 11.293l3-3a1 1 0 011.414 0l1.586 1.586a1 1 0 001.414 0l3-3a1 1 0 011.414 1.414z"/>
+                </svg>
+            </div>
+        {% endif %}
+        <div class="absolute bottom-0 left-0 w-full bg-black bg-opacity-50 text-white p-2 rounded-b-lg">
+            <h3 class="font-semibold truncate">{{ dish.name }}</h3>
+        </div>
+    </a>
+    <a class="absolute w-full h-0 pb-[80%] bg-gray-800 text-white opacity-0 group-hover:opacity-100 transition-all duration-300 ease-in-out transform group-hover:scale-110 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col z-10 group-hover:z-50 rounded-lg" href="">
+        <div class="relative w-full h-0 pb-[80%]">
+            {% if dish.image_url %}
+                <img src="{{ dish.image_url }}" class="absolute top-0 left-0 w-full h-full object-cover rounded-lg">
+            {% else %}
+                <div class="absolute top-0 left-0 w-full h-full bg-gray-200 flex items-center justify-center rounded-lg">
+                    <svg class="w-16 h-16 text-gray-500" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm11.707 6.707l-3 3a1 1 0 01-1.414 0l-1.586-1.586a1 1 0 00-1.414 0l-3 3A1 1 0 015 11.293l3-3a1 1 0 011.414 0l1.586 1.586a1 1 0 001.414 0l3-3a1 1 0 011.414 1.414z"/>
+                    </svg>
+                </div>
+            {% endif %}
+            <div class="absolute bottom-0 left-0 w-full text-white p-2 rounded-b-lg bg-gradient-to-t from-black via-black/60">
+                <h3 class="font-semibold truncate">{{ dish.name }}</h3>
+                <p class="text-xs text-gray-300 line-clamp-2">{{ dish.description }}</p>
+                <div class="flex flex-row justify-between">
+                    <p class="text-xs font-semibold text-white mt-2"><strong>Price:</strong> Rp.{{ dish.price }}</p>
+                    <div class="flex items-center mt-1 justify-end">
+                        {% for i in "12345" %}
+                        <svg class="w-3 h-3 text-yellow-400" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                            <path d="M9.049 2.927C9.22 2.613 9.58 2.454 9.955 2.454c.374 0 .736.159.907.474l2.318 4.693 5.195.756c.378.055.707.294.876.638.169.345.14.75-.076 1.086l-3.762 3.669.889 5.18c.066.385-.094.779-.414 1.017-.32.239-.748.292-1.117.138l-4.656-2.448-4.656 2.448c-.369.154-.797.1-1.117-.138-.32-.238-.48-.632-.414-1.017l.889-5.18-3.762-3.669c-.217-.336-.245-.741-.076-1.086.17-.344.498-.583.876-.638l5.195-.756L9.049 2.927z"/>
+                        </svg>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </a>
+</div>

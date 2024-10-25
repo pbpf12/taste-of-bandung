@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% load static %}
+<!--------------------------------------   HEAD   -------------------------------------------->
+{% block meta %}
+<link rel="stylesheet" href="{% static 'search/css/styles.css' %}">
+<script>var getDishesUrl = "{% url 'get_dishes' %}";</script>
+<script src="{% static 'search/js/scripts.js' %}"></script>
+{% endblock meta %}
+<!---------------------------------------  BODY  ---------------------------------------------->
+{% block content %}
+{% include "navbar.html" %}
+
+{% include "components/searchfilter_skeleton.html" %}
+{% include "components/searchfilter.html" %}
+
+<div class="h-10"></div>
+
+<div id="dish_list_view"></div>
+
+<div class="h-10"></div>
+
+
+{% endblock %}
