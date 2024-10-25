@@ -200,8 +200,6 @@ reviews_figo = [
         'dish': 'Mie Djawa',
         'rating': 5,
         'comment': 'Luar biasa! Mie Djawa enakk',
-        'upvotes': 20,
-        'downvotes': 1
     },
     {
         'user': 'user2',
@@ -209,8 +207,6 @@ reviews_figo = [
         'dish': 'Durian Croissant',
         'rating': 4,
         'comment': 'Durian lembut, rasanya enak.',
-        'upvotes': 15,
-        'downvotes': 2
     }
 ]
 

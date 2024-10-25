@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from main.models import Restaurant, Dish, Category, Review, Bookmark, History
 from main.management.seeds.users import users_data
 from main.management.seeds.rafie import restaurants_rafie, dishes_rafie, reviews_rafie, bookmarks_rafie, history_rafie
+from main.management.seeds.alex import *
 from main.management.seeds.figo import *
 from main.management.seeds.rahardi import *
 from main.management.seeds.alex import *
@@ -30,12 +31,15 @@ class Command(BaseCommand):
         self.seed_restaurants_and_dishes(restaurants_zillan, dishes_zillan)
         self.seed_restaurants_and_dishes(restaurants_rafie,dishes_rafie)
 
+
         # Seed reviews from all sources
         self.seed_reviews(reviews_figo)
         self.seed_reviews(reviews_rahardi)
         self.seed_reviews(reviews_alex)
         self.seed_reviews(reviews_zillan)
         self.seed_reviews(reviews_rafie)
+        self.seed_reviews(reviews_alex)
+
 
         # Seed bookmarks from all sources
         self.seed_bookmarks(bookmarks_figo)
@@ -43,6 +47,8 @@ class Command(BaseCommand):
         self.seed_bookmarks(bookmarks_alex)
         self.seed_bookmarks(bookmarks_zillan)
         self.seed_bookmarks(bookmarks_rafie)
+        self.seed_bookmarks(bookmarks_alex)
+
 
         # Seed History from all sources
         self.seed_history(history_figo)
@@ -50,6 +56,7 @@ class Command(BaseCommand):
         self.seed_history(history_alex)
         self.seed_history(history_zillan)
         self.seed_history(history_rafie)
+        self.seed_history(history_alex)
 
         self.stdout.write(self.style.SUCCESS('Seeding completed successfully!'))
 
@@ -102,8 +109,6 @@ class Command(BaseCommand):
                 defaults={
                     'rating': review_data['rating'],
                     'comment': review_data['comment'],
-                    'upvotes': review_data.get('upvotes', 0),
-                    'downvotes': review_data.get('downvotes', 0)
                 }
             )
             if created:
