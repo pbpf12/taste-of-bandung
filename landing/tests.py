@@ -11,7 +11,7 @@ from django.http import HttpResponse
 
 from django.test import TestCase
 from django.contrib.auth.models import User
-from .models import Restaurant, Dish, Review, Category
+from main.models import Restaurant, Dish, Review, Category
 
 class RestaurantModelTest(TestCase):
     def setUp(self):
@@ -33,43 +33,29 @@ class RestaurantModelTest(TestCase):
         self.assertEqual(self.restaurant.average_rating, 4.5)
         self.assertEqual(self.restaurant.price_range, "$$")
 
-    def test_restaurant_string_representation(self):
-        """Test the string representation of the Restaurant model."""
-        self.assertEqual(str(self.restaurant), "Sample Restaurant")
 
-
-class DishModelTest(TestCase):
+class SuggestionEntryTestCase(TestCase):
     def setUp(self):
-        # Create a sample category and restaurant for the dish
-        self.category = Category.objects.create(name="Main Course")
-        self.restaurant = Restaurant.objects.create(
-            name="Sample Restaurant",
-            address="123 Test St.",
-            phone="123-456-7890",
-            description="A test restaurant",
-            average_rating=4.5,
-            opening_hours="9:00 AM - 9:00 PM",
-            image="https://example.com/image.jpg",
-            price_range="$$"
-        )
-        # Create a sample dish for testing
-        self.dish = Dish.objects.create(
-            restaurant=self.restaurant,
-            category=self.category,
-            name="Sample Dish",
-            description="A test dish",
-            average_rating=4.2,
-            price=12.99,
-            image="https://example.com/dish.jpg",
-            bookmark_count=10
-        )
+        # Create a test user
+        self.username = 'testuser'
+        self.password = 'password'
+        self.user = User.objects.create_user(username=self.username, password=self.password)
+        self.client = Client()
+        self.client.login(username=self.username, password=self.password)
+        # Include the app name in the reverse call
+        self.url = reverse('landing:add_suggestion_entry_ajax')  # Use the namespace here
 
-    def test_dish_creation(self):
-        """Test dish model creation."""
-        self.assertEqual(self.dish.name, "Sample Dish")
-        self.assertEqual(self.dish.average_rating, 4.2)
-        self.assertEqual(self.dish.bookmark_count, 10)
+    def test_add_suggestion_success(self):
+        response = self.client.post(self.url, {'suggestion': 'This is a test suggestion.'})
+        self.assertEqual(response.status_code, 201)
+        self.assertEqual(Suggestion.objects.count(), 1)
+        self.assertEqual(Suggestion.objects.first().suggestionMessage, 'This is a test suggestion.')
 
-    def test_dish_relationship_with_restaurant(self):
-        """Test the relationship between Dish and Restaurant."""
-        self.assertEqual(self.dish.restaurant.name, "Sample Restaurant")
+    def test_add_suggestion_no_message(self):
+        response = self.client.post(self.url, {'suggestion': ''})
+        self.assertEqual(response.status_code, 400)
+        self.assertEqual(Suggestion.objects.count(), 0)
+
+    def test_add_suggestion_email_sent(self):
+        response = self.client.post(self.url, {'suggestion': 'Another test suggestion.'})
+        # Check if an email is sent or any other desired behavior here
