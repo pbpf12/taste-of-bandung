@@ -1,0 +1,204 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block meta %}
+<link rel="stylesheet" href="{% static 'css/landpage.css' %}">
+<style>
+   
+</style>
+{% endblock meta %}
+{% block content %}
+{% include "navbar.html" %}
+<body>
+    <img src="{% static '/img/backroundbandung.png' %}" alt="" class="backround">
+   
+    
+   
+    <div class="content">
+        <div class="welcome-message"> Welcome Back {{ name }}!</div>
+        <div class="recommendations-message">see todays recommendations</div>
+        <div class="recommendations-message">Our Top 3 dishes of the day</div>
+    </div>
+    
+    <!-- <div class="container-checkbox">
+        <div class="toggle-button" onclick="toggleButton(this)">
+            <div class="toggle-option active">Restaurant</div>
+            <div class="toggle-option">Food</div>
+            <div class="toggle-ball"></div>
+        </div>
+    </div> -->
+
+
+    <div class="container2 bg-gradient-to-r py-8 flex justify-center items-center">
+        <button data-modal-target="crudModal" data-modal-toggle="crudModal" class="btn bg-[#7E7058] hover:bg-[#665A3F] text-[#FFF9E6] font-semibold px-6 py-3 rounded-md shadow-lg transition duration-300 ease-in-out transform hover:scale-105" onclick="showModal();">
+            Give us suggestions!
+        </button>
+    </div>
+  
+    
+    
+    <div class="top-3-dishes">
+      <div class="dishes">
+          {% if top_dishes %}
+          <ul class="dishes-list">
+              {% for dish in top_dishes %}
+              <!-- kucing -->
+              <a href="">
+                <div class="item-box">
+                  <li class="dish-item">{{ dish.name }}</li>
+                  <div class="flex items-center mt-1 justify-center">
+                    {% for i in star_range %}
+                    <svg class="w-3 h-3 {% if i < dish.average_rating %}text-yellow-400{% else %}text-gray-300{% endif %}" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                        <path d="M9.049 2.927C9.22 2.613 9.58 2.454 9.955 2.454c.374 0 .736.159.907.474l2.318 4.693 5.195.756c.378.055.707.294.876.638.169.345.14.75-.076 1.086l-3.762 3.669.889 5.18c.066.385-.094.779-.414 1.017-.32.239-.748.292-1.117.138l-4.656-2.448-4.656 2.448c-.369.154-.797.1-1.117-.138-.32-.238-.48-.632-.414-1.017l.889-5.18-3.762-3.669c-.217-.336-.245-.741-.076-1.086.17-.344.498-.583.876-.638l5.195-.756L9.049 2.927z"/>
+                    </svg>
+                    {% endfor %}
+                </div>
+                  <img src="{{ dish.image }}" alt="{{ dish.name }}" class="dish-image">
+  
+                  <!-- Star rating -->
+    
+              </div>
+              </a>
+              {% endfor %}
+          </ul>
+          {% else %}
+          <p>{{ message }}</p>
+          {% endif %}
+      </div>
+  </div>
+  
+    
+    
+
+    <div id="crudModal" tabindex="-1" aria-hidden="true" class="hidden fixed inset-0 z-50 w-full flex items-center justify-center bg-gray-800 bg-opacity-50 overflow-x-hidden overflow-y-auto transition-opacity duration-300 ease-out">
+        <div id="crudModalContent" class="relative bg-white rounded-lg shadow-lg w-5/6 sm:w-3/4 md:w-1/2 lg:w-1/3 mx-4 sm:mx-0 transform scale-95 opacity-0 transition-transform transition-opacity duration-300 ease-out">
+          <!-- Modal header -->
+          <div class="flex items-center justify-between p-4 border-b rounded-t">
+            <h3 class="text-xl font-semibold text-gray-900">
+              Suggestions
+            </h3>
+            <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center" id="closeModalBtn">
+              <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+              </svg>
+              <span class="sr-only">Close modal</span>
+            </button>
+          </div>
+          <!-- Modal body -->
+          <div class="px-6 py-4 space-y-6 form-style">
+            <form id="suggestionEntryForm">
+              <div class="mb-4">
+                <label for="suggestion" class="block text-sm font-medium text-gray-700">suggestion to us!</label>
+                <textarea id="suggestion" name="suggestion" rows="3" class="mt-1 block w-full h-52 resize-none border border-gray-300 rounded-md p-2 hover:border-indigo-700" placeholder="text to send" required></textarea>
+              </div>
+            </form>
+          </div>
+          <!-- Modal footer -->
+          <div class="flex flex-col space-y-2 md:flex-row md:space-y-0 md:space-x-2 p-6 border-t border-gray-200 rounded-b justify-center md:justify-end">
+            <button type="button" class="bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded-lg" id="cancelButton">Cancel</button>
+            <button type="submit" id="submitsuggestionEntry" form="suggestionEntryForm" class="bg-indigo-700 hover:bg-indigo-600 text-white font-bold py-2 px-4 rounded-lg">Send</button>
+          </div>
+        </div>
+      </div>
+      
+
+
+</body>
+<script>
+    function toggleButton(element) {
+        element.classList.toggle('active');
+        const options = element.querySelectorAll('.toggle-option');
+        options.forEach(option => option.classList.toggle('active'));
+    }
+
+    const modal = document.getElementById('crudModal');
+  const modalContent = document.getElementById('crudModalContent');
+
+  function showModal() {
+      const modal = document.getElementById('crudModal');
+      const modalContent = document.getElementById('crudModalContent');
+
+      modal.classList.remove('hidden'); 
+      setTimeout(() => {
+        modalContent.classList.remove('opacity-0', 'scale-95');
+        modalContent.classList.add('opacity-100', 'scale-100');
+      }, 50); 
+  }
+
+  function hideModal() {
+      const modal = document.getElementById('crudModal');
+      const modalContent = document.getElementById('crudModalContent');
+
+      modalContent.classList.remove('opacity-100', 'scale-100');
+      modalContent.classList.add('opacity-0', 'scale-95');
+
+      setTimeout(() => {
+        modal.classList.add('hidden');
+      }, 150); 
+  }
+
+  document.getElementById("cancelButton").addEventListener("click", hideModal);
+  document.getElementById("closeModalBtn").addEventListener("click", hideModal);
+  function addSuggestionEntry() {
+    fetch("{% url 'add_suggestion_entry_ajax' %}", {
+      method: "POST",
+      body: new FormData(document.querySelector('#suggestionEntryForm')),
+    })
+
+
+    document.getElementById("suggestionEntryForm").reset(); 
+    document.querySelector("[data-modal-toggle='crudModal']").click();
+
+    return false;
+  }
+  
+  document.getElementById("suggestionEntryForm").addEventListener("submit", (e) => {
+    e.preventDefault();
+    addSuggestionEntry();
+  })
+
+
+  function toggleContent(button) {
+    const contentList = document.getElementById('content-list');
+    
+    if (showingDishes) {
+        // Switch to top 3 restaurants
+        contentList.innerHTML = `
+        {% if top_restaurants %}
+        <ul class="restaurant-list">
+            {% for restaurant in top_restaurants %}
+            <div class="item-box">
+                <li class="restaurant-item">{{ restaurant.name }} - Rating: {{ restaurant.average_rating }}</li>
+                <img src="{{ restaurant.image }}" alt="{{ restaurant.name }}" class="restaurant-image">
+            </div>
+            {% endfor %}
+        </ul>
+        {% else %}
+        <p>{{ message }}</p>
+        {% endif %}
+        `;
+        button.innerHTML = "Toggle to Dishes";
+    } else {
+        // Switch back to top 3 dishes
+        contentList.innerHTML = `
+        {% if top_dishes %}
+        <ul class="dishes-list">
+            {% for dish in top_dishes %}
+            <div class="item-box">
+                <li class="dish-item">{{ dish.name }} - Rating: {{ dish.average_rating }}</li>
+                <img src="{{ dish.image }}" alt="{{ dish.name }}" class="dish-image">
+            </div>
+            {% endfor %}
+        </ul>
+        {% else %}
+        <p>{{ message }}</p>
+        {% endif %}
+        `;
+        button.innerHTML = "Toggle to Restaurants";
+    }
+    
+    showingDishes = !showingDishes; // Toggle the state
+}
+</script>
+
+{% endblock content %}

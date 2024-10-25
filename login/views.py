@@ -13,7 +13,7 @@ def check_authentication(request):
     if request.COOKIES == None:
         return redirect('login')
     
-    response = HttpResponseRedirect(reverse('main1'))
+    response = HttpResponseRedirect(reverse('landing'))
     response.set_cookie('last_login', str(datetime.datetime.now()))
     return response
 
