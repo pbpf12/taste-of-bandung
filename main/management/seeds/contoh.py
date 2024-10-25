@@ -26,7 +26,7 @@ dishes_contoh = [
         "name": "Nasi Gulai Babat",
         "description": "Nasi Campur Sayur Dan Sambel + gulai babat",
         "price": 35000,
-        "image": "https://example.com/nasi-gulai-babat.jpg",
+        "image": "https://img-global.cpcdn.com/recipes/274ad96b3b44b623/680x482cq70/nasi-bakmoy-ayam-tahu-wortel-foto-resep-utama.jpg",
         "category": "Food",  # Reference by name
         "restaurant": "Rumah Makan Padang Malah Dicubo"  # Reference by name
     },
@@ -34,7 +34,7 @@ dishes_contoh = [
         "name": "Es Teh Manis",
         "description": "Teh manis dingin yang menyegarkan.",
         "price": 5000,
-        "image": "https://example.com/es-teh-manis.jpg",
+        "image": "https://img-global.cpcdn.com/recipes/274ad96b3b44b623/680x482cq70/nasi-bakmoy-ayam-tahu-wortel-foto-resep-utama.jpg",
         "category": "Drink",  # Reference by name
         "restaurant": "Rumah Makan Padang Malah Dicubo"  # Reference by name
     }
