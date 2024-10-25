@@ -39,8 +39,30 @@ class Review(models.Model):
     comment = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
 
-    def __str__(self):
+    def str(self):
         return f"{self.user.username} - {self.rating}"
+    
+# Vote Model for Review
+class ReviewVote(models.Model):
+    UPVOTE = 1
+    DOWNVOTE = -1
+    VOTE_CHOICES = [
+        (UPVOTE, 'Upvote'),
+        (DOWNVOTE, 'Downvote')
+    ]
+
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    review = models.ForeignKey(Review, on_delete=models.CASCADE)
+    vote_type = models.IntegerField(choices=VOTE_CHOICES)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        unique_together = ('user', 'review')  # Ensure a user can vote once per review
+
+    def str(self):
+        vote_str = "Upvote" if self.vote_type == self.UPVOTE else "Downvote"
+        return f"{self.user.username} {vote_str} on review {self.review.id}"
+
 # Bookmark Model
 class Bookmark(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -59,25 +81,4 @@ class History(models.Model):
 
     def __str__(self):
         return f"History for {self.user.username}"
-
-class ReviewVote(models.Model):
-    UPVOTE = 1
-    DOWNVOTE = -1
-    VOTE_CHOICES = [
-        (UPVOTE, 'Upvote'),
-        (DOWNVOTE, 'Downvote')
-    ]
-
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    review = models.ForeignKey(Review, on_delete=models.CASCADE)
-    vote_type = models.IntegerField(choices=VOTE_CHOICES)
-    created_at = models.DateTimeField(auto_now_add=True)
-
-    class Meta:
-        unique_together = ('user', 'review')  # Ensure a user can vote once per review
-
-    def __str__(self):
-        vote_str = "Upvote" if self.vote_type == self.UPVOTE else "Downvote"
-        return f"{self.user.username} {vote_str} on review {self.review.id}"
-    
     

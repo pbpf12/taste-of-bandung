@@ -13,12 +13,12 @@ def check_authentication(request):
     if request.COOKIES == None:
         return redirect('login')
     
-    response = HttpResponseRedirect(reverse('main1'))
+    response = HttpResponseRedirect(reverse('landing'))
     response.set_cookie('last_login', str(datetime.datetime.now()))
     return response
 
 def login_user(request):
-    next_url = (request.GET.get('next', '/'))[1:].replace('-', '_')
+    next_url = (request.GET.get('next', '/')).replace('-', '_').replace('/','')
 
     if request.method == 'POST':
         form = AuthenticationForm(data=request.POST)

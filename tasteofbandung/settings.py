@@ -42,7 +42,9 @@ INSTALLED_APPS = [
     'main',
     'login',
     'register',
-    'prodetail',
+    'search',
+    'landing',
+    'prodetail'
 ]
 
 MIDDLEWARE = [

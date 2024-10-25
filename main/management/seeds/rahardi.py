@@ -6,7 +6,7 @@ restaurants_rahardi = [
         "description": "Bagi kamu yang menjadi seorang wisatawan dan sedang mencari rekomendasi tempat makan lesehan di Bandung, maka Saung Rasa Lesehan menjadi pilihan yang wajib. Tempat makan satu ini menyediakan lokasi yang nyaman dan menu makanan yang lezat untuk menambah kenikmatan.",
         "opening_hours": "10:00 - 22:00",
         "image": "https://images.tokopedia.net/img/JFrBQq/2022/4/20/76e492ee-931c-46b1-aa30-00a46f775567.jpg",
-        "price_range": "16k - 40k"
+        "price_range": ""
     }
 ]
 
@@ -135,7 +135,7 @@ dishes_rahardi = [
         "name": "Bakwan Sayur",
         "description": "10 Pcs Bakwan Sayur",
         "price": 20000,
-        "image": "https://i.gojekapi.com/darkroom/gofood-indonesia/v2/images/uploads/02e09b4d-4fe3-43d4-8f56-59a35c22231e_Go-Biz_20211022_210149.jpeg?auto=format",
+        "image": "https://i.gojekapi.com/darkroom/gofood-indonesia/v2/images/uploads/9ec4b136-3018-4f74-81e5-51b9b5a175cb_Go-Biz_20200903_155915.jpeg",
         "category": "Food",
         "restaurant": "Saung Rasa Lesehan"
     },
@@ -173,14 +173,77 @@ dishes_rahardi = [
     }  
 ]
 
-reviews_rahardi= [
-   
+reviews_rahardi = [
+    {
+        'user': 'user1',
+        'restaurant': 'Saung Rasa Lesehan',
+        'dish': 'Paket Komplit Nasi Ayam Bakar Bumbu Sunda',
+        'rating': 5,
+        'comment': 'Rasa ayam bakarnya sangat lezat, bumbu Sundanya terasa otentik.',
+    },
+    {
+        'user': 'user2',
+        'restaurant': 'Saung Rasa Lesehan',
+        'dish': 'Soto Betawi Daging',
+        'rating': 4,
+        'comment': 'Soto Betawinya cukup enak, tapi agak kurang asin menurut saya.',
+    },
+    {
+        'user': 'user1',
+        'restaurant': 'Saung Rasa Lesehan',
+        'dish': 'Paket Komplit Nasi Ayam Geprek Sambal Bawang Pedas',
+        'rating': 5,
+        'comment': 'Ayam gepreknya pedas dan sambalnya mantap!',
+    },
+    {
+        'user': 'user2',
+        'restaurant': 'Saung Rasa Lesehan',
+        'dish': 'Tahu Gejrot',
+        'rating': 4,
+        'comment': 'Tahu Gejrotnya segar, tapi porsinya sedikit kurang.',
+    }
 ]
+
 
 history_rahardi = [
-
+    {
+        'user': 'user1',
+        'dish': 'Paket Komplit Nasi Ayam Bakar Bumbu Sunda'
+    },
+    {
+        'user': 'user2',
+        'dish': 'Soto Betawi Daging'
+    },
+    {
+        'user': 'user1',
+        'dish': 'Paket Komplit Nasi Ayam Geprek Sambal Bawang Pedas'
+    },
+    {
+        'user': 'user2',
+        'dish': 'Tahu Gejrot'
+    }
 ]
 
+
 bookmarks_rahardi = [
-   
+    {
+        'user': 'user1',
+        'restaurant': 'Saung Rasa Lesehan',
+        'dish': 'Paket Komplit Nasi Ayam Bakar Bumbu Sunda'
+    },
+    {
+        'user': 'user2',
+        'restaurant': 'Saung Rasa Lesehan',
+        'dish': 'Soto Betawi Daging'
+    },
+    {
+        'user': 'user1',
+        'restaurant': 'Saung Rasa Lesehan',
+        'dish': 'Paket Komplit Nasi Ayam Geprek Sambal Bawang Pedas'
+    },
+    {
+        'user': 'user2',
+        'restaurant': 'Saung Rasa Lesehan',
+        'dish': 'Tahu Gejrot'
+    }
 ]
