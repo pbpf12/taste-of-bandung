@@ -1,37 +1,93 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block meta %}
-<style>
-    * {
-        background: black;
-        color: white
-    }
-</style>
+<title>Login</title>
 {% endblock meta %}
 
 {% block content %}
-<div class="login">
-  <h1>Login</h1>
+<div class="flex flex-row bg-gradient-to-br from-[#FFF9E6] to-[#FFB845] px-4 sm:px-8 md:px-20 py-8 sm:py-16 md:py-32 justify-center min-h-screen">
+  <div class="flex flex-col md:flex-row justify-self-center w-full max-w-5xl bg-[#FFEBB0] rounded-lg shadow-xl border-2 border-[#D4B670]"> 
+    <!-- Image container -->
+    <div class="w-full md:w-1/2 bg-[#FFF2CC] rounded-t-lg md:rounded-l-lg md:rounded-tr-none border-b-2 md:border-b-0 md:border-r-2 border-[#D4B670]">
+      <img 
+        src="{% static 'img/login.png' %}" 
+        alt="login" 
+        class="w-full h-48 md:h-full object-contain p-4 md:p-8"
+      />
+    </div>
 
-  <form method="POST" action="">
-    {% csrf_token %}
-    <table>
-      {{ form.as_table }}
-      <tr>
-        <td></td>
-        <td><input class="btn login_btn" type="submit" value="Login" /></td>
-      </tr>
-    </table>
-  </form>
+    <!-- Form container -->
+    <div class="flex flex-col items-center gap-4 py-6 md:py-8 w-full md:w-1/2 bg-[#FFEBB0]">
+      <h1 class="text-2xl sm:text-3xl md:text-4xl font-bold text-center px-4 py-4 text-[#665A3F]">Find your taste now!</h1>
+      
+      <div class="flex flex-col justify-space-between w-full px-4 sm:px-8 md:px-12 py-4">
+        <form method="POST" action="" class="w-full">
+          {% csrf_token %}
+          <input type="hidden" name="remember" value="true">
+          
+          <div class="flex flex-col justify-space-between gap-4 rounded-lg shadow-sm">
+            <div>
+              <p class="text-[#665A3F] font-bold text-sm sm:text-base">Username</p>
+              <label for="username" class="sr-only">Username</label>
+              <input 
+                id="username" 
+                name="username" 
+                type="text" 
+                required 
+                class="appearance-none rounded-md relative block px-3 py-2 border border-[#D4B670] placeholder-[#7E7058] text-[#665A3F] focus:outline-none focus:ring-[#FFCF5C] focus:border-[#FFCF5C] text-sm sm:text-base w-full" 
+                placeholder="Username">
+            </div>
+            
+            <div>
+              <p class="text-[#665A3F] font-bold text-sm sm:text-base">Password</p>
+              <label for="password" class="sr-only">Password</label>
+              <input 
+                id="password" 
+                name="password" 
+                type="password" 
+                required 
+                class="appearance-none rounded-md relative block w-full px-3 py-2 border border-[#D4B670] placeholder-[#7E7058] text-[#665A3F] focus:outline-none focus:ring-[#FFCF5C] focus:border-[#FFCF5C] text-sm sm:text-base" 
+                placeholder="Password">
+            </div>
+          </div>
 
-  {% if messages %}
-  <ul>
-    {% for message in messages %}
-    <li>{{ message }}</li>
-    {% endfor %}
-  </ul>
-  {% endif %} Don't have an account yet?
-  <a href="{% url 'register' %}">Register Now</a>
+          <input 
+            class="group relative w-full flex justify-center mt-6 sm:mt-8 py-2 px-4 border border-transparent text-sm sm:text-base font-medium rounded-md text-[#FFF9E6] bg-[#7E7058] hover:bg-[#665A3F] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#FFCF5C]" 
+            type="submit" 
+            value="Login" />
+        </form>
+
+        {% if messages %}
+        <div class="mt-4 w-full">
+          {% for message in messages %}
+            {% if message.tags == "success" %}
+                <div class="bg-yellow-100 border border-yellow-400 text-yellow-700 px-3 py-2 sm:px-4 sm:py-3 rounded relative text-sm sm:text-base" role="alert">
+                    <span class="block sm:inline">{{ message }}</span>
+                </div>
+            {% elif message.tags == "error" %}
+                <div class="bg-red-100 border border-red-400 text-red-700 px-3 py-2 sm:px-4 sm:py-3 rounded relative text-sm sm:text-base" role="alert">
+                    <span class="block sm:inline">{{ message }}</span>
+                </div>
+            {% else %}
+                <div class="bg-blue-100 border border-blue-400 text-blue-700 px-3 py-2 sm:px-4 sm:py-3 rounded relative text-sm sm:text-base" role="alert">
+                    <span class="block sm:inline">{{ message }}</span>
+                </div>
+            {% endif %}
+          {% endfor %}
+        </div>
+        {% endif %}
+
+        <div class="text-center mt-4">
+          <p class="text-xs sm:text-sm text-[#665A3F]">
+            Don't have an account yet?
+            <a href="{% url 'register' %}" class="font-medium text-[#7E7058] hover:text-[#665A3F]">
+              Register Now
+            </a>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
-
 {% endblock content %}

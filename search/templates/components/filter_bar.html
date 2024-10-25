@@ -1,0 +1,99 @@
+<div class="hidden md:flex lg:flex justify-center m-4 flex-co">
+    <div class="w-full max-w-full bg-gray-100 bg-opacity-70 rounded-lg shadow-lg overflow-hidden border-y-2 border-x-2 p-4">
+        <div class="flex flex-wrap justify-between gap-4">
+
+            <!-- Category Radio Buttons for Filter Bar -->
+            <div class="">
+                <label class="block mb-1 font-semibold text-gray-700">Category</label>
+                <div class="flex items-center">
+                    <label class="inline-flex items-center mr-4">
+                        <input 
+                            type="radio" 
+                            name="category" 
+                            value="1" 
+                            class="form-radio text-yellow-700"
+                            onchange="setCategory(this.value)" 
+                        >
+                        <span class="ml-2 text-black">Food</span>
+                    </label>
+                    <label class="inline-flex items-center mr-4">
+                        <input 
+                            type="radio" 
+                            name="category" 
+                            value="2" 
+                            class="form-radio text-yellow-700"
+                            onchange="setCategory(this.value)" 
+                        >
+                        <span class="ml-2 text-black">Drink</span>
+                    </label>
+                    <label class="inline-flex items-center">
+                        <input 
+                            type="radio" 
+                            name="category" 
+                            value=""
+                            class="form-radio text-yellow-700"
+                            onchange="setCategory(this.value)" 
+                            checked="true"
+
+                        >
+                        <span class="ml-2 text-black"><b><i>~Both~</i></b></span>
+                    </label>
+                </div>
+            </div>
+
+
+
+            <!-- Filter 2: Price Range -->
+            <div class="">
+                <div class="flex flex-row justify-between">
+                    <label class="block mb-1 font-semibold text-gray-700">Price Range</label>
+                    <div class="flex flex-row space-x-2">
+                        <div class="flex space-x-2 mb-1">
+                            <!-- Reset Button (SVG) -->
+                            <button type="button" onclick="resetPriceRange()" class="p-2 bg-gray-100 bg-opacity-70 rounded-lg hover:bg-gray-300 transition duration-300">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-700 hover:text-gray-900" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582a8 8 0 106.292-3.293L8 8m4-4H4" />
+                                </svg>
+                            </button>
+                        
+                            <!-- Submit Button (SVG) -->
+                            <button type="button" onclick="submitPriceRange()" class="p-2 bg-yellow-100 rounded-lg hover:bg-yellow-200 transition duration-300">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-yellow-600 hover:text-yellow-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                                </svg>
+                            </button>
+                        </div>              
+                    </div>
+                </div>
+                <div class="flex">
+                    <input
+                        id="minPriceInput"
+                        type="number"
+                        class="w-1/2 p-2 border border-gray-500 rounded-l-lg focus:outline-none focus:ring-2 focus:border-yellow-600"
+                        placeholder="Min Price"
+                        oninput="this.value = this.value.replace(/[^0-9]/g, ''); setMinPrice(this.value)"  
+                    >
+                    <input
+                        id="maxPriceInput"
+                        type="number"
+                        class="w-1/2 p-2 border border-gray-500 rounded-r-lg focus:outline-none focus:ring-2 focus:border-yellow-600"
+                        placeholder="Max Price"
+                        oninput="this.value = this.value.replace(/[^0-9]/g, ''); setMaxPrice(this.value)"  
+                    >
+                </div>
+            </div>
+
+            <!-- Filter 4: Sort By -->
+            <div class="">
+                <label class="block mb-1 font-semibold text-gray-700">Sort By</label>
+                <select class="w-full p-3 border border-gray-500 rounded-lg bg-gray-100 focus:outline-none focus:ring-2 focus:border-yellow-600"
+                    onchange="setSortBy(this.value)">
+                    <option value=""><b><i>~~~~~</i></b></option>
+                    <option value="cheapest">Cheapest</option>
+                    <option value="most_expensive">Most Expensive</option>
+                </select>
+            </div>
+
+        </div>
+    </div>
+</div>

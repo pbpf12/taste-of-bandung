@@ -135,7 +135,7 @@ dishes_rahardi = [
         "name": "Bakwan Sayur",
         "description": "10 Pcs Bakwan Sayur",
         "price": 20000,
-        "image": "https://i.gojekapi.com/darkroom/gofood-indonesia/v2/images/uploads/02e09b4d-4fe3-43d4-8f56-59a35c22231e_Go-Biz_20211022_210149.jpeg?auto=format",
+        "image": "https://i.gojekapi.com/darkroom/gofood-indonesia/v2/images/uploads/9ec4b136-3018-4f74-81e5-51b9b5a175cb_Go-Biz_20200903_155915.jpeg",
         "category": "Food",
         "restaurant": "Saung Rasa Lesehan"
     },
@@ -180,8 +180,6 @@ reviews_rahardi = [
         'dish': 'Paket Komplit Nasi Ayam Bakar Bumbu Sunda',
         'rating': 5,
         'comment': 'Rasa ayam bakarnya sangat lezat, bumbu Sundanya terasa otentik.',
-        'upvotes': 35,
-        'downvotes': 2
     },
     {
         'user': 'user2',
@@ -189,8 +187,6 @@ reviews_rahardi = [
         'dish': 'Soto Betawi Daging',
         'rating': 4,
         'comment': 'Soto Betawinya cukup enak, tapi agak kurang asin menurut saya.',
-        'upvotes': 20,
-        'downvotes': 1
     },
     {
         'user': 'user1',
@@ -198,8 +194,6 @@ reviews_rahardi = [
         'dish': 'Paket Komplit Nasi Ayam Geprek Sambal Bawang Pedas',
         'rating': 5,
         'comment': 'Ayam gepreknya pedas dan sambalnya mantap!',
-        'upvotes': 45,
-        'downvotes': 0
     },
     {
         'user': 'user2',
@@ -207,8 +201,6 @@ reviews_rahardi = [
         'dish': 'Tahu Gejrot',
         'rating': 4,
         'comment': 'Tahu Gejrotnya segar, tapi porsinya sedikit kurang.',
-        'upvotes': 18,
-        'downvotes': 2
     }
 ]
 
