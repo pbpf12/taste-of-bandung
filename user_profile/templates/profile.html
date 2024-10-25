@@ -8,13 +8,13 @@
 
 {% block content %}
 {% include 'navbar.html' %}
-<div class="flex flex-row bg-gray-600 w-full h-full px-4 sm:px-8 md:px-20 py-8 sm:py-16 md:py-32 justify-center min-h-screen">
-    <div class="flex flex-row w-4/5 gap-4 py-8 px-4 bg-[#F2F0E6] rounded-lg shadow-md shadow-[#F2F0E6]/40">
+<div class="flex flex-col items-center bg-gray-600 w-full h-full px-4 sm:px-8 md:px-20 py-8 sm:py-16 md:py-32 justify-center min-h-screen">
+    <div class="flex flex-col md:flex-row w-full lg:w-4/5 gap-4 py-8 px-4 bg-[#F2F0E6] rounded-lg shadow-md shadow-[#F2F0E6]/40">
 
         <!-- Profile Picture and Username -->
         {% include 'components/profile_left.html' %}
 
-        <div class="flex flex-col border-l-2 border-solid border-stone-800 pl-8 w-4/5">
+        <div class="flex flex-col border-t-2 md:border-t-0 md:border-l-2 border-solid border-stone-800 pt-4 md:pl-8 w-full">
             {% include 'components/profile_right.html' %}
             {% include 'components/edit_modal.html' %}
             {% include 'components/history_details.html' %}
@@ -71,66 +71,66 @@
         limitedHistory.forEach(item => {
             // Create card for each history item
             const card = document.createElement('div');
-            card.className = 'bg-white p-4 rounded-lg shadow-md';
-            
+            card.className = 'bg-white p-4 rounded-lg shadow-md w-full md:w-1/2 lg:w-full';
+
             // Create flex container for image and details
             const flexContainer = document.createElement('div');
-            flexContainer.className = 'flex gap-4';
-            
+            flexContainer.className = 'flex flex-col sm:flex-row gap-4';
+
             // Image section
             const imageSection = document.createElement('div');
-            imageSection.className = 'w-24 h-24 flex-shrink-0';
+            imageSection.className = 'w-full sm:w-24 h-24 flex-shrink-0';
             const img = document.createElement('img');
             img.src = item.dish.image;
             img.className = 'w-full h-full object-cover rounded-md';
             img.alt = item.dish.name;
             imageSection.appendChild(img);
-            
+
             // Details section
             const details = document.createElement('div');
             details.className = 'flex flex-col flex-grow';
-            
+
             // Dish name and restaurant
             const nameRestaurant = document.createElement('div');
             nameRestaurant.className = 'flex justify-between items-start mb-2';
-            
+
             const dishName = document.createElement('h3');
             dishName.className = 'text-lg font-semibold text-stone-800';
             dishName.textContent = item.dish.name;
-            
+
             const restaurant = document.createElement('p');
             restaurant.className = 'text-sm text-stone-600';
             restaurant.textContent = item.dish.restaurant;
-            
+
             nameRestaurant.appendChild(dishName);
             nameRestaurant.appendChild(restaurant);
-            
+
             // Price and date
             const priceDate = document.createElement('div');
             priceDate.className = 'flex justify-between items-end mt-auto';
-            
+
             const price = document.createElement('p');
             price.className = 'text-stone-800 font-medium';
             price.textContent = `$${parseFloat(item.dish.price).toFixed(2)}`;
-            
+
             const date = document.createElement('p');
             date.className = 'text-sm text-stone-500';
             date.textContent = new Date(item.created_at).toLocaleDateString();
-            
+
             priceDate.appendChild(price);
             priceDate.appendChild(date);
-            
+
             // Assemble the details section
             details.appendChild(nameRestaurant);
             details.appendChild(priceDate);
-            
+
             // Assemble the flex container
             flexContainer.appendChild(imageSection);
             flexContainer.appendChild(details);
-            
+
             // Add flex container to card
             card.appendChild(flexContainer);
-            
+
             // Add card to history list
             historyList.appendChild(card);
         });
