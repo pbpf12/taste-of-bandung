@@ -8,12 +8,10 @@
             content="width=device-width, initial-scale=1.0"
         />
         {% block meta %}{% endblock meta %}
-        <link rel="stylesheet" href="{% static 'css/global.css' %}">
         <script src="https://cdn.tailwindcss.com"></script>
     </head>
 
     <body>
-        {% include 'navbar.html' %}
         {% block content %}
         {% endblock content %}
     </body>

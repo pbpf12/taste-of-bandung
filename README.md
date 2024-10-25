@@ -24,13 +24,13 @@ Ingin berbagi pengalaman kuliner Anda dengan komunitas? Kami juga menyediakan si
 
 | Nama Modul                | Nama Pekerja | Deskripsi                                                                                                                                                 |
 |---------------------------|--------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------|                                        
-| **Login Page**            | _SEMUA_      | Melakukan verifikasi informasi pengguna, dan hanya akan diberikan akses ke laman situs web pengguna terotentikasi bila infomrasi pengguna telah terotentikasi. | 
-| **Registrasi Page**       | _SEMUA_      | Membuat akun pengguna, bila semua field sudah valid sesuai validasi, maka akan user akan ditujukan ke Login. |                                       
+| **Login Page**            | Nama 1       | Melakukan verifikasi informasi pengguna, dan hanya akan diberikan akses ke laman situs web pengguna terotentikasi bila infomrasi pengguna telah terotentikasi. | 
+| **Registrasi Page**       | Nama 2       | Membuat akun pengguna, bila semua field sudah valid sesuai validasi, maka akan user akan ditujukan ke Login. |                                       
 | **User Profile Page**     | Alex         | Informasi akun pengguna termasuk seperti nama akun, email akun, tanggal pembuatan akun, dll.                                                                   |
-| **Home Page (Landing)**   | Zillan       | Laman utama yang akan ditampilkan saat seorang pengguna telah berhasil terotentikasi dan diberikan akses ke situs web.                                         |
-| **Product Details Page**  | Salim        | Informasi mengenai produk yang ditampilkan. Merupakan laman dimana pengguna dapat memberikan ulasan terkait produk tersebut.                                   |
+| **Home Page (Landing)**   | Nama 4       | Laman utama yang akan ditampilkan saat seorang pengguna telah berhasil terotentikasi dan diberikan akses ke situs web.                                         |
+| **Product Details Page**  | Nama 5       | Informasi mengenai produk yang ditampilkan. Merupakan laman dimana pengguna dapat memberikan ulasan terkait produk tersebut.                                   |
 | **Search Page**           | Rafie        | Laman situs web dimana penggunna dapat melakukan pencari produk sesuai dengan filter yang telah ditentukan sebelumnya.                                         |
-| **Last Activites Page**   | Figo         | Tampilan aplikasi web yang memperlihatkan segala kegiatan/aktivitas pengguna pada situs web sejak akun dibuat.                                                 |
+| **Last Activites Page**   | Nama 7       | Tampilan aplikasi web yang memperlihatkan segala kegiatan/aktivitas pengguna pada situs web sejak akun dibuat.                                                 |
 
 ## Sumber Inisial Dataset
 Sumber inisial dataset dapat dilihat dari :
