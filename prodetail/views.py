@@ -8,36 +8,26 @@ from django.views.decorators.http import require_POST
 from django.utils import timezone
 
 def update_dish_history(user, dish):
-    # Check if this dish is already in history
     existing_history = History.objects.filter(user=user, dish=dish).first()
     
     if existing_history:
-        # Update timestamp of existing entry
         existing_history.created_at = timezone.now()
         existing_history.save()
     else:
-        # Create new history entry
         History.objects.create(user=user, dish=dish)
         
-        # Get user's history count
         history_count = History.objects.filter(user=user).count()
-        
-        # If more than 5 entries, delete the oldest ones
+
         if history_count > 5:
-            # Get IDs of 5 most recent entries
             recent_ids = History.objects.filter(user=user).order_by('-created_at')[:5].values_list('id', flat=True)
-            # Delete all other entries
             History.objects.filter(user=user).exclude(id__in=list(recent_ids)).delete()
 
-# Dish detail view (with reviews sorted by upvotes, and current user's reviews on top)
 def dish_detail(request, dish_id):
     dish = get_object_or_404(Dish, id=dish_id)
-    print(request.user)
     update_dish_history(request.user, dish)
     is_bookmarked = Bookmark.objects.filter(user=request.user, dish=dish).exists()
     dish.is_bookmarked = is_bookmarked
-    
-    # Separate out current user's reviews
+
     reviews = Review.objects.filter(dish=dish).annotate(
         vote_score=Avg('reviewvote__vote_type')
     ).order_by(
@@ -52,7 +42,6 @@ def dish_detail(request, dish_id):
     else:
         reviews = list(reviews)
 
-    # Prepare review data
     review_data = [{
         'id': review.id,
         'user': review.user.username,
@@ -60,7 +49,7 @@ def dish_detail(request, dish_id):
         'comment': review.comment,
         'upvotes': ReviewVote.objects.filter(review=review, vote_type=1).count(),
         'downvotes': ReviewVote.objects.filter(review=review, vote_type=-1).count(),
-        'is_author': review.user == request.user  # Track if the user is the author of the review
+        'is_author': review.user == request.user 
     } for review in reviews]
     
     rating_avg = dish.average_rating or "No rating yet"
@@ -72,7 +61,6 @@ def dish_detail(request, dish_id):
         'rating_avg': rating_avg,
     }
 
-    # Render the 'dish_detail.html' template with the context data
     return render(request, 'dish_detail.html', context)
 
 
@@ -104,7 +92,6 @@ def submit_review(request, dish_id):
     rating = request.POST.get('rating')
     comment = request.POST.get('comment')
 
-    # Validate rating and comment
     if not rating or not comment:
         return JsonResponse({'error': 'Rating and comment are required.'}, status=400)
 
@@ -115,10 +102,8 @@ def submit_review(request, dish_id):
     except ValueError:
         return JsonResponse({'error': 'Invalid rating format.'}, status=400)
 
-    # Create a new review
     review = Review.objects.create(user=request.user, dish=dish, rating=rating, comment=comment)
     
-    # Recalculate average rating
     average_rating = Review.objects.filter(dish=dish).aggregate(Avg('rating'))['rating__avg']
     dish.average_rating = average_rating
     dish.save()
@@ -149,7 +134,6 @@ def edit_review(request, review_id):
     rating = request.POST.get('rating')
     comment = request.POST.get('comment')
 
-    # Validate rating if provided
     if rating:
         try:
             rating = int(rating)
@@ -158,18 +142,14 @@ def edit_review(request, review_id):
         except ValueError:
             return JsonResponse({'error': 'Invalid rating format'}, status=400)
 
-    # Check if either rating or comment is provided
     if comment or rating:
-        # Only update rating if a new rating is provided
         if rating:
             review.rating = rating
-        # Update comment
         if comment:
             review.comment = comment
 
         review.save()
 
-        # Recalculate the average rating for the dish
         dish = review.dish
         average_rating = Review.objects.filter(dish=dish).aggregate(Avg('rating'))['rating__avg'] or 0
         dish.average_rating = average_rating
@@ -182,7 +162,6 @@ def edit_review(request, review_id):
 
     return JsonResponse({'error': 'No valid data provided for update'}, status=400)
 
-# Delete a review
 @login_required
 @require_POST
 def delete_review(request, review_id):
@@ -190,9 +169,8 @@ def delete_review(request, review_id):
     dish = review.dish
     review.delete()
 
-    # Recalculate the average rating for the dish
     average_rating = Review.objects.filter(dish=dish).aggregate(Avg('rating'))['rating__avg']
-    if average_rating is None:  # Set to None if no reviews left
+    if average_rating is None: 
         average_rating = 0
     
     dish.average_rating = average_rating
@@ -203,30 +181,25 @@ def delete_review(request, review_id):
         'average_rating': average_rating
     })
 
-# Handle voting with real-time vote count
 @login_required
 @require_POST
 def vote_review(request, review_id, vote_type):
     review = get_object_or_404(Review, id=review_id)
     user = request.user
 
-    # Check if the user already voted on this review
     existing_vote = ReviewVote.objects.filter(user=user, review=review).first()
 
     if vote_type == 'upvote':
         if existing_vote and existing_vote.vote_type == 1:
-            existing_vote.delete()  # Remove existing upvote
+            existing_vote.delete()
         else:
-            # Create or update the vote
             ReviewVote.objects.update_or_create(user=user, review=review, defaults={'vote_type': 1})
     elif vote_type == 'downvote':
         if existing_vote and existing_vote.vote_type == -1:
-            existing_vote.delete()  # Remove existing downvote
+            existing_vote.delete() 
         else:
-            # Create or update the vote
             ReviewVote.objects.update_or_create(user=user, review=review, defaults={'vote_type': -1})
 
-    # Calculate total upvotes and downvotes
     upvotes = ReviewVote.objects.filter(review=review, vote_type=1).count()
     downvotes = ReviewVote.objects.filter(review=review, vote_type=-1).count()
 
@@ -236,7 +209,6 @@ def vote_review(request, review_id, vote_type):
         'total_votes': upvotes + downvotes
     })
 
-# Restaurant details view
 def restaurant_detail(request, restaurant_id):
     restaurant = get_object_or_404(Restaurant, id=restaurant_id)
     

@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
-
 {% block title %}Dish Details - {{ dish.name }}{% endblock %}
 {% block content %}
+{% include "navbar.html" %}
 <div class="bg-[#2C2C2C] min-h-screen">
     <div class="container mx-auto px-4 py-8">
         <!-- Dish Details Section -->
@@ -226,7 +226,6 @@
 <script>
 $(document).ready(function() {
     
-    // AJAX to load restaurant details
     $('#restaurant-details').click(function() {
         $.ajax({
             url: '/restaurant/{{ dish.restaurant.id }}/',
@@ -244,7 +243,6 @@ $(document).ready(function() {
         });
     });
 
-    // Close modal
     $('#close-modal').click(function() {
         $('#restaurant-modal').addClass('hidden');
     });
@@ -256,7 +254,6 @@ $(document).ready(function() {
         $(this).toggleClass('text-gray-300', starRating > initialRating);
     });
     
-    // Helper function to update the average rating asynchronously
     function updateAverageRating() {
         $.ajax({
             url: `/dish/{{ dish.id }}/average_rating/`,
@@ -270,7 +267,6 @@ $(document).ready(function() {
         });
     }
 
-    // Interactive star rating click functionality
     $('#star-rating .star').click(function() {
         const rating = $(this).data('rating');
         $('#rating').val(rating); 
@@ -282,10 +278,8 @@ $(document).ready(function() {
         });
     });
 
-    // Review submission via AJAX
     $('#submit-review-form').submit(function(e) {
         e.preventDefault();
-            // Check review limit first
         $.ajax({
             url: '/review/check_limit/',
             method: 'GET',
@@ -341,15 +335,12 @@ $(document).ready(function() {
         }
     });
 
-    // Interactive star rating in edit mode
     $(document).on('click', '.review-rating-edit .star', function() {
         const rating = $(this).data('rating');
         const $ratingContainer = $(this).closest('.review-rating-edit');
 
-        // Update hidden input with selected rating
         $ratingContainer.find('.edit-rating-value').val(rating);
 
-        // Update star colors to reflect selection
         $ratingContainer.find('.star').each(function() {
             const starRating = $(this).data('rating');
             $(this).toggleClass('text-[#FFB845]', starRating <= rating);
@@ -357,7 +348,6 @@ $(document).ready(function() {
         });
     });
 
-    // Save review edits (comment and rating)
     $(document).on('click', '.save-review', function() {
         const reviewId = $(this).data('review-id');
         const $reviewItem = $(this).closest('li');
@@ -373,16 +363,14 @@ $(document).ready(function() {
                 rating: updatedRating
             },
             success: function(data) {
-                // Update the comment and rating in the UI
+
                 $reviewItem.find('.edit-comment').replaceWith(`<p class="text-gray-600">${updatedComment}</p>`);
                 $reviewItem.find('.review-rating-display').removeClass('hidden').html(data.updated_rating_html);
                 $reviewItem.find('.review-rating-edit').addClass('hidden');
 
-                // Reset button to "Edit"
                 $('.save-review').text('Edit').addClass('edit-review').removeClass('save-review');
                 $('.cancel-edit').remove();
 
-                // Update the average rating
                 updateAverageRating();
             },
             error: function() {
@@ -391,22 +379,18 @@ $(document).ready(function() {
         });
     });
 
-    // Cancel edit
     $(document).on('click', '.cancel-edit', function() {
         const $reviewItem = $(this).closest('li');
         const originalComment = $reviewItem.find('.edit-comment').text().trim();
 
-        // Replace textarea with original comment
         $reviewItem.find('.edit-comment').replaceWith(`<p class="text-gray-600">${originalComment}</p>`);
         $reviewItem.find('.review-rating-display').removeClass('hidden');
         $reviewItem.find('.review-rating-edit').addClass('hidden');
 
-        // Reset button back to "Edit" and remove cancel button
         $('.save-review').text('Edit').addClass('edit-review').removeClass('save-review');
         $(this).remove();
     });
 
-    // Delete review functionality
     $(document).on('click', '.delete-review', function() {
         const reviewId = $(this).data('review-id');
         const $reviewItem = $(this).closest('li');
@@ -419,10 +403,8 @@ $(document).ready(function() {
                     csrfmiddlewaretoken: '{{ csrf_token }}'
                 },
                 success: function() {
-                    // Remove review from UI
                     $reviewItem.remove();
 
-                    // Update the average rating asynchronously
                     updateAverageRating();
                 },
                 error: function() {
@@ -432,7 +414,6 @@ $(document).ready(function() {
         }
     });
     
-    // Upvote and downvote AJAX calls with toggle logic
     $('.upvote, .downvote').click(function() {
         const reviewId = $(this).data('review-id');
         const isUpvote = $(this).hasClass('upvote');
@@ -446,14 +427,11 @@ $(document).ready(function() {
             method: 'POST',
             data: { csrfmiddlewaretoken: '{{ csrf_token }}' },
             success: function(data) {
-                // Update the vote count
                 $button.find(`.${voteType}-count`).text(data[`${voteType}s`]);
-                // Reset opposite button count if needed
                 $oppositeButton.find(`.${oppositeVoteType}-count`).text(data[`${oppositeVoteType}s`]);
 
-                // Toggle active states
                 $button.toggleClass('text-[#2C2C2C]', data.user_voted === voteType);
-                $oppositeButton.removeClass('text-[#2C2C2C]');  // Deselect opposite
+                $oppositeButton.removeClass('text-[#2C2C2C]');
             },
             error: function() {
                 alert('Failed to vote.');
@@ -461,7 +439,6 @@ $(document).ready(function() {
         });
     });
 
-    // Bookmark AJAX handler
     $('#bookmark-btn').click(function() {
         const $bookmarkBtn = $(this);
         const dishId = "{{ dish.id }}";
