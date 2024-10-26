@@ -43,7 +43,7 @@ async function refreshHistory(filter) {
         history.history.forEach(item => {
             // Create card for each history item
             const card = document.createElement('div');
-            card.className = 'bg-white p-4 rounded-lg shadow-md w-full md:w-1/2 lg:w-full';
+            card.className = 'bg-white p-4 rounded-lg shadow-md w-full';
 
             // Create flex container for image and details
             const flexContainer = document.createElement('div');
