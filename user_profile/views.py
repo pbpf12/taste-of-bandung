@@ -8,7 +8,7 @@ from django.utils.html import strip_tags
 from main.models import History
 
 
-@login_required
+@login_required(login_url='/login/')
 def show_json(request):
     user = request.user
     return JsonResponse({
@@ -18,7 +18,7 @@ def show_json(request):
         'email': user.email,
     })
 
-@login_required
+@login_required(login_url='/login/')
 def show_profile(request):
     user = request.user
     
