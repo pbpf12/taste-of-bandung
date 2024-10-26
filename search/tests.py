@@ -4,47 +4,7 @@ from django.contrib.auth.models import User
 from main.models import Category, Restaurant, Dish
 import json
 
-# Sementara taro sini dlu
 # Harus di set ulang usernya karena tiap fungsi terisolasi
-class AuthenticationTest(TestCase):
-    
-    def test_register_user(self):
-        # Register user
-        response = self.client.post(reverse('register'), {
-            'username': 'newuser',
-            'password1': 'newpassword123',
-            'password2': 'newpassword123',
-        })
-        
-        # Cek apakah user berhasil dibuat
-        user_exists = User.objects.filter(username='newuser').exists()
-        self.assertTrue(user_exists)
-
-    def test_login_user(self):
-        # Register dengan fungsi sebelumnya
-        self.test_register_user()
-
-        # Log in user
-        response = self.client.post(reverse('login'), {
-            'username': 'newuser',
-            'password': 'newpassword123',
-        })
-        
-        # Cek apakah cookies sudah di set
-        self.assertNotEqual(response.cookies['last_login'].value, '')
-
-    def test_logout_user(self):
-        # Register dan Login dengan fungsi sebelumnya
-        self.test_register_user()
-        self.test_login_user()
-
-        # Log out
-        response = self.client.get(reverse('logout'))
-
-        # Cek apakah cookies sudah di-delete
-        self.assertTrue('last_login' in response.cookies)
-        self.assertEqual(response.cookies['last_login'].value, '')
-
 class SearchTest(TestCase):
     @classmethod
     def setUpTestData(cls):

@@ -4,6 +4,7 @@
 {% block meta %}
 <link rel="stylesheet" href="{% static 'search/css/styles.css' %}">
 <script>var getDishesUrl = "{% url 'get_dishes' %}";</script>
+<script>var getDishDetailUrl = "{% url 'dish_detail' 1%}";</script>
 <script src="{% static 'search/js/scripts.js' %}"></script>
 {% endblock meta %}
 <!---------------------------------------  BODY  ---------------------------------------------->
