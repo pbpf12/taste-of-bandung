@@ -17,6 +17,7 @@
         <!-- Modal body -->
         <div class="px-6 py-4 space-y-6 form-style">
             <form id="userForm">
+                {% csrf_token %}
                 <div class="mb-4">  
                     <label for="first_name" class="block text-sm font-medium text-gray-700">First Name</label>
                     <input type="text" id="first_name" name="first_name" class="mt-1 block w-full border border-gray-300 rounded-md p-2 hover:border-indigo-700" placeholder="Enter first name" required>

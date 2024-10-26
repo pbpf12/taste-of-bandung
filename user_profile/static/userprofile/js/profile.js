@@ -262,14 +262,41 @@ function showAlert(message, type) {
 }
 
 function clearHistory() {
+    // Get CSRF token from cookie
+    function getCsrfToken() {
+        const name = 'csrftoken';
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+
     if (confirm('Clear history? This action cannot be undone.')) {
         fetch(clearHistoryUrl, {
             method: 'DELETE',
             headers: {
-                'X-CSRFToken': '{{ csrf_token }}',
+                'X-CSRFToken': getCsrfToken(),
                 'Content-Type': 'application/json'
             }
         })
+        .then(response => {
+            if (response.ok) {
+                window.location.reload(); // Reload page after successful deletion
+            } else {
+                console.error('Failed to clear history');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
     }
 }
 
@@ -309,13 +336,16 @@ refreshProfile();
 // Delete account functionality
 document.addEventListener('DOMContentLoaded', (event) => {
     const deleteAccountBtn = document.getElementById('delete-account-btn');
+    // Get the CSRF token from the hidden input field
+    const csrfToken = document.querySelector('input[name="csrfmiddlewaretoken"]').value;
+
     if (deleteAccountBtn) {
         deleteAccountBtn.addEventListener('click', function() {
             if (confirm('Are you sure you want to delete your account? This action cannot be undone.')) {
                 fetch(deleteUserUrl, {
                     method: 'DELETE',
                     headers: {
-                        'X-CSRFToken': '{{ csrf_token }}',
+                        'X-CSRFToken': csrfToken,
                         'Content-Type': 'application/json'
                     }
                 })
@@ -323,7 +353,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
                     if (response.ok) {
                         showAlert('Account deleted successfully.', 'success');
                         setTimeout(() => {
-                            window.location.href = '{% url "login" %}';
+                            window.location.href = loginUrl;
                         }, 500);
                     } else {
                         showAlert('Failed to delete account.', 'error');
