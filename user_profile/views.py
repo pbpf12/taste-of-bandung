@@ -67,8 +67,33 @@ def edit_profile(request):
     return JsonResponse({'status': 'error', 'message': 'Invalid request method'}, status=405)
 
 def show_history_as_json(request):
+    # Get the filter parameter from the query
+    filter = request.GET.get('filter', None)
+
     user = request.user
-    history = History.objects.filter(user=user).order_by('-created_at')
+    history = History.objects.filter(user=user)
+
+    # Define valid filter mappings
+    filter_mapping = {
+        # Sort by date
+        'date_asc': 'created_at',
+        'date_desc': '-created_at',
+        # Sort by price
+        'price_asc': 'dish__price',
+        'price_desc': '-dish__price',
+        # Sort by restaurant name
+        'restaurant_asc': 'dish__restaurant__name',
+        'restaurant_desc': '-dish__restaurant__name',
+        # Sort by dish name
+        'dish_asc': 'dish__name',
+        'dish_desc': '-dish__name'
+    }
+    
+    # Apply filter if it's valid
+    if filter in filter_mapping:
+        history = history.order_by(filter_mapping[filter])
+    else:
+        history = history.order_by('-created_at')
 
     return JsonResponse({
         'history': [

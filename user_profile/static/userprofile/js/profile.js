@@ -12,9 +12,11 @@ async function getUser() {
     }
 }
 
-async function getUserHistory() {
+async function getUserHistory(filter) {
     try {
-        const response = await fetch(showHistoryUrl);
+        const url = filter ? `${showHistoryUrl}?filter=${filter}` : showHistoryUrl;
+        const response = await fetch(url);
+        
         if (!response.ok) {
             showAlert('Failed to fetch user history', 'error');
         }
@@ -27,95 +29,93 @@ async function getUserHistory() {
     }
 }
 
-async function refreshHistory() {
-const history = await getUserHistory();
-const historyContainer = document.getElementById('user_history');
+async function refreshHistory(filter) {
+    const history = await getUserHistory(filter);
+    const historyContainer = document.getElementById('user_history');
 
-if (history && history.history && history.history.length > 0) {
-    historyContainer.innerHTML = ''; // Clear existing history
-    
-    // Create a container for all history items
-    const historyList = document.createElement('div');
-    historyList.className = 'space-y-4';
-    
-    const limitedHistory = history.history.slice(0, 5);
+    if (history && history.history && history.history.length > 0) {
+        historyContainer.innerHTML = ''; // Clear existing history
+        
+        // Create a container for all history items
+        const historyList = document.createElement('div');
+        historyList.className = 'space-y-4';
 
-    limitedHistory.forEach(item => {
-        // Create card for each history item
-        const card = document.createElement('div');
-        card.className = 'bg-white p-4 rounded-lg shadow-md w-full md:w-1/2 lg:w-full';
+        history.history.forEach(item => {
+            // Create card for each history item
+            const card = document.createElement('div');
+            card.className = 'bg-white p-4 rounded-lg shadow-md w-full md:w-1/2 lg:w-full';
 
-        // Create flex container for image and details
-        const flexContainer = document.createElement('div');
-        flexContainer.className = 'flex flex-col sm:flex-row gap-4';
+            // Create flex container for image and details
+            const flexContainer = document.createElement('div');
+            flexContainer.className = 'flex flex-col sm:flex-row gap-4';
 
-        // Image section
-        const imageSection = document.createElement('div');
-        imageSection.className = 'w-full sm:w-24 h-24 flex-shrink-0';
-        const img = document.createElement('img');
-        img.src = item.dish.image;
-        img.className = 'w-full h-full object-cover rounded-md';
-        img.alt = item.dish.name;
-        imageSection.appendChild(img);
+            // Image section
+            const imageSection = document.createElement('div');
+            imageSection.className = 'w-full sm:w-24 h-24 flex-shrink-0';
+            const img = document.createElement('img');
+            img.src = item.dish.image;
+            img.className = 'w-full h-full object-cover rounded-md';
+            img.alt = item.dish.name;
+            imageSection.appendChild(img);
 
-        // Details section
-        const details = document.createElement('div');
-        details.className = 'flex flex-col flex-grow';
+            // Details section
+            const details = document.createElement('div');
+            details.className = 'flex flex-col flex-grow';
 
-        // Dish name and restaurant
-        const nameRestaurant = document.createElement('div');
-        nameRestaurant.className = 'flex justify-between items-start mb-2';
+            // Dish name and restaurant
+            const nameRestaurant = document.createElement('div');
+            nameRestaurant.className = 'flex justify-between items-start mb-2';
 
-        const dishName = document.createElement('h3');
-        dishName.className = 'text-lg font-semibold text-stone-800';
-        dishName.textContent = item.dish.name;
+            const dishName = document.createElement('h3');
+            dishName.className = 'text-lg font-semibold text-stone-800';
+            dishName.textContent = item.dish.name;
 
-        const restaurant = document.createElement('p');
-        restaurant.className = 'text-sm text-stone-600';
-        restaurant.textContent = item.dish.restaurant;
+            const restaurant = document.createElement('p');
+            restaurant.className = 'text-sm text-stone-600';
+            restaurant.textContent = item.dish.restaurant;
 
-        nameRestaurant.appendChild(dishName);
-        nameRestaurant.appendChild(restaurant);
+            nameRestaurant.appendChild(dishName);
+            nameRestaurant.appendChild(restaurant);
 
-        // Price and date
-        const priceDate = document.createElement('div');
-        priceDate.className = 'flex justify-between items-end mt-auto';
+            // Price and date
+            const priceDate = document.createElement('div');
+            priceDate.className = 'flex justify-between items-end mt-auto';
 
-        const price = document.createElement('p');
-        price.className = 'text-stone-800 font-medium';
-        price.textContent = `$${parseFloat(item.dish.price).toFixed(2)}`;
+            const price = document.createElement('p');
+            price.className = 'text-stone-800 font-medium';
+            price.textContent = `$${parseFloat(item.dish.price).toFixed(2)}`;
 
-        const date = document.createElement('p');
-        date.className = 'text-sm text-stone-500';
-        date.textContent = new Date(item.created_at).toLocaleDateString();
+            const date = document.createElement('p');
+            date.className = 'text-sm text-stone-500';
+            date.textContent = new Date(item.created_at).toLocaleDateString();
 
-        priceDate.appendChild(price);
-        priceDate.appendChild(date);
+            priceDate.appendChild(price);
+            priceDate.appendChild(date);
 
-        // Assemble the details section
-        details.appendChild(nameRestaurant);
-        details.appendChild(priceDate);
+            // Assemble the details section
+            details.appendChild(nameRestaurant);
+            details.appendChild(priceDate);
 
-        // Assemble the flex container
-        flexContainer.appendChild(imageSection);
-        flexContainer.appendChild(details);
+            // Assemble the flex container
+            flexContainer.appendChild(imageSection);
+            flexContainer.appendChild(details);
 
-        // Add flex container to card
-        card.appendChild(flexContainer);
+            // Add flex container to card
+            card.appendChild(flexContainer);
 
-        // Add card to history list
-        historyList.appendChild(card);
-    });
-    
-    // Add the history list to the container
-    historyContainer.appendChild(historyList);
-} else {
-    historyContainer.innerHTML = `
-        <div class="text-center py-8 text-stone-600">
-            <p>No history available</p>
-        </div>
-    `;
-}
+            // Add card to history list
+            historyList.appendChild(card);
+        });
+        
+        // Add the history list to the container
+        historyContainer.appendChild(historyList);
+    } else {
+        historyContainer.innerHTML = `
+            <div class="text-center py-8 text-stone-600">
+                <p>No history available</p>
+            </div>
+        `;
+    }
 }
 
 async function refreshProfile() {
@@ -301,8 +301,6 @@ function clearHistory() {
 }
 
 // Event Listeners
-// profile.js
-
 document.addEventListener('DOMContentLoaded', (event) => {
     const clearHistoryBtn = document.getElementById('clearHistoryBtn');
     if (clearHistoryBtn) {
@@ -327,6 +325,23 @@ document.addEventListener('DOMContentLoaded', (event) => {
     const userForm = document.getElementById('userForm');
     if (userForm) {
         userForm.addEventListener('submit', edit_profile);
+    }
+
+    var filter = null;
+    const sortByNameButton = document.getElementById('sortByNameBtn');
+    if (sortByNameButton) {
+        sortByNameButton.addEventListener('click', async function() {
+            if (filter === 'dish_asc') {
+                filter = 'dish_desc';
+                await refreshHistory(filter);
+            } else if (filter === 'dish_desc') {
+                filter = 'dish_asc';
+                await refreshHistory(filter);
+            } else {
+                filter = 'dish_asc';
+                await refreshHistory(filter);
+            }
+        });
     }
 });
 
