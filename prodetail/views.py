@@ -3,13 +3,37 @@ from django.http import JsonResponse
 from main.models import Dish, Review, Bookmark, Restaurant, History, ReviewVote
 from django.contrib.auth.decorators import login_required
 from django.utils.timezone import now, timedelta
-from django.db.models import Avg, Q
+from django.db.models import Avg
 from django.views.decorators.http import require_POST
+from django.utils import timezone
 
+def update_dish_history(user, dish):
+    # Check if this dish is already in history
+    existing_history = History.objects.filter(user=user, dish=dish).first()
+    
+    if existing_history:
+        # Update timestamp of existing entry
+        existing_history.created_at = timezone.now()
+        existing_history.save()
+    else:
+        # Create new history entry
+        History.objects.create(user=user, dish=dish)
+        
+        # Get user's history count
+        history_count = History.objects.filter(user=user).count()
+        
+        # If more than 5 entries, delete the oldest ones
+        if history_count > 5:
+            # Get IDs of 5 most recent entries
+            recent_ids = History.objects.filter(user=user).order_by('-created_at')[:5].values_list('id', flat=True)
+            # Delete all other entries
+            History.objects.filter(user=user).exclude(id__in=list(recent_ids)).delete()
 
 # Dish detail view (with reviews sorted by upvotes, and current user's reviews on top)
 def dish_detail(request, dish_id):
     dish = get_object_or_404(Dish, id=dish_id)
+    print(request.user)
+    update_dish_history(request.user, dish)
     is_bookmarked = Bookmark.objects.filter(user=request.user, dish=dish).exists()
     dish.is_bookmarked = is_bookmarked
     
@@ -77,32 +101,46 @@ def bookmark_dish(request, dish_id):
 @require_POST
 def submit_review(request, dish_id):
     dish = get_object_or_404(Dish, id=dish_id)
-    
-    # Limit to 5 reviews per day
-    last_24_hours = now() - timedelta(days=1)
-    review_count = Review.objects.filter(user=request.user, created_at__gte=last_24_hours).count()
-    
-    if review_count >= 5:
-        return JsonResponse({'error': 'You have reached your review limit for today.'}, status=400)
-
     rating = request.POST.get('rating')
     comment = request.POST.get('comment')
 
-    if rating and comment:
-        review = Review.objects.create(user=request.user, dish=dish, rating=rating, comment=comment)
-        
-        # Recalculate the average rating for the dish
-        average_rating = Review.objects.filter(dish=dish).aggregate(Avg('rating'))['rating__avg']
-        dish.average_rating = average_rating
-        dish.save()
-        
-        return JsonResponse({
-            'message': 'Review submitted successfully!',
-            'average_rating': average_rating,
-            'new_review_id': review.id
-        })
+    # Validate rating and comment
+    if not rating or not comment:
+        return JsonResponse({'error': 'Rating and comment are required.'}, status=400)
+
+    try:
+        rating = int(rating)
+        if rating < 1 or rating > 5:
+            return JsonResponse({'error': 'Rating must be between 1 and 5.'}, status=400)
+    except ValueError:
+        return JsonResponse({'error': 'Invalid rating format.'}, status=400)
+
+    # Create a new review
+    review = Review.objects.create(user=request.user, dish=dish, rating=rating, comment=comment)
     
-    return JsonResponse({'error': 'Invalid input'}, status=400)
+    # Recalculate average rating
+    average_rating = Review.objects.filter(dish=dish).aggregate(Avg('rating'))['rating__avg']
+    dish.average_rating = average_rating
+    dish.save()
+
+    return JsonResponse({
+        'message': 'Review submitted successfully!',
+        'average_rating': average_rating,
+        'new_review_id': review.id
+    })
+
+@login_required
+def check_review_limit(request):
+    last_24_hours = now() - timedelta(days=1)
+    review_count = Review.objects.filter(user=request.user, created_at__gte=last_24_hours).count()
+    limit_reached = review_count >= 5
+    reviews_remaining = 5 - review_count if review_count < 5 else 0
+    
+    return JsonResponse({
+        'limit_reached': limit_reached,
+        'reviews_remaining': reviews_remaining,
+        'review_count': review_count
+    })
 
 @login_required
 @require_POST

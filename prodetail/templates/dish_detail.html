@@ -20,7 +20,7 @@
                     
                     <div class="flex items-center gap-6 mb-6">
                         <div class="bg-[#FFB845]/10 px-4 py-2 rounded-lg">
-                            <p class="text-2xl font-bold text-[#FFB845]">${{ dish.price }}</p>
+                            <p class="text-2xl font-bold text-[#FFB845]">Rp.{{ dish.price }}</p>
                         </div>
                         <div class="bg-gray-100 px-4 py-2 rounded-lg">
                             <p class="text-2xl font-bold text-[#2C2C2C]">★ {{ dish.average_rating|default:"New" }}</p>
@@ -73,23 +73,30 @@
                                     <span class="font-medium text-[#2C2C2C]">{{ review.user }}</span>
                                     <div class="flex items-center mt-1">
                                         <!-- Display rating as static stars initially -->
-                                        <div class="review-rating-display" data-review-id="{{ review.id }}">
+                                        <div class="review-rating-display flex items-center" data-review-id="{{ review.id }}">
                                             {% for i in "12345" %}
-                                            <svg class="w-5 h-5 {% if i <= review.rating|stringformat:"i" %}text-[#FFB845]{% else %}text-gray-300{% endif %}" 
-                                                 fill="currentColor" viewBox="0 0 20 20">
+                                            <svg class="w-5 h-5 {% if i <= review.rating|stringformat:'i' %}text-[#FFB845]{% else %}text-gray-300{% endif %}" 
+                                                 fill="currentColor" 
+                                                 viewBox="0 0 20 20">
                                                 <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
                                             </svg>
                                             {% endfor %}
                                         </div>
                                         <!-- Editable star rating for editing mode, initially hidden -->
-                                        <div class="review-rating-edit hidden flex items-center gap-1" data-review-id="{{ review.id }}">
-                                            {% for i in "12345" %}
-                                            <svg data-rating="{{ i }}" class="star w-5 h-5 cursor-pointer transition-colors duration-200 text-gray-300" fill="currentColor" viewBox="0 0 24 24">
-                                                <path d="M12 4.318l2.735 5.542 6.135.891-4.433 4.319 1.045 6.092L12 17.964 8.518 21.16l1.045-6.092-4.433-4.319 6.135-.891L12 4.318z" />
-                                            </svg>
-                                            {% endfor %}
+                                        <div class="review-rating-edit hidden" data-review-id="{{ review.id }}">
+                                            <div class="flex items-center gap-1">
+                                                {% for i in "12345" %}
+                                                <svg data-rating="{{ i }}" 
+                                                     class="star w-5 h-5 cursor-pointer transition-colors duration-200 hover:text-[#FFB845] text-gray-300" 
+                                                     fill="currentColor" 
+                                                     viewBox="0 0 24 24">
+                                                    <path d="M12 4.318l2.735 5.542 6.135.891-4.433 4.319 1.045 6.092L12 17.964 8.518 21.16l1.045-6.092-4.433-4.319 6.135-.891L12 4.318z" />
+                                                </svg>
+                                                {% endfor %}
+                                            </div>
                                             <input type="hidden" class="edit-rating-value" value="{{ review.rating }}">
                                         </div>
+                                    
                                     </div>                                  
                                 </div>
                             </div>
@@ -278,30 +285,41 @@ $(document).ready(function() {
     // Review submission via AJAX
     $('#submit-review-form').submit(function(e) {
         e.preventDefault();
-        const rating = $('#rating').val();
-        const comment = $('#comment').val();
-        
-        if (!rating) {
-            alert('Please select a rating before submitting.');
-            return;
-        }
-
+            // Check review limit first
         $.ajax({
-            url: '/dish/{{ dish.id }}/submit_review/',
-            method: 'POST',
-            data: {
-                csrfmiddlewaretoken: '{{ csrf_token }}',
-                rating: rating,
-                comment: comment
-            },
+            url: '/review/check_limit/',
+            method: 'GET',
             success: function(data) {
-                alert('Review submitted!');
-                location.reload();
-            },
-            error: function() {
-                alert('Failed to submit review.');
+                if (data.limit_reached) {
+                    alert('You have reached your limit of 5 reviews per day. Please try again tomorrow.');
+                    return;
+                }
+                const rating = $('#rating').val();
+                const comment = $('#comment').val();
+                
+                if (!rating) {
+                    alert('Please select a rating before submitting.');
+                    return;
+                }
+
+                $.ajax({
+                    url: '/dish/{{ dish.id }}/submit_review/',
+                    method: 'POST',
+                    data: {
+                        csrfmiddlewaretoken: '{{ csrf_token }}',
+                        rating: rating,
+                        comment: comment
+                    },
+                    success: function(data) {
+                        alert('Review submitted!');
+                        location.reload();
+                    },
+                    error: function() {
+                        alert('Failed to submit review.');
+                    }
+                });
             }
-        });
+        })
     });
 
     $(document).on('click', '.edit-review', function() {
