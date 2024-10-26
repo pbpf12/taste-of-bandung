@@ -44,7 +44,8 @@ INSTALLED_APPS = [
     'register',
     'search',
     'landing',
-    'prodetail'
+    'prodetail',
+    'user_profile',
 ]
 
 MIDDLEWARE = [
