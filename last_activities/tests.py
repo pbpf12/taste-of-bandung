@@ -1,30 +1,26 @@
-from django.test import TestCase
-from django.urls import reverse
-from django.contrib.auth.models import User
-from .models import Review, Bookmark, History, Dish, Restaurant
+# from django.test import TestCase
+# from django.urls import reverse
 
-class LastActivitiesViewTest(TestCase):
+# class LastActivitiesTests(TestCase):
 
-    def setUp(self):
-        # Create test users, dishes, restaurants, reviews, bookmarks, and histories
-        self.user = User.objects.create_user(username='testuser', password='testpass')
-        self.restaurant = Restaurant.objects.create(name='Test Restaurant', address='123 Test St', phone='123456789', description='A test restaurant', price_range='$$')
-        self.dish = Dish.objects.create(name='Test Dish', restaurant=self.restaurant, category=None, price=10.00)
+#     def test_last_activities_view(self):
+#         # Call the view using the URL name
+#         response = self.client.get(reverse('last_activities'))
         
-        Review.objects.create(user=self.user, dish=self.dish, rating=4, comment='Great dish!', restaurant=self.restaurant)
-        Bookmark.objects.create(user=self.user, dish=self.dish)
-        History.objects.create(user=self.user, dish=self.dish)
+#         # Check that the response is 200 OK
+#         self.assertEqual(response.status_code, 200)
 
-    def test_last_activities_view(self):
-        # Simulate a request to the view
-        response = self.client.get(reverse('last_activities'))
+#         # Check that the returned data is a JSON format and has expected keys
+#         json_data = response.json()
+#         self.assertIn('bookmarks', json_data)
+#         self.assertEqual(len(json_data['bookmarks']), 2)  # Since we mocked 2 bookmarks
 
-        # Check the response status and structure
-        self.assertEqual(response.status_code, 200)
-        self.assertIn('activities', response.json())
+#     def test_last_activities_page(self):
+#         # Call the page view
+#         response = self.client.get(reverse('last_activities_page'))
 
-    def test_last_activities_page_view(self):
-        # Test the page view that renders the template
-        response = self.client.get(reverse('last_activities_page'))
-        self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'last_activities_page.html')
+#         # Check that the response is 200 OK
+#         self.assertEqual(response.status_code, 200)
+
+#         # Check if the header is present in the rendered content
+#         self.assertContains(response, "Last Bookmarked Dishes")

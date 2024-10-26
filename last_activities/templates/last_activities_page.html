@@ -12,25 +12,17 @@
             padding: 0;
         }
 
-        h1, h2 {
+        h1 {
             color: #333;
             text-align: center;
-        }
-
-        .section {
-            margin: 40px 20px;
-        }
-
-        .separator {
-            height: 2px;
-            background-color: #333;
-            margin: 40px 0;
+            margin: 20px 0;
         }
 
         .container {
             display: grid;
-            grid-template-columns: repeat(3, 1fr); /* 3 columns */
-            gap: 20px;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); /* Responsive grid */
+            gap: 15px;
+            margin: 0 20px;
         }
 
         .card {
@@ -40,14 +32,13 @@
             color: white;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             border: 2px solid #5a6bbd;
-            position: relative; /* Allow absolute positioning for the delete button */
+            position: relative;
         }
 
         .card h3 {
             font-size: 1.3em;
-            margin: 5px 0 10px 0; /* Reduce the top margin */
-            color: black; /* Set user name color to black */
-            margin-right: 80px; /* Keep space for the delete button */
+            margin: 5px 0;
+            color: black;
         }
 
         .card p {
@@ -55,106 +46,87 @@
             font-size: 1em;
         }
 
-        /* Delete button */
+        /* Delete button at top-right */
         .btn-delete {
             position: absolute;
-            bottom: 10px; /* Positioned near the bottom */
-            right: 10px; /* Positioned near the right */
+            top: 5px;
+            right: 5px;
             background-color: red;
             color: white;
-            border-radius: 5px;
-            font-size: 0.9em;
+            border-radius: 5px; /* Adjusted for slightly rounded edges */
+            font-size: 0.8em; /* Adjusted font size */
             cursor: pointer;
-            padding: 5px 10px;
+            padding: 5px 10px; /* More padding for a squarer look */
             border: none;
+            text-align: center;
         }
 
         .btn-delete:hover {
-            background-color: #ff4d4d; /* Lighter red on hover */
-        }
-
-        .actions {
-            display: flex;
-            justify-content: flex-end;
-            gap: 10px;
-            margin-top: 10px;
+            background-color: #ff4d4d;
         }
     </style>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 <body>
-    <h1>Last Activities</h1>
-
-    <!-- History Section -->
-    <div class="section">
-        <h2>History</h2>
-        <div class="container" id="history-container">
-            <!-- AJAX will populate the history cards here -->
-        </div>
-    </div>
-
-    <!-- Separator -->
-    <div class="separator"></div>
+    <h1>Last Bookmarked Dishes</h1>
 
     <!-- Bookmarks Section -->
-    <div class="section">
-        <h2>Bookmarks</h2>
-        <div class="container" id="bookmarks-container">
-            <!-- AJAX will populate the bookmark cards here -->
-        </div>
+    <div class="container" id="bookmarks-container">
+        <!-- AJAX will populate the bookmark cards here -->
     </div>
 
     <script type="text/javascript">
         $(document).ready(function(){
-            // Load cards and display them
-            function loadLastActivities() {
+            // Load bookmarks and display them
+            function loadBookmarks() {
                 $.ajax({
-                    url: "{% url 'last_activities' %}",
+                    url: "{% url 'last_activities' %}",  // Fetches data from the server
                     method: "GET",
                     success: function(data) {
-                        populateCards('bookmarks', data.bookmarks);
-                        populateCards('history', data.history);
+                        populateCards(data.bookmarks);
                     }
                 });
             }
-
+    
             // Populate cards dynamically
-            function populateCards(type, items) {
-                const container = $('#' + type + '-container');
+            function populateCards(bookmarks) {
+                const container = $('#bookmarks-container');
                 container.empty();
-                items.forEach(function(item) {
+                bookmarks.forEach(function(item) {
                     container.append(
                         '<div class="card">' +
-                            '<button class="btn-delete" onclick="deleteItem(' + item.id + ', \'' + type + '\')">Delete</button>' +
-                            '<h3>' + item.user + '</h3>' +
-                            '<p><strong>' + (type === 'history' ? 'Dish:' : 'Restaurant:') + '</strong> ' + (type === 'history' ? item.dish : item.restaurant) + '</p>' +
-                            (type === 'bookmarks' ? '<p><strong>Dish:</strong> ' + item.dish + '</p>' : '') +
+                            '<button class="btn-delete" onclick="deleteItem(' + item.id + ')">Remove</button>' +
+                            '<h3>' + item.user__username + '</h3>' +
+                            '<p><strong>Restaurant:</strong> ' + item.restaurant__name + '</p>' +
+                            '<p><strong>Dish:</strong> ' + item.dish__name + '</p>' +
                         '</div>'
                     );
                 });
             }
-
-            // Function to delete an item
-            function deleteItem(itemId, type) {
+    
+            // Function to delete a bookmark
+            function deleteItem(bookmarkId) {
                 $.ajax({
-                    url: '/delete_' + type + '/' + itemId,
+                    url: "{% url 'delete_bookmark' %}",
                     method: 'POST',
                     data: {
+                        'id': bookmarkId,
                         'csrfmiddlewaretoken': '{{ csrf_token }}'
                     },
-                    success: function() {
-                        alert(type.charAt(0).toUpperCase() + type.slice(1) + ' deleted successfully');
-                        loadLastActivities(); // Reload data
+                    success: function(response) {
+                        alert(response.status);
+                        loadBookmarks(); // Reload data after deletion
+                    },
+                    error: function() {
+                        alert('Error deleting bookmark');
                     }
                 });
             }
-
+    
             // Initial load
-            loadLastActivities();
-
-            // Optionally, reload every 30 seconds
-            setInterval(loadLastActivities, 30000);
+            loadBookmarks();
         });
     </script>
+    
 </body>
 </html>

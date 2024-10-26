@@ -18,7 +18,7 @@ def check_authentication(request):
     return response
 
 def login_user(request):
-    next_url = (request.GET.get('next', '/'))[1:].replace('-', '_')
+    next_url = (request.GET.get('next', '/')).replace('-', '_').replace('/','')
 
     if request.method == 'POST':
         form = AuthenticationForm(data=request.POST)
