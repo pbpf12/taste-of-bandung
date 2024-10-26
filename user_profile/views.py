@@ -18,6 +18,7 @@ def show_json(request):
         'email': user.email,
     })
 
+@login_required
 def show_profile(request):
     user = request.user
     

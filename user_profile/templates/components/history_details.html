@@ -1,3 +1,5 @@
+{% load static %}
+
 <!-- History Header-->
 <div class="flex flex-row items-center justify-between mt-4 mb-2 md:mb-4 w-full">
     
@@ -8,8 +10,8 @@
         </p>
 
         <!-- Sort History Button -->
-        <button id="sortByNameBtn" class="bg-blue-500 text-white px-4 py-2 rounded text-sm md:text-base">
-            Sort by Name
+        <button id="sortByNameBtn" class="bg-white w-12 items-center flex flex-col justify-center text-white rounded text-sm md:text-base">
+            <img src="{% static 'userprofile/img/sort_name.png' %}" alt="Sort Icon" class="md:w-6 md:h-6 sm:w-2 sm:h-2">
         </button>
     </div>
 
