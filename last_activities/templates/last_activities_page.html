@@ -1,0 +1,99 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block meta %}
+<style>
+html {
+    min-height: 100%;
+    background: linear-gradient(to bottom, 
+    #FFB845, /* Warna orange utama */
+    #FFC966, /* Warna transisi 1, kuning cerah */
+    #FFD57A, /* Warna transisi 2, kuning lebih lembut */
+    #FFE38E, /* Warna transisi 3, kuning pastel */
+    #FFF0A1, /* Warna transisi 4, kuning sangat terang */
+    #FFEB84, /* Warna transisi 5, hampir putih dengan sentuhan kuning */
+    #FFF7C2  /* Warna akhir, sangat terang */
+    );
+}
+</style>
+<link rel="stylesheet" href="{% static 'css/base.css' %}">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+    var lastActivitiesUrl = "{% url 'last_activities' %}";
+    var deleteBookmarkUrl = "{% url 'delete_bookmark' %}";
+</script>
+<script src="{% static 'js/last_activities.js' %}"></script>
+{% endblock meta %}
+
+{% block content %}
+{% include "navbar.html" %}
+
+<div class="bg-[#ffbb4e] min-h-screen py-10">
+    <div class="container mx-auto px-4 py-8 rounded-xl shadow-lg">
+        <h1 class="text-4xl font-bold text-center text-white mb-8">Bookmarked Dishes</h1>
+
+        <!-- Platform Container for Bookmark Cards -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="bookmarks-container">
+            <!-- AJAX will populate the bookmark cards here -->
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        function loadBookmarks() {
+            $.ajax({
+                url: lastActivitiesUrl,
+                method: "GET",
+                success: function(data) {
+                    populateCards(data.bookmarks);
+                }
+            });
+        }
+
+        function populateCards(bookmarks) {
+            const container = $('#bookmarks-container');
+            container.empty();  // Clear any existing content
+            bookmarks.forEach(function(item) {
+                // Add data-id to the main div for each bookmark
+                container.append(`
+                    <div class="bg-[#424242] p-6 rounded-lg shadow-md" data-id="${item.id}">
+                        <h3 class="text-xl font-semibold text-[#ffffff] mb-4">User: ${item.user__username}</h3>
+                        <div class="bg-[#3b3b3b] text-[#ffffff] p-4 rounded-md">
+                            <p><strong>Restaurant:</strong> ${item.restaurant__name}</p>
+                            <p><strong>Dish:</strong> ${item.dish__name}</p>
+                            <button class="btn-delete bg-red-500 text-white py-2 px-4 rounded mt-4">Remove</button>
+                        </div>
+                    </div>
+                `);
+            });
+        }
+
+        // Updated selector to retrieve the data-id of the bookmark to be deleted
+        $('#bookmarks-container').on('click', '.btn-delete', function() {
+            const bookmarkId = $(this).closest('[data-id]').data('id');  // Correct selector for data-id
+            deleteItem(bookmarkId);
+        });
+
+        function deleteItem(bookmarkId) {
+            $.ajax({
+                url: deleteBookmarkUrl,
+                method: 'POST',
+                data: {
+                    'id': bookmarkId,
+                    'csrfmiddlewaretoken': $('meta[name="csrf-token"]').attr('content')
+                },
+                success: function(response) {
+                    loadBookmarks();  // Refresh the list after deletion
+                },
+                error: function(xhr, status, error) {
+                    alert('Error deleting bookmark: ' + xhr.responseText);
+                }
+            });
+        }
+
+        loadBookmarks();  // Load bookmarks on page load
+    });
+</script>
+
+{% endblock %}

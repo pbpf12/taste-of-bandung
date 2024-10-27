@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'landing',
     'prodetail',
     'user_profile',
+    'last_activities',
 ]
 
 MIDDLEWARE = [
