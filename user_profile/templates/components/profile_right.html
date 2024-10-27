@@ -1,16 +1,16 @@
 <!-- Alert for Incomplete Profile -->
-<div id="incomplete-profile-alert" class="{% if user.first_name and user.last_name and user.email %}hidden{% endif %} bg-yellow-100 border border-yellow-400 text-yellow-700 px-4 py-3 rounded w-full mt-4 mb-4 md:mt-0 lg:mt-0" role="alert">
+<div id="incomplete-profile-alert" class="{% if user.first_name and user.last_name and user.email %}hidden{% endif %} bg-[#FFFBEB] border border-[#FBBF24] text-[#92400E] px-4 py-3 rounded w-full mt-4 mb-4 md:mt-0 lg:mt-0" role="alert">
     <strong class="font-bold">Incomplete Profile!</strong>
     <span class="block sm:inline">Please complete your profile by providing your first name, last name, and email.</span>
 </div>
 
 <!-- Profile Header -->
-<div class="flex flex-row md:flex-row sm:flex-row items-center justify-between mb-4 w-full">
-    <p class="text-stone-600 text-2xl md:text-3xl lg:text-4xl font-bold">Your Profile</p>
+<div class="flex flex-row md:flex-row sm:flex-row items-center justify-between mb-4 w-full sm:mt-2">
+    <p class="text-[#2C1810] text-2xl md:text-3xl lg:text-4xl font-bold">Your Profile</p>
 
     <!-- Edit Profile Button -->    
     <div class="flex flex-row items-center md:justify-end md:mt-0">
-        <button id="editProfileBtn" class="bg-blue-500 text-white px-4 py-2 rounded text-sm md:text-base">
+        <button id="editProfileBtn" class="bg-[#E67E22] hover:bg-[#D35400] text-white px-4 py-2 rounded text-sm md:text-base">
             Edit Profile
         </button>
     </div>
@@ -21,8 +21,8 @@
     <!-- Profile Name Fields -->
     <div class="flex flex-col md:flex-row md:space-x-8 space-y-4 md:space-y-0">
         <div class="flex flex-col w-full md:w-1/2">
-            <label class="font-semibold text-sm md:text-base">First Name</label>
-            <p id="profile-first-name" class="text-gray-700 text-base md:text-lg">
+            <p class="font-semibold text-sm md:text-base text-[#66493C]">First Name</p>
+            <p id="profile-first-name" class="text-[#8B6F63] text-base md:text-lg">
                 {% if user.first_name %}
                     {{ user.first_name }}
                 {% else %}
@@ -31,8 +31,8 @@
             </p>
         </div>
         <div class="flex flex-col w-full md:w-1/2">
-            <label class="font-semibold text-sm md:text-base">Last Name</label>
-            <p id="profile-last-name" class="text-gray-700 text-base md:text-lg">
+            <p class="font-semibold text-sm md:text-base text-[#66493C]">Last Name</p>
+            <p id="profile-last-name" class="text-[#8B6F63] text-base md:text-lg">
                 {% if user.last_name %}
                     {{ user.last_name }}
                 {% else %}
@@ -44,8 +44,8 @@
     
     <!-- Email Field -->
     <div class="flex flex-col">
-        <label class="font-semibold text-sm md:text-base">Email</label>
-        <p id="profile-email" class="text-gray-700 text-base md:text-lg">
+        <p class="font-semibold text-sm md:text-base text-[#66493C]">Email</p>
+        <p id="profile-email" class="text-[#8B6F63] text-base md:text-lg">
             {% if user.email %}
                 {{ user.email }}
             {% else %}

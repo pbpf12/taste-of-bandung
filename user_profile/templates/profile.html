@@ -15,7 +15,6 @@
     const sortNameAscUrl = "{% static 'userprofile/img/sort_name_asc.png' %}";
     const sortNameDescUrl = "{% static 'userprofile/img/sort_name_desc.png' %}";
 </script>
-<script src="{% static 'userprofile/js/profile.js' %}"></script>
 {% endblock meta %}
 
 {% block content %}
@@ -26,7 +25,7 @@
         <!-- Profile Picture and Username -->
         {% include 'components/profile_left.html' %}
 
-        <div class="flex flex-col border-t-2 md:border-t-0 md:border-l-2 border-solid border-stone-800 md:pl-8 w-full">
+        <div class="flex flex-col border-t-2 md:border-t-0 md:border-l-2 border-solid border-[#D4B670] md:pl-8 w-full">
             {% include 'components/profile_right.html' %}
             {% include 'components/edit_modal.html' %}
             {% include 'components/history_details.html' %}
@@ -36,7 +35,7 @@
 
             <!-- Mobile Delete Account Button-->
             <div class="flex flex-row w-full mt-4 justify-center items-center">
-                <button id="delete-account-btn" class="bg-red-500 text-white px-4 py-2 rounded text-sm sm:text-base w-full sm:block md:hidden">
+                <button id="delete-account-btn" class="bg-[#DC2626] hover:bg-[#B91C1C] text-white px-4 py-2 rounded text-sm sm:text-base w-full sm:block md:hidden">
                     Delete Account
                 </button>
             </div>
@@ -90,11 +89,11 @@ async function refreshHistory(filter) {
         history.history.forEach(item => {
             // Create card for each history item
             const card = document.createElement('div');
-            card.className = 'bg-white p-4 rounded-lg shadow-md w-full';
+            card.className = `bg-[#FFF8ED] p-4 rounded-lg shadow-md w-full`;
 
             // Create flex container for image and details
             const flexContainer = document.createElement('div');
-            flexContainer.className = 'flex flex-col sm:flex-row gap-4';
+            flexContainer.className = `flex flex-col sm:flex-row gap-4`;
 
             // Image section
             const imageSection = document.createElement('div');
@@ -114,11 +113,11 @@ async function refreshHistory(filter) {
             nameRestaurant.className = 'flex justify-between items-start mb-2';
 
             const dishName = document.createElement('h3');
-            dishName.className = 'text-lg font-semibold text-stone-800';
+            dishName.className = `text-lg font-semibold text-[#4A3427]`;
             dishName.textContent = item.dish.name;
 
             const restaurant = document.createElement('p');
-            restaurant.className = 'text-sm text-stone-600';
+            restaurant.className = 'text-sm text-[#66493C]';
             restaurant.textContent = item.dish.restaurant;
 
             nameRestaurant.appendChild(dishName);
@@ -129,11 +128,11 @@ async function refreshHistory(filter) {
             priceDate.className = 'flex justify-between items-end mt-auto';
 
             const price = document.createElement('p');
-            price.className = 'text-stone-800 font-medium';
-            price.textContent = `$${parseFloat(item.dish.price).toFixed(2)}`;
+            price.className = 'text-[#66493C] font-medium';
+            price.textContent = `Rp. ${parseFloat(item.dish.price)}`;
 
             const date = document.createElement('p');
-            date.className = 'text-sm text-stone-500';
+            date.className = 'text-sm text-[#66493C]';
             date.textContent = new Date(item.created_at).toLocaleDateString();
 
             priceDate.appendChild(price);
