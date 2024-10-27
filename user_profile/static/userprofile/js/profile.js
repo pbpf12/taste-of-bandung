@@ -43,7 +43,7 @@ async function refreshHistory(filter) {
         history.history.forEach(item => {
             // Create card for each history item
             const card = document.createElement('div');
-            card.className = 'bg-white p-4 rounded-lg shadow-md w-full';
+            card.className = 'bg-[#FFF8ED] p-4 rounded-lg shadow-md w-full';
 
             // Create flex container for image and details
             const flexContainer = document.createElement('div');
@@ -67,11 +67,11 @@ async function refreshHistory(filter) {
             nameRestaurant.className = 'flex justify-between items-start mb-2';
 
             const dishName = document.createElement('h3');
-            dishName.className = 'text-lg font-semibold text-stone-800';
+            dishName.className = 'text-lg font-semibold text-[#4A3427]';
             dishName.textContent = item.dish.name;
 
             const restaurant = document.createElement('p');
-            restaurant.className = 'text-sm text-stone-600';
+            restaurant.className = 'text-sm text-[#66493C]';
             restaurant.textContent = item.dish.restaurant;
 
             nameRestaurant.appendChild(dishName);
@@ -82,11 +82,11 @@ async function refreshHistory(filter) {
             priceDate.className = 'flex justify-between items-end mt-auto';
 
             const price = document.createElement('p');
-            price.className = 'text-stone-800 font-medium';
-            price.textContent = `$${parseFloat(item.dish.price).toFixed(2)}`;
+            price.className = 'text-[#9C8579] font-medium';
+            price.textContent = `Rp. ${parseFloat(item.dish.price)}`;
 
             const date = document.createElement('p');
-            date.className = 'text-sm text-stone-500';
+            date.className = 'text-sm text-[#66493C]';
             date.textContent = new Date(item.created_at).toLocaleDateString();
 
             priceDate.appendChild(price);
@@ -327,20 +327,24 @@ document.addEventListener('DOMContentLoaded', (event) => {
         userForm.addEventListener('submit', edit_profile);
     }
 
-    var filter = null;
+    let filter = null;
     const sortByNameButton = document.getElementById('sortByNameBtn');
+    const sortByNameButtonIcon = document.getElementById('sortByNameBtnIcon')
+    
     if (sortByNameButton) {
         sortByNameButton.addEventListener('click', async function() {
             if (filter === 'dish_asc') {
                 filter = 'dish_desc';
-                await refreshHistory(filter);
-            } else if (filter === 'dish_desc') {
-                filter = 'dish_asc';
-                await refreshHistory(filter);
+                sortByNameButtonIcon.classList = `h-6 w-6`
+                sortByNameButtonIcon.src = sortNameDescUrl;
+                sortByNameButtonIcon.alt = 'Sort by name descending';
             } else {
                 filter = 'dish_asc';
-                await refreshHistory(filter);
+                sortByNameButtonIcon.classList = `h-6 w-6`
+                sortByNameButtonIcon.src = sortNameAscUrl;
+                sortByNameButtonIcon.alt = 'Sort by name ascending';
             }
+            await refreshHistory(filter);
         });
     }
 });
@@ -353,6 +357,8 @@ document.addEventListener('DOMContentLoaded', (event) => {
     const deleteAccountBtn = document.getElementById('delete-account-btn');
     // Get the CSRF token from the hidden input field
     const csrfToken = document.querySelector('input[name="csrfmiddlewaretoken"]').value;
+    event.preventDefault();
+    event.stopPropagation();
 
     if (deleteAccountBtn) {
         deleteAccountBtn.addEventListener('click', function() {
