@@ -49,9 +49,6 @@ Sumber inisial dataset dapat dilihat dari :
 - **Pengguna**  
   Dapat mencari produk, menambahkan *bookmark*, meninggalkan ulasan, menyarankan produk baru, mengelola profil, dan menikmati fitur lainnya.
 
-- **Guest**<br>
-  Hanya dapat mencari produk, mengakses informasi produk (tetapi tidak bisa memberikan ulasan), mengakses home page / landing.
-
 - **Admin**  
   Memiliki kendali penuh untuk menambah atau menghapus produk, mengelola pengguna, serta menetapkan aturan situs. Admin juga berwenang memoderasi ulasan pengguna biasa di setiap laman produk, memastikan konten yang ditampilkan sesuai dan layak.
 
