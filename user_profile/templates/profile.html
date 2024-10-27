@@ -84,7 +84,7 @@ async function refreshHistory(filter) {
         
         // Create a container for all history items
         const historyList = document.createElement('div');
-        historyList.className = 'space-y-4';
+        historyList.className = `space-y-4`;
 
         history.history.forEach(item => {
             // Create card for each history item
@@ -97,10 +97,10 @@ async function refreshHistory(filter) {
 
             // Image section
             const imageSection = document.createElement('div');
-            imageSection.className = 'w-full sm:w-24 h-24 flex-shrink-0';
+            imageSection.className = `w-full sm:w-24 h-24 flex-shrink-0`;
             const img = document.createElement('img');
             img.src = item.dish.image;
-            img.className = 'w-full h-full object-cover rounded-md';
+            img.className = `w-full h-full object-cover rounded-md`;
             img.alt = item.dish.name;
             imageSection.appendChild(img);
 
@@ -117,7 +117,7 @@ async function refreshHistory(filter) {
             dishName.textContent = item.dish.name;
 
             const restaurant = document.createElement('p');
-            restaurant.className = 'text-sm text-[#66493C]';
+            restaurant.className = `text-sm text-[#66493C]`;
             restaurant.textContent = item.dish.restaurant;
 
             nameRestaurant.appendChild(dishName);
@@ -125,14 +125,14 @@ async function refreshHistory(filter) {
 
             // Price and date
             const priceDate = document.createElement('div');
-            priceDate.className = 'flex justify-between items-end mt-auto';
+            priceDate.className = `flex justify-between items-end mt-auto`;
 
             const price = document.createElement('p');
-            price.className = 'text-[#66493C] font-medium';
+            price.className = `text-[#66493C] font-medium`;
             price.textContent = `Rp. ${parseFloat(item.dish.price)}`;
 
             const date = document.createElement('p');
-            date.className = 'text-sm text-[#66493C]';
+            date.className = `text-sm text-[#66493C]`;
             date.textContent = new Date(item.created_at).toLocaleDateString();
 
             priceDate.appendChild(price);
