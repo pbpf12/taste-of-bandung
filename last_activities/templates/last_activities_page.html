@@ -1,132 +1,85 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Last Activities</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            margin: 0;
-            padding: 0;
-        }
+{% extends 'base.html' %}
+{% load static %}
 
-        h1 {
-            color: #333;
-            text-align: center;
-            margin: 20px 0;
-        }
+{% block meta %}
+<link rel="stylesheet" href="{% static 'css/base.css' %}">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+    var lastActivitiesUrl = "{% url 'last_activities' %}";
+    var deleteBookmarkUrl = "{% url 'delete_bookmark' %}";
+</script>
+<script src="{% static 'js/last_activities.js' %}"></script>
+{% endblock meta %}
 
-        .container {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); /* Responsive grid */
-            gap: 15px;
-            margin: 0 20px;
-        }
+{% block content %}
+{% include "navbar.html" %}
 
-        .card {
-            background-color: #7289da;
-            border-radius: 10px;
-            padding: 10px;
-            color: white;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            border: 2px solid #5a6bbd;
-            position: relative;
-        }
+<div class="bg-[#ffbb4e] min-h-screen py-10">
+    <div class="container mx-auto px-4 py-8 bg-[#2e2e2e] rounded-xl shadow-lg">
+        <h1 class="text-4xl font-bold text-center text-[#f9bd53] mb-8">Bookmarked Dishes</h1>
 
-        .card h3 {
-            font-size: 1.3em;
-            margin: 5px 0;
-            color: black;
-        }
-
-        .card p {
-            margin: 5px 0;
-            font-size: 1em;
-        }
-
-        /* Delete button at top-right */
-        .btn-delete {
-            position: absolute;
-            top: 5px;
-            right: 5px;
-            background-color: red;
-            color: white;
-            border-radius: 5px; /* Adjusted for slightly rounded edges */
-            font-size: 0.8em; /* Adjusted font size */
-            cursor: pointer;
-            padding: 5px 10px; /* More padding for a squarer look */
-            border: none;
-            text-align: center;
-        }
-
-        .btn-delete:hover {
-            background-color: #ff4d4d;
-        }
-    </style>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-</head>
-<body>
-    <h1>Last Bookmarked Dishes</h1>
-
-    <!-- Bookmarks Section -->
-    <div class="container" id="bookmarks-container">
-        <!-- AJAX will populate the bookmark cards here -->
+        <!-- Platform Container for Bookmark Cards -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="bookmarks-container">
+            <!-- AJAX will populate the bookmark cards here -->
+        </div>
     </div>
+</div>
 
-    <script type="text/javascript">
-        $(document).ready(function(){
-            // Load bookmarks and display them
-            function loadBookmarks() {
-                $.ajax({
-                    url: "{% url 'last_activities' %}",  // Fetches data from the server
-                    method: "GET",
-                    success: function(data) {
-                        populateCards(data.bookmarks);
-                    }
-                });
-            }
-    
-            // Populate cards dynamically
-            function populateCards(bookmarks) {
-                const container = $('#bookmarks-container');
-                container.empty();
-                bookmarks.forEach(function(item) {
-                    container.append(
-                        '<div class="card">' +
-                            '<button class="btn-delete" onclick="deleteItem(' + item.id + ')">Remove</button>' +
-                            '<h3>' + item.user__username + '</h3>' +
-                            '<p><strong>Restaurant:</strong> ' + item.restaurant__name + '</p>' +
-                            '<p><strong>Dish:</strong> ' + item.dish__name + '</p>' +
-                        '</div>'
-                    );
-                });
-            }
-    
-            // Function to delete a bookmark
-            function deleteItem(bookmarkId) {
-                $.ajax({
-                    url: "{% url 'delete_bookmark' %}",
-                    method: 'POST',
-                    data: {
-                        'id': bookmarkId,
-                        'csrfmiddlewaretoken': '{{ csrf_token }}'
-                    },
-                    success: function(response) {
-                        alert(response.status);
-                        loadBookmarks(); // Reload data after deletion
-                    },
-                    error: function() {
-                        alert('Error deleting bookmark');
-                    }
-                });
-            }
-    
-            // Initial load
-            loadBookmarks();
+<script type="text/javascript">
+    $(document).ready(function() {
+        function loadBookmarks() {
+            $.ajax({
+                url: lastActivitiesUrl,
+                method: "GET",
+                success: function(data) {
+                    populateCards(data.bookmarks);
+                }
+            });
+        }
+
+        function populateCards(bookmarks) {
+            const container = $('#bookmarks-container');
+            container.empty();  // Clear any existing content
+            bookmarks.forEach(function(item) {
+                // Add data-id to the main div for each bookmark
+                container.append(`
+                    <div class="bg-[#424242] p-6 rounded-lg shadow-md" data-id="${item.id}">
+                        <h3 class="text-xl font-semibold text-[#ffffff] mb-4">User: ${item.user__username}</h3>
+                        <div class="bg-[#3b3b3b] text-[#ffffff] p-4 rounded-md">
+                            <p><strong>Restaurant:</strong> ${item.restaurant__name}</p>
+                            <p><strong>Dish:</strong> ${item.dish__name}</p>
+                            <button class="btn-delete bg-red-500 text-white py-2 px-4 rounded mt-4">Remove</button>
+                        </div>
+                    </div>
+                `);
+            });
+        }
+
+        // Updated selector to retrieve the data-id of the bookmark to be deleted
+        $('#bookmarks-container').on('click', '.btn-delete', function() {
+            const bookmarkId = $(this).closest('[data-id]').data('id');  // Correct selector for data-id
+            deleteItem(bookmarkId);
         });
-    </script>
-    
-</body>
-</html>
+
+        function deleteItem(bookmarkId) {
+            $.ajax({
+                url: deleteBookmarkUrl,
+                method: 'POST',
+                data: {
+                    'id': bookmarkId,
+                    'csrfmiddlewaretoken': $('meta[name="csrf-token"]').attr('content')
+                },
+                success: function(response) {
+                    loadBookmarks();  // Refresh the list after deletion
+                },
+                error: function(xhr, status, error) {
+                    alert('Error deleting bookmark: ' + xhr.responseText);
+                }
+            });
+        }
+
+        loadBookmarks();  // Load bookmarks on page load
+    });
+</script>
+
+{% endblock %}

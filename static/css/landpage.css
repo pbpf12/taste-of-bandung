@@ -2,58 +2,41 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-}
-
-img {
-    position: absolute; /* Mengatur posisi menjadi absolut */
-    top: 0; /* Jarak dari atas */
-    left: 0; /* Jarak dari kiri */
-    width: 100%; /* Lebar gambar */
-    height: auto; /* Otomatis menyesuaikan tinggi sesuai aspek rasio */
-    z-index: -1; /* Jika ingin gambar di belakang konten lain */
 }
 
 body {
-    
     margin: 0;
-    font-family: Arial, sans-serif;
     height: 100vh;
-    background-color:rgb(113, 113, 113) ;
+    background-color: rgb(113, 113, 113);
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
-    
 }
 
-button {
-    width: 130px;
-    height: 60px;
-    border-radius: 5px;
-    background: transparent;
-    border-color: transparent;
-    color: rgb(0, 0, 0);
-    font-size: 20px;
-    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-    border: 2px solid rgb(0, 0, 0);
-    transition: 0.5s ease;
-    font-weight: 500;
+
+.backround {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
 }
 
 .welcome-message {
     color: white;
-    font-size: 4em; /* Ubah ukuran font sesuai kebutuhan */
-    text-align: left; /* Mengatur teks agar rata kiri */
-    margin-left: 200px; /* Tambahkan margin kiri untuk menggeser lebih jauh ke kanan */
-    margin-top: 50px; /* Tambahkan margin atas jika diperlukan */
+    font-size: 4em;
+    text-align: left;
+    margin-left: 200px;
+    margin-top: 50px;
 }
 
 .recommendations-message {
     color: white;
-    font-size: 3em; /* Ubah ukuran font sesuai kebutuhan */
-    text-align: right; /* Mengatur teks agar rata kiri */
-    margin-right: 200px; /* Tambahkan margin kiri untuk menggeser lebih jauh ke kanan */
-    margin-top: 150px; /* Tambahkan margin atas jika diperlukan */
+    font-size: 3em;
+    text-align: right;
+    margin-right: 200px;
+    margin-top: 150px;
 }
 
 .header {
@@ -66,7 +49,8 @@ button {
     top: 0;
     z-index: 99;
 }
-.container-checkbox{
+
+.container-checkbox {
     display: flex;
     position: relative;
     justify-content: center;
@@ -76,16 +60,17 @@ button {
 }
 
 .critik {
-    position: fixed; /* Mengatur posisi tombol */
-    bottom: 20px; /* Jarak dari bawah */
-    right: 20px; /* Jarak dari kanan */
-    padding: 10px 20px; /* Padding tombol */
-    font-size: 1em; /* Ukuran font tombol */
-    color: white; /* Warna teks tombol */
-    border: none; /* Menghilangkan border */
-    border-radius: 5px; /* Sudut tombol */
-    cursor: pointer; /* Mengubah kursor saat hover */
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    padding: 10px 20px;
+    font-size: 1em;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
 }
+
 .toggle-button {
     background-color: #5a5a5a;
     border-radius: 30px;
@@ -97,7 +82,6 @@ button {
     padding: 5px;
     cursor: pointer;
     box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.3);
-    
 }
 
 .toggle-option {
@@ -107,8 +91,7 @@ button {
     line-height: 40px;
     text-align: center;
     flex: 1;
-    z-index: 2; /* Ensure text is on top */
-
+    z-index: 2;
 }
 
 .toggle-option.active {
@@ -120,8 +103,8 @@ button {
     border-radius: 30px;
     width: 110px;
     height: 40px;
-     position: absolute; 
-    overflow: hidden; 
+    position: absolute;
+    overflow: hidden;
     top: 5px;
     left: 5px;
     transition: all 0.3s ease;
@@ -129,9 +112,10 @@ button {
 }
 
 .toggle-button.active .toggle-ball {
-    left: 125px; /* Moves the ball to the right */
+    left: 125px;
     width: 70px;
 }
+
 .toggle-container {
     background-color: #3a3a3a;
     display: flex;
@@ -143,18 +127,120 @@ button {
 
 .container2 {
     position: fixed;
-    bottom: 20px; /* Adjust distance from the bottom */
-    right: 20px;  /* Adjust distance from the right */
-    z-index: 1000; /* Ensure it appears on top of other elements */
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000;
+    font-size: 1vw;
 }
 
 .btn {
     padding: 10px 20px;
-    
     color: white;
     border: none;
     border-radius: 5px;
     cursor: pointer;
 }
-  
 
+.top-3-dishes {
+    position: relative;
+    align-items: center;
+    justify-content: center;
+    height: 300px;
+    background: rgba(176, 176, 176, 0.16);
+    backdrop-filter: blur(15px);
+}
+
+.item-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+    height: 300px;
+    border: 1px solid #ddd;
+    margin-bottom: 10px;
+    text-align: center;
+    box-sizing: border-box;
+}
+
+.dishes-list {
+    list-style-type: none;
+    display: flex;
+    justify-content: space-around;
+    padding: 0;
+    justify-content: center;
+    align-items: center;
+}
+
+.dish-item {
+    margin: 0 15px;
+    padding: 10px;
+    color: white;
+    font-size: 1.2vw;
+    border-radius: 8px;
+    text-align: center;
+}
+
+.dish-image {
+    height: 200px;
+    margin: 0 15px;
+    padding: 10px;
+    background-color: #909090;
+    border-radius: 8px;
+    text-align: center;
+    align-items: center;
+}
+
+/* Responsive adjustments for mobile devices */
+@media (max-width: 768px) {
+    .welcome-message,
+    .recommendations-message {
+        font-size: 2em;
+        margin-left: 20px;
+        margin-right: 20px;
+        text-align: center;
+    }
+
+    .critik,
+    .container2 {
+        font-size: 2.5vw;
+    }
+
+    .top-3-dishes {
+        height: auto;
+        padding: 20px;
+    }
+
+    .item-box {
+        width: 90%;
+        height: auto;
+    }
+
+    .toggle-button {
+        width: 150px;
+        height: 40px;
+    }
+
+    .toggle-option {
+        font-size: 12px;
+    }
+
+    .toggle-ball {
+        width: 70px;
+        height: 30px;
+    }
+
+    .dishes-list {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .dish-item {
+        font-size: 3vw;
+        width: 80%;
+    }
+
+    .dish-image {
+        width: 80%;
+        height: auto;
+    }
+}

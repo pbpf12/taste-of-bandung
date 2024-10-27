@@ -81,3 +81,4 @@ class History(models.Model):
 
     def __str__(self):
         return f"History for {self.user.username}"
+    

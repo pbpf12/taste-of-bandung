@@ -6,24 +6,24 @@ from main.models import Bookmark
 
 # View to load bookmarks (fetches real data from the database)
 def last_activities_view(request):
-    # Fetch all bookmarks and select related user, restaurant, and dish
-    bookmarks = Bookmark.objects.select_related('user', 'restaurant', 'dish').all()
+    # Fetch bookmarks and related data
+    bookmarks = Bookmark.objects.select_related('user', 'dish__restaurant').filter(user=request.user)
 
-    # Prepare data to be sent as JSON
+    # Create the list for JSON response, using `bookmark.dish.restaurant` if `bookmark.restaurant` is None
     bookmark_list = [
         {
             'id': bookmark.id,
             'user__username': bookmark.user.username,
-            'restaurant__name': bookmark.restaurant.name if bookmark.restaurant else '',
-            'dish__name': bookmark.dish.name if bookmark.dish else '',
+            'restaurant__name': (
+                bookmark.restaurant.name if bookmark.restaurant
+                else (bookmark.dish.restaurant.name if bookmark.dish and bookmark.dish.restaurant else 'No Restaurant')
+            ),
+            'dish__name': bookmark.dish.name if bookmark.dish else 'No Dish Linked',
         }
         for bookmark in bookmarks
     ]
 
-    # Return data as JSON
-    return JsonResponse({
-        'bookmarks': bookmark_list,
-    })
+    return JsonResponse({'bookmarks': bookmark_list})
 
 # View to render the HTML page
 def last_activities_page(request):

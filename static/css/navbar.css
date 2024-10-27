@@ -6,24 +6,14 @@ body {
 /* Styling navbar container */
 .navbar {
     display: flex;
-   justify-content: flex;
+    justify-content: flex;
     align-items: center;
-<<<<<<< HEAD
     padding: 10px 20px;
-=======
-
-    padding: 10px 20px;
-     
->>>>>>> 864a9031e588110ee11ad8c078f76ebdb1f181f1
 }
 
 /* Bagian kiri (logo atau nama brand) */
 .navbar-left {
-<<<<<<< HEAD
     display: flex;
-=======
-
->>>>>>> 864a9031e588110ee11ad8c078f76ebdb1f181f1
     padding: 10px;
     flex: 1;
 }
@@ -32,10 +22,6 @@ body {
 .navbar-right {
     display: flex;
     justify-content: flex-end; /* Atur ke flex-start agar tidak tersebar merata */
-<<<<<<< HEAD
-=======
-    
->>>>>>> 864a9031e588110ee11ad8c078f76ebdb1f181f1
     flex: 3;
     padding: 10px;
     gap: 110px; /* Tambahkan jarak antar elemen di flexbox */
@@ -72,7 +58,6 @@ body {
     font-size: 24px; /* Font yang lebih besar untuk brand */
     font-weight: bold;
     color: black; /* Warna tulisan */
-<<<<<<< HEAD
 }
 
 .navbar-brand {
@@ -89,6 +74,3 @@ body {
     width: 10%;
     margin-right: 5px; /* Space between icon and text */
 }
-=======
-}
->>>>>>> 864a9031e588110ee11ad8c078f76ebdb1f181f1

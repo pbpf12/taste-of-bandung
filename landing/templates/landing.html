@@ -3,12 +3,12 @@
 
 {% block meta %}
 <link rel="stylesheet" href="{% static 'css/landpage.css' %}">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 <style>
    
 </style>
 {% endblock meta %}
 {% block content %}
+{% include "navbar.html" %}
 <body>
     <img src="{% static '/img/backroundbandung.png' %}" alt="" class="backround">
    
@@ -29,11 +29,12 @@
     </div> -->
 
 
-    <div class="container2">
-        <button data-modal-target="crudModal" data-modal-toggle="crudModal" class="btn" onclick="showModal();">
-            give us suggestions!
-          </button>
+    <div class="container2 bg-gradient-to-r py-8 flex justify-center items-center">
+        <button data-modal-target="crudModal" data-modal-toggle="crudModal" class="btn bg-[#7E7058] hover:bg-[#665A3F] text-[#FFF9E6] font-semibold px-6 py-3 rounded-md shadow-lg transition duration-300 ease-in-out transform hover:scale-105" onclick="showModal();">
+            Give us suggestions!
+        </button>
     </div>
+  
     
     
     <div class="top-3-dishes">
@@ -41,7 +42,9 @@
           {% if top_dishes %}
           <ul class="dishes-list">
               {% for dish in top_dishes %}
-              <div class="item-box">
+              <!-- kucing -->
+              <a href="">
+                <div class="item-box">
                   <li class="dish-item">{{ dish.name }}</li>
                   <div class="flex items-center mt-1 justify-center">
                     {% for i in star_range %}
@@ -55,6 +58,7 @@
                   <!-- Star rating -->
     
               </div>
+              </a>
               {% endfor %}
           </ul>
           {% else %}
@@ -136,7 +140,7 @@
   document.getElementById("cancelButton").addEventListener("click", hideModal);
   document.getElementById("closeModalBtn").addEventListener("click", hideModal);
   function addSuggestionEntry() {
-    fetch("{% url 'landing:add_suggestion_entry_ajax' %}", {
+    fetch("{% url 'add_suggestion_entry_ajax' %}", {
       method: "POST",
       body: new FormData(document.querySelector('#suggestionEntryForm')),
     })
