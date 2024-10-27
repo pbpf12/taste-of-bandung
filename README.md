@@ -22,7 +22,7 @@ Ingin berbagi pengalaman kuliner Anda dengan komunitas? Kami juga menyediakan si
 
 ## Daftar Modul
 
-| Nama Modul                | Nama Pekerja | Deskripsi                                                                                                                                                 |
+| Nama Modul                | Penanggung Jawab | Deskripsi                                                                                                                                                 |
 |---------------------------|--------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------|         
 | **Main**                  | _SEMUA_      | Menyediakan konfigurasi seeding dan data yang diperlukan untuk proses seeding.|                                
 | **Login Page**            | _SEMUA_      | Melakukan verifikasi informasi pengguna. Akses ke situs web hanya diberikan jika pengguna berhasil terotentikasi.| 
