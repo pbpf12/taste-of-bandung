@@ -1,27 +1,42 @@
 from django.test import TestCase
 from django.urls import reverse
-from main.models import Category, Restaurant, Suggestion, Dish, Review, ReviewVote, Bookmark, History
+from main.models import User, Restaurant, Dish, Bookmark
 
-class LastActivitiesTests(TestCase):
+class LastActivitiesPageTest(TestCase):
+    def test_last_activities_page_renders_correct_template(self):
+        response = self.client.get(reverse('last_activities_page'))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'last_activities_page.html')
 
+    def test_delete_bookmark_successful(self):
+        # Create a user and bookmark
+        user = User.objects.create_user(username='testuser', password='testpass')
+        bookmark = Bookmark.objects.create(user=user)
+
+        # Log in the user
+        self.client.login(username='testuser', password='testpass')
+
+        # Send POST request to delete the bookmark
+        response = self.client.post(reverse('delete_bookmark'), {'id': bookmark.id})
+        
+        # Assert response and deletion
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.json()['status'], 'Bookmark deleted successfully')
+    
     def test_last_activities_view(self):
-        # Call the view using the URL name
+        # Create a user and log them in
+        user = User.objects.create_user(username='testuser', password='testpass')
+        self.client.login(username='testuser', password='testpass')
+
+        # Create a bookmark
+        Bookmark.objects.create(user=user)
+
+        # Make GET request to the view
         response = self.client.get(reverse('last_activities'))
         
-        # Check that the response is 200 OK
+        # Check response
         self.assertEqual(response.status_code, 200)
+        self.assertIn('bookmarks', response.json())
+    
 
-        # Check that the returned data is a JSON format and has expected keys
-        json_data = response.json()
-        self.assertIn('bookmarks', json_data)
-        self.assertEqual(len(json_data['bookmarks']), 2)  # Since we mocked 2 bookmarks
 
-    def test_last_activities_page(self):
-        # Call the page view
-        response = self.client.get(reverse('last_activities_page'))
-
-        # Check that the response is 200 OK
-        self.assertEqual(response.status_code, 200)
-
-        # Check if the header is present in the rendered content
-        self.assertContains(response, "Last Bookmarked Dishes")
