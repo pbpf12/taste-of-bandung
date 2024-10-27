@@ -110,6 +110,7 @@ function resetPriceRange() {
     document.getElementById('maxPriceInput').value = '';
     min_price = '';
     max_price = '';
+    alert(getDishDetailUrl)
 }
 function submitPriceRange() {
     if (parseInt(min_price) > parseInt(max_price)) {
@@ -302,13 +303,13 @@ function buildCards(dishes) {
 
         htmlString += `
             <div class="relative group flex justify-center w-full">
-                <a class="shadow-yellow-600 shadow-2xl relative w-full h-0 pb-[80%] cursor-pointer transition duration-200" href="">
+                <a class="shadow-yellow-600 shadow-2xl relative w-full h-0 pb-[80%] cursor-pointer transition duration-200" href="/dish/${item.id}/">
                     ${photoSectionOnItemHtmlString}
                     <div class="absolute bottom-0 left-0 w-full bg-black bg-opacity-50 text-white p-2 rounded-b-lg">
                         <h3 class="font-semibold truncate">${ item.name }</h3>
                     </div>
                 </a>
-                <a class="absolute w-full h-0 pb-[80%] bg-gray-800 text-white opacity-0 group-hover:opacity-100 transition-all duration-300 ease-in-out transform group-hover:scale-110 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col z-10 group-hover:z-50 rounded-lg" href="">
+                <a class="absolute w-full h-0 pb-[80%] bg-gray-800 text-white opacity-0 group-hover:opacity-100 transition-all duration-300 ease-in-out transform group-hover:scale-110 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col z-10 group-hover:z-50 rounded-lg" href="/dish/${item.id}/">
                     <div class="relative w-full h-0 pb-[80%]">
                         ${photoSectionOnModalHtmlString}
                         <div class="absolute bottom-0 left-0 w-full text-white p-2 rounded-b-lg bg-gradient-to-t from-black via-black/60">

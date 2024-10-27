@@ -1,0 +1,27 @@
+{% load static %}
+
+<!-- History Header-->
+<div class="flex flex-row items-center justify-between mt-4 mb-2 md:mb-4 w-full">
+    
+    <div class="flex flex-row gap-4">
+        <!-- History Title -->
+        <p class="flex flex-row text-[#2C1810] text-2xl items-center md:text-4xl font-bold md:mb-0">
+            History
+        </p>
+
+        <!-- Sort History Button -->
+        <button id="sortByNameBtn" class="hover:bg-[#EDD5BE]/50 w-12 items-center flex flex-col justify-center text-white rounded text-sm md:text-base">
+            <img id="sortByNameBtnIcon" src="{% static 'userprofile/img/sort_name_asc.png' %}" alt="Sort Icon" class="h-6 w-6">
+        </button>
+    </div>
+
+    <!-- Clear History Button -->
+    <div class="flex flex-row text-stone-100 items-center">
+        <button id="clearHistoryBtn" class="bg-[#E67E22] hover:bg-[#D35400] text-white px-4 py-2 rounded text-sm md:text-base">
+            Clear History
+        </button>
+    </div>
+</div>
+
+<!-- Hidden CSRF Token Input -->
+<input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">

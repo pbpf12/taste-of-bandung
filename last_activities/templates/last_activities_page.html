@@ -2,6 +2,20 @@
 {% load static %}
 
 {% block meta %}
+<style>
+html {
+    min-height: 100%;
+    background: linear-gradient(to bottom, 
+    #FFB845, /* Warna orange utama */
+    #FFC966, /* Warna transisi 1, kuning cerah */
+    #FFD57A, /* Warna transisi 2, kuning lebih lembut */
+    #FFE38E, /* Warna transisi 3, kuning pastel */
+    #FFF0A1, /* Warna transisi 4, kuning sangat terang */
+    #FFEB84, /* Warna transisi 5, hampir putih dengan sentuhan kuning */
+    #FFF7C2  /* Warna akhir, sangat terang */
+    );
+}
+</style>
 <link rel="stylesheet" href="{% static 'css/base.css' %}">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
@@ -15,8 +29,8 @@
 {% include "navbar.html" %}
 
 <div class="bg-[#ffbb4e] min-h-screen py-10">
-    <div class="container mx-auto px-4 py-8 bg-[#2e2e2e] rounded-xl shadow-lg">
-        <h1 class="text-4xl font-bold text-center text-[#f9bd53] mb-8">Bookmarked Dishes</h1>
+    <div class="container mx-auto px-4 py-8 rounded-xl shadow-lg">
+        <h1 class="text-4xl font-bold text-center text-white mb-8">Bookmarked Dishes</h1>
 
         <!-- Platform Container for Bookmark Cards -->
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="bookmarks-container">
