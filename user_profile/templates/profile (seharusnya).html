@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block meta %}
+<title>{{ user.username }}'s Profile</title>
+<script src="https://cdn.jsdelivr.net/npm/dompurify@3.1.7/dist/purify.min.js"></script>
+<script>
+    // Define global variables for the URLs
+    const deleteUserUrl = "{% url 'delete_user' %}";
+    const editProfileUrl = "{% url 'edit_profile' %}";
+    const showJsonUrl = "{% url 'show_json' %}";
+    const showHistoryUrl = "{% url 'show_history' %}";
+    const clearHistoryUrl = "{% url 'clear_history' %}";
+    const loginUrl = "{% url 'login' %}";
+    const sortNameAscUrl = "{% static 'userprofile/img/sort_name_asc.png' %}";
+    const sortNameDescUrl = "{% static 'userprofile/img/sort_name_desc.png' %}";
+    
+</script>
+<script src="{% static 'userprofile/js/profile.js' %}"></script>
+{% endblock meta %}
+
+{% block content %}
+{% include 'navbar.html' %}
+<div class="flex flex-col items-center bg-gradient-to-br from-[#FFF9E6] to-[#FFB845] w-full h-full px-4 sm:px-8 md:px-20 py-8 sm:py-16 md:py-32 justify-center min-h-screen">
+    <div class="flex flex-col md:flex-row w-full lg:w-4/5 gap-4 py-8 px-4 bg-[#FFF2CC] border-2 md:border-r-2 border-[#D4B670] rounded-lg shadow-md shadow-[#F2F0E6]/40">
+
+        <!-- Profile Picture and Username -->
+        {% include 'components/profile_left.html' %}
+
+        <div class="flex flex-col border-t-2 md:border-t-0 md:border-l-2 border-solid border-[#D4B670] md:pl-8 w-full">
+            {% include 'components/profile_right.html' %}
+            {% include 'components/edit_modal.html' %}
+            {% include 'components/history_details.html' %}
+            
+            <!-- History Body-->
+            <div id="user_history" class="flex flex-col space-y-4 mb-4"></div>
+
+            <!-- Mobile Delete Account Button-->
+            <div class="flex flex-row w-full mt-4 justify-center items-center">
+                <button id="delete-account-btn" class="bg-[#DC2626] hover:bg-[#B91C1C] text-white px-4 py-2 rounded text-sm sm:text-base w-full sm:block md:hidden">
+                    Delete Account
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

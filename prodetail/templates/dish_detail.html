@@ -1,0 +1,473 @@
+{% extends 'base.html' %}
+{% block title %}Dish Details - {{ dish.name }}{% endblock %}
+{% block content %}
+{% include "navbar.html" %}
+<div style="min-height: 100%;background: linear-gradient(to bottom, #FFB845, #FFC966, #FFD57A, #FFE38E, #FFF0A1, #FFEB84,#FFF7C2)">
+    <div class="container mx-auto px-4 py-8">
+        <!-- Dish Details Section -->
+        <div class="bg-white rounded-2xl shadow-xl overflow-hidden">
+            <div class="flex flex-col md:flex-row">
+                <div class="md:w-1/2">
+                    <div class="relative h-96">
+                        <img src="{{ dish.image }}" alt="{{ dish.name }}" class="absolute inset-0 w-full h-full object-cover">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+                    </div>
+                </div>
+
+                <div class="md:w-1/2 p-8">
+                    <h1 class="text-4xl font-bold text-[#2C2C2C] mb-4">{{ dish.name }}</h1>
+                    <p class="text-gray-600 text-lg mb-6">{{ dish.description }}</p>
+                    
+                    <div class="flex items-center gap-6 mb-6">
+                        <div class="bg-[#FFB845]/10 px-4 py-2 rounded-lg">
+                            <p class="text-2xl font-bold text-[#FFB845]">Rp.{{ dish.price }}</p>
+                        </div>
+                        <div class="bg-gray-100 px-4 py-2 rounded-lg">
+                            <p class="text-2xl font-bold text-[#2C2C2C]">★ {{ dish.average_rating|default:"New" }}</p>
+                        </div>
+                    </div>
+
+                    <div class="mb-6 flex items-center">
+                        <button id="bookmark-btn" data-bookmarked="{{ dish.is_bookmarked }}"
+                                class="px-4 py-2 rounded-lg font-semibold transition-colors duration-200 flex items-center gap-2
+                                {% if dish.is_bookmarked %}
+                                    bg-[#FFB845] text-[#2C2C2C]
+                                {% else %}
+                                    bg-gray-200 text-gray-600
+                                {% endif %}">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M5 3a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v18.586l-7-7-7 7V3z" />
+                            </svg>
+                            <span class="bookmark-text">
+                                {% if dish.is_bookmarked %}Remove Bookmark{% else %}Bookmark Dish{% endif %}
+                            </span>
+                        </button>
+                        <p id="bookmark-count" class="ml-4 text-sm text-gray-500">{{ dish.bookmark_count }} people bookmarked this dish</p>
+                    </div>
+
+                    <button id="restaurant-details" 
+                            class="inline-flex items-center px-6 py-3 bg-[#FFB845] text-[#2C2C2C] rounded-lg font-semibold 
+                                   hover:bg-[#FFB845]/90 transition-colors duration-200">
+                        View {{ dish.restaurant.name }}'s Details
+                        <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Reviews Section -->
+        <div class="mt-12">
+            <h2 class="text-3xl font-bold text-gray-700 mb-8">Customer Reviews</h2>
+            <div class="bg-gray-50 rounded-2xl shadow-xl p-8">
+                <ul id="reviews-list" class="space-y-8">
+                    {% for review in reviews %}
+                    <li class="{% if not forloop.last %}border-b border-gray-200 pb-8{% endif %}">
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="flex items-center gap-4">
+                                <div class="w-12 h-12 bg-[#FFB845]/20 rounded-full flex items-center justify-center">
+                                    <span class="text-[#FFB845] font-bold">{{ review.user.0|upper }}</span>
+                                </div>
+                                <div>
+                                    <span class="font-medium text-[#2C2C2C]">{{ review.user }}</span>
+                                    <div class="flex items-center mt-1">
+                                        <!-- Display rating as static stars initially -->
+                                        <div class="review-rating-display flex items-center" data-review-id="{{ review.id }}">
+                                            {% for i in "12345" %}
+                                            <svg class="w-5 h-5 {% if i <= review.rating|stringformat:'i' %}text-[#FFB845]{% else %}text-gray-300{% endif %}" 
+                                                 fill="currentColor" 
+                                                 viewBox="0 0 20 20">
+                                                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                                            </svg>
+                                            {% endfor %}
+                                        </div>
+                                        <!-- Editable star rating for editing mode, initially hidden -->
+                                        <div class="review-rating-edit hidden" data-review-id="{{ review.id }}">
+                                            <div class="flex items-center gap-1">
+                                                {% for i in "12345" %}
+                                                <svg data-rating="{{ i }}" 
+                                                     class="star w-5 h-5 cursor-pointer transition-colors duration-200 hover:text-[#FFB845] text-gray-300" 
+                                                     fill="currentColor" 
+                                                     viewBox="0 0 24 24">
+                                                    <path d="M12 4.318l2.735 5.542 6.135.891-4.433 4.319 1.045 6.092L12 17.964 8.518 21.16l1.045-6.092-4.433-4.319 6.135-.891L12 4.318z" />
+                                                </svg>
+                                                {% endfor %}
+                                            </div>
+                                            <input type="hidden" class="edit-rating-value" value="{{ review.rating }}">
+                                        </div>
+                                    
+                                    </div>                                  
+                                </div>
+                            </div>
+                            
+                            {% if review.is_author %}
+                            <div class="flex gap-2">
+                                <button data-review-id="{{ review.id }}" 
+                                        class="edit-review px-4 py-2 text-[#2C2C2C] hover:bg-gray-100 rounded-lg transition-colors duration-200">
+                                    Edit
+                                </button>
+                                <button data-review-id="{{ review.id }}" 
+                                        class="delete-review px-4 py-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors duration-200">
+                                    Delete
+                                </button>
+                            </div>
+                            {% endif %}
+                        </div>
+                        
+                        <p class="text-gray-600 mb-4">{{ review.comment }}</p>
+                        
+                        <div class="flex gap-4">
+                            <button data-review-id="{{ review.id }}" 
+                                    class="upvote flex items-center gap-2 text-gray-500 hover:text-[#2C2C2C] transition-colors duration-200">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"/>
+                                </svg>
+                                <span class="upvote-count">{{ review.upvotes }}</span>
+                            </button>
+                            <button data-review-id="{{ review.id }}" 
+                                    class="downvote flex items-center gap-2 text-gray-500 hover:text-[#2C2C2C] transition-colors duration-200">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                                </svg>
+                                <span class="downvote-count">{{ review.downvotes }}</span>
+                            </button>
+                        </div>
+                    </li>
+                    {% endfor %}
+                </ul>
+
+                <!-- Review Form -->
+                <div class="mt-12 bg-gray-50 rounded-xl p-8">
+                    <h3 class="text-2xl font-bold text-[#2C2C2C] mb-6">Write a Review</h3>
+                    <form id="submit-review-form" class="space-y-6">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Rating</label>
+                            <!-- Interactive Star Rating -->
+                            <div class="flex items-center space-x-1 text-[#FFB845]" id="star-rating">
+                                {% for i in "12345" %}
+                                    <svg data-rating="{{ i }}" class="star w-8 h-8 cursor-pointer transition-colors duration-200 text-gray-300" fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M12 4.318l2.735 5.542 6.135.891-4.433 4.319 1.045 6.092L12 17.964 8.518 21.16l1.045-6.092-4.433-4.319 6.135-.891L12 4.318z" />
+                                    </svg>
+                                {% endfor %}
+                            </div>
+                            <!-- Hidden input to store selected rating value -->
+                            <input type="hidden" id="rating" name="rating" value="">
+                        </div>
+
+                        <div>
+                            <label for="comment" class="block text-sm font-medium text-gray-700 mb-2">Comment</label>
+                            <textarea id="comment" name="comment" rows="4" 
+                                    class="w-full p-4 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#FFB845] focus:border-[#FFB845] transition-colors duration-200"
+                                    placeholder="Share your experience with this dish..."></textarea>
+                        </div>
+                        <button type="submit" 
+                                class="w-full bg-[#FFB845] text-[#2C2C2C] font-semibold py-4 px-6 rounded-lg
+                                    hover:bg-[#FFB845]/90 transition-colors duration-200">
+                            Submit Review
+                        </button>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Restaurant Details Modal -->
+<div id="restaurant-modal" class="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center hidden">
+    <div class="bg-white rounded-2xl p-8 shadow-2xl w-full max-w-lg m-4">
+        <img id="restaurant-image" class="rounded-lg mb-4 w-full" src="" alt="Restaurant Image" /> <!-- Added Image Display -->
+        <div class="flex justify-between items-center mb-6">
+            <h2 class="text-2xl font-bold text-[#2C2C2C]" id="restaurant-name"></h2>
+            <button id="close-modal" class="text-gray-400 hover:text-gray-600 transition-colors duration-200">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                </svg>
+            </button>
+        </div>
+        <div class="space-y-4">
+            <p id="restaurant-description" class="text-gray-600"></p>
+            <div class="flex items-center gap-2 text-gray-600">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                          d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                </svg>
+                <p id="restaurant-address"></p>
+            </div>
+            <div class="flex items-center gap-2 text-gray-600">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                          d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
+                </svg>
+                <p id="restaurant-phone"></p>
+            </div>
+            <div class="flex items-center gap-2 text-gray-600">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                          d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                </svg>
+                <p id="restaurant-hours"></p>
+            </div>
+            <div class="flex items-center gap-2 text-gray-600">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                          d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                </svg>
+                <p id="restaurant-price-range"></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+$(document).ready(function() {
+    
+    $('#restaurant-details').click(function() {
+        $.ajax({
+            url: '/restaurant/{{ dish.restaurant.id }}/',
+            method: 'GET',
+            success: function(data) {
+                $('#restaurant-image').attr('src', data.image);
+                $('#restaurant-name').text(data.name);
+                $('#restaurant-description').text(data.description);
+                $('#restaurant-address').text(data.address);
+                $('#restaurant-phone').text(data.phone);
+                $('#restaurant-hours').text(data.opening_hours);
+                $('#restaurant-price-range').text(data.price_range);
+                $('#restaurant-modal').removeClass('hidden').addClass('flex');
+            }
+        });
+    });
+
+    $('#close-modal').click(function() {
+        $('#restaurant-modal').addClass('hidden');
+    });
+
+    const initialRating = $('#rating').val();
+    $('#star-rating .star').each(function() {
+        const starRating = $(this).data('rating');
+        $(this).toggleClass('text-[#FFB845]', starRating <= initialRating);
+        $(this).toggleClass('text-gray-300', starRating > initialRating);
+    });
+    
+    function updateAverageRating() {
+        $.ajax({
+            url: `/dish/{{ dish.id }}/average_rating/`,
+            method: 'GET',
+            success: function(data) {
+                $('.dish-average-rating').text(`★ ${data.average_rating}`);
+            },
+            error: function() {
+                console.error('Failed to update average rating.');
+            }
+        });
+    }
+
+    $('#star-rating .star').click(function() {
+        const rating = $(this).data('rating');
+        $('#rating').val(rating); 
+
+        $('#star-rating .star').each(function() {
+            const starRating = $(this).data('rating');
+            $(this).toggleClass('text-[#FFB845]', starRating <= rating);
+            $(this).toggleClass('text-gray-300', starRating > rating);
+        });
+    });
+
+    $('#submit-review-form').submit(function(e) {
+        e.preventDefault();
+        $.ajax({
+            url: '/review/check_limit/',
+            method: 'GET',
+            success: function(data) {
+                if (data.limit_reached) {
+                    alert('You have reached your limit of 5 reviews per day. Please try again tomorrow.');
+                    return;
+                }
+                const rating = $('#rating').val();
+                const comment = $('#comment').val();
+                
+                if (!rating) {
+                    alert('Please select a rating before submitting.');
+                    return;
+                }
+
+                $.ajax({
+                    url: '/dish/{{ dish.id }}/submit_review/',
+                    method: 'POST',
+                    data: {
+                        csrfmiddlewaretoken: '{{ csrf_token }}',
+                        rating: rating,
+                        comment: comment
+                    },
+                    success: function(data) {
+                        alert('Review submitted!');
+                        location.reload();
+                    },
+                    error: function() {
+                        alert('Failed to submit review.');
+                    }
+                });
+            }
+        })
+    });
+
+    $(document).on('click', '.edit-review', function() {
+        const reviewId = $(this).data('review-id');
+        const $reviewItem = $(this).closest('li');
+        const currentComment = $reviewItem.find('p.text-gray-600').text().trim();
+        
+        $reviewItem.find('p.text-gray-600').replaceWith(`
+            <textarea class="edit-comment w-full p-2 border rounded-md">${currentComment}</textarea>
+        `);
+
+        $reviewItem.find('.review-rating-display').addClass('hidden');
+        $reviewItem.find('.review-rating-edit').removeClass('hidden');
+
+        $(this).text('Save').removeClass('edit-review').addClass('save-review');
+        
+        if (!$reviewItem.find('.cancel-edit').length) {
+            $reviewItem.append('<button class="cancel-edit text-gray-500 ml-2">Cancel</button>');
+        }
+    });
+
+    $(document).on('click', '.review-rating-edit .star', function() {
+        const rating = $(this).data('rating');
+        const $ratingContainer = $(this).closest('.review-rating-edit');
+
+        $ratingContainer.find('.edit-rating-value').val(rating);
+
+        $ratingContainer.find('.star').each(function() {
+            const starRating = $(this).data('rating');
+            $(this).toggleClass('text-[#FFB845]', starRating <= rating);
+            $(this).toggleClass('text-gray-300', starRating > rating);
+        });
+    });
+
+    $(document).on('click', '.save-review', function() {
+        const reviewId = $(this).data('review-id');
+        const $reviewItem = $(this).closest('li');
+        const updatedComment = $reviewItem.find('.edit-comment').val();
+        const updatedRating = $reviewItem.find('.edit-rating-value').val();
+
+        $.ajax({
+            url: `/review/${reviewId}/edit/`,
+            method: 'POST',
+            data: {
+                csrfmiddlewaretoken: '{{ csrf_token }}',  
+                comment: updatedComment,
+                rating: updatedRating
+            },
+            success: function(data) {
+
+                $reviewItem.find('.edit-comment').replaceWith(`<p class="text-gray-600">${updatedComment}</p>`);
+                $reviewItem.find('.review-rating-display').removeClass('hidden').html(data.updated_rating_html);
+                $reviewItem.find('.review-rating-edit').addClass('hidden');
+
+                $('.save-review').text('Edit').addClass('edit-review').removeClass('save-review');
+                $('.cancel-edit').remove();
+
+                updateAverageRating();
+            },
+            error: function() {
+                alert('Failed to save edits.');
+            }
+        });
+    });
+
+    $(document).on('click', '.cancel-edit', function() {
+        const $reviewItem = $(this).closest('li');
+        const originalComment = $reviewItem.find('.edit-comment').text().trim();
+
+        $reviewItem.find('.edit-comment').replaceWith(`<p class="text-gray-600">${originalComment}</p>`);
+        $reviewItem.find('.review-rating-display').removeClass('hidden');
+        $reviewItem.find('.review-rating-edit').addClass('hidden');
+
+        $('.save-review').text('Edit').addClass('edit-review').removeClass('save-review');
+        $(this).remove();
+    });
+
+    $(document).on('click', '.delete-review', function() {
+        const reviewId = $(this).data('review-id');
+        const $reviewItem = $(this).closest('li');
+        
+        if (confirm("Are you sure you want to delete this review?")) {
+            $.ajax({
+                url: `/review/${reviewId}/delete/`,
+                method: 'POST',
+                data: {
+                    csrfmiddlewaretoken: '{{ csrf_token }}'
+                },
+                success: function() {
+                    $reviewItem.remove();
+
+                    updateAverageRating();
+                },
+                error: function() {
+                    alert('Failed to delete review.');
+                }
+            });
+        }
+    });
+    
+    $('.upvote, .downvote').click(function() {
+        const reviewId = $(this).data('review-id');
+        const isUpvote = $(this).hasClass('upvote');
+        const voteType = isUpvote ? 'upvote' : 'downvote';
+        const oppositeVoteType = isUpvote ? 'downvote' : 'upvote';
+        const $button = $(this);
+        const $oppositeButton = $button.siblings(`.${oppositeVoteType}`);
+
+        $.ajax({
+            url: `/review/${reviewId}/vote/${voteType}/`,
+            method: 'POST',
+            data: { csrfmiddlewaretoken: '{{ csrf_token }}' },
+            success: function(data) {
+                $button.find(`.${voteType}-count`).text(data[`${voteType}s`]);
+                $oppositeButton.find(`.${oppositeVoteType}-count`).text(data[`${oppositeVoteType}s`]);
+
+                $button.toggleClass('text-[#2C2C2C]', data.user_voted === voteType);
+                $oppositeButton.removeClass('text-[#2C2C2C]');
+            },
+            error: function() {
+                alert('Failed to vote.');
+            }
+        });
+    });
+
+    $('#bookmark-btn').click(function() {
+        const $bookmarkBtn = $(this);
+        const dishId = "{{ dish.id }}";
+
+        $.ajax({
+            url: `/dish/${dishId}/bookmark/`,
+            method: 'POST',
+            data: {
+                csrfmiddlewaretoken: '{{ csrf_token }}'
+            },
+            success: function(data) {
+                if (data.message === 'Bookmarked') {
+                    $bookmarkBtn.removeClass('bg-gray-200 text-gray-600')
+                                .addClass('bg-[#FFB845] text-[#2C2C2C]');
+                    $bookmarkBtn.find('.bookmark-text').text('Remove Bookmark');
+                } else {
+                    $bookmarkBtn.removeClass('bg-[#FFB845] text-[#2C2C2C]')
+                                .addClass('bg-gray-200 text-gray-600');
+                    $bookmarkBtn.find('.bookmark-text').text('Bookmark Dish');
+                }
+                $('#bookmark-count').text(`${data.bookmark_count} people bookmarked this dish`);
+            },
+            error: function() {
+                alert('Failed to toggle bookmark.');
+            }
+        });
+    });
+
+});
+
+</script>
+{% endblock %}

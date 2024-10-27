@@ -16,8 +16,17 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import include, path
+from django.conf.urls.static import static
+from django.conf import settings
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('main.urls'))
-] 
+    path('', include('main.urls')),
+    path('', include('login.urls')),
+    path('', include('register.urls')),
+    path('', include('landing.urls')),
+    path('', include('search.urls')),
+    path('', include('prodetail.urls')),
+    path('', include('last_activities.urls')),
+    path('', include('user_profile.urls')),
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

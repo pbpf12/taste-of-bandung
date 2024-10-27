@@ -1,0 +1,28 @@
+<!-- Search Bar, Filter Button Show when screen < md -->
+<div class="flex items-center justify-center m-4">
+    <div class="w-full max-w-md flex items-center bg-white rounded-lg shadow-lg overflow-hidden shadow-yellow-500 border-y-2 border-x-2">
+        <!-- Search Icon -->
+        <div class="pl-3 flex items-center">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M11 4a7 7 0 017 7c0 1.385-.354 2.69-1 3.843l5.293 5.293a1 1 0 01-1.414 1.414L15.586 16A7 7 0 1111 4zm0 2a5 5 0 100 10 5 5 0 000-10z"/>
+            </svg>
+        </div>
+        <!-- Input Field -->
+        <div class="relative flex-grow">
+            <input
+                type="text"
+                class="w-full h-full p-3 pl-5 bg-transparent border-none focus:outline-none focus:ring-0 placeholder-gray-500 text-gray-800"
+                placeholder="Search Products"
+                oninput="setDishName(this.value)"
+            >
+        </div>
+        <!-- Divider -->
+        <div class="h-full w-px bg-gray-300"></div>
+        <!-- Filter Button -->
+        <button class="bg-yellow-600 hover:bg-yellow-700 text-white py-3 px-3 flex items-center justify-center transition-colors duration-300 md:hidden lg:hidden" onclick="toggleModal()">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2a1 1 0 01-.293.707L15 12.414V19a1 1 0 01-.553.894l-4 2A1 1 0 019 21v-8.586L3.293 6.707A1 1 0 013 6V4z"/>
+            </svg>
+        </button>
+    </div>
+</div>

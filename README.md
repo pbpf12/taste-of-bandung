@@ -23,14 +23,15 @@ Ingin berbagi pengalaman kuliner Anda dengan komunitas? Kami juga menyediakan si
 ## Daftar Modul
 
 | Nama Modul                | Nama Pekerja | Deskripsi                                                                                                                                                 |
-|---------------------------|--------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------|                                        
-| **Login Page**            | Nama 1       | Melakukan verifikasi informasi pengguna, dan hanya akan diberikan akses ke laman situs web pengguna terotentikasi bila infomrasi pengguna telah terotentikasi. | 
-| **Registrasi Page**       | Nama 2       | Membuat akun pengguna, bila semua field sudah valid sesuai validasi, maka akan user akan ditujukan ke Login. |                                       
-| **User Profile Page**     | Alex         | Informasi akun pengguna termasuk seperti nama akun, email akun, tanggal pembuatan akun, dll.                                                                   |
-| **Home Page (Landing)**   | Nama 4       | Laman utama yang akan ditampilkan saat seorang pengguna telah berhasil terotentikasi dan diberikan akses ke situs web.                                         |
-| **Product Details Page**  | Nama 5       | Informasi mengenai produk yang ditampilkan. Merupakan laman dimana pengguna dapat memberikan ulasan terkait produk tersebut.                                   |
-| **Search Page**           | Rafie        | Laman situs web dimana penggunna dapat melakukan pencari produk sesuai dengan filter yang telah ditentukan sebelumnya.                                         |
-| **Last Activites Page**   | Nama 7       | Tampilan aplikasi web yang memperlihatkan segala kegiatan/aktivitas pengguna pada situs web sejak akun dibuat.                                                 |
+|---------------------------|--------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------|         
+| **Main**                  | _SEMUA_      | Menyediakan konfigurasi seeding dan data yang diperlukan untuk proses seeding.|                                
+| **Login Page**            | _SEMUA_      | Melakukan verifikasi informasi pengguna. Akses ke situs web hanya diberikan jika pengguna berhasil terotentikasi.| 
+| **Registrasi Page**       | _SEMUA_      | Memungkinkan pengguna membuat akun. Jika semua field telah valid sesuai aturan, pengguna akan diarahkan ke halaman Login.|                                       
+| **User Profile Page**     | Alex         |Menampilkan informasi pengguna, seperti email, nama depan, dan nama belakang, serta riwayat kunjungan ke berbagai halaman detail produk.|
+| **Home Page (Landing)**   | Zillan       | Halaman utama yang ditampilkan setelah pengguna berhasil login, menampilkan 3 produk kuliner teratas berdasarkan rating terbaru.|
+| **Product Details Page**  | Salim        | Menyediakan informasi lengkap mengenai suatu produk kuliner. Pengguna dapat memberikan ulasan, melakukan vote atau downvote pada review, melihat informasi restoran terkait, dan menambahkan produk ke dalam bookmark.|
+| **Search Page**           | Rafie        | Halaman pencarian yang memungkinkan pengguna mencari produk berdasarkan filter seperti urutan harga (termurah hingga termahal), harga minimum dan maksimum, kategori (makanan, minuman, atau keduanya), dan nama kuliner.|
+| **BookMarks Page**   | Figo         | Menampilkan semua produk yang telah ditandai (bookmark) oleh pengguna, serta menyediakan opsi untuk menghapus produk dari bookmark.|
 
 ## Sumber Inisial Dataset
 Sumber inisial dataset dapat dilihat dari :

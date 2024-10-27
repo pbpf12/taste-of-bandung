@@ -1,0 +1,24 @@
+html {
+    min-height: 100%;
+    background: linear-gradient(to bottom, 
+    #FFB845, /* Warna orange utama */
+    #FFC966, /* Warna transisi 1, kuning cerah */
+    #FFD57A, /* Warna transisi 2, kuning lebih lembut */
+    #FFE38E, /* Warna transisi 3, kuning pastel */
+    #FFF0A1, /* Warna transisi 4, kuning sangat terang */
+    #FFEB84, /* Warna transisi 5, hampir putih dengan sentuhan kuning */
+    #FFF7C2  /* Warna akhir, sangat terang */
+    );
+}
+
+@keyframes fast-pulse {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.5;
+    }
+}
+.animate-fast-pulse {
+    animation: fast-pulse 0.75s infinite; /* Faster pulse, 0.75 seconds */
+}
