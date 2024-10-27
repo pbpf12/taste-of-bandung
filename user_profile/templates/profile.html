@@ -12,6 +12,8 @@
     const showHistoryUrl = "{% url 'show_history' %}";
     const clearHistoryUrl = "{% url 'clear_history' %}";
     const loginUrl = "{% url 'login' %}";
+    const sortNameAscUrl = "{% static 'userprofile/img/sort_name_asc.png' %}";
+    const sortNameDescUrl = "{% static 'userprofile/img/sort_name_desc.png' %}";
 </script>
 <script src="{% static 'userprofile/js/profile.js' %}"></script>
 {% endblock meta %}
@@ -31,13 +33,20 @@
             
             <!-- History Body-->
             <div id="user_history" class="flex flex-col space-y-4 mb-4"></div>
+
+            <!-- Mobile Delete Account Button-->
+            <div class="flex flex-row w-full mt-4 justify-center items-center">
+                <button id="delete-account-btn" class="bg-red-500 text-white px-4 py-2 rounded text-sm sm:text-base w-full sm:block md:hidden">
+                    Delete Account
+                </button>
+            </div>
         </div>
     </div>
 </div>
 
 <script>
     async function getUser() {
-    try {
+    try {   
         const response = await fetch(showJsonUrl);
         if (!response.ok) {
             throw new Error('Failed to fetch user data');
@@ -365,20 +374,24 @@ document.addEventListener('DOMContentLoaded', (event) => {
         userForm.addEventListener('submit', edit_profile);
     }
 
-    var filter = null;
+    let filter = null;
     const sortByNameButton = document.getElementById('sortByNameBtn');
+    const sortByNameButtonIcon = document.getElementById('sortByNameBtnIcon')
+    
     if (sortByNameButton) {
         sortByNameButton.addEventListener('click', async function() {
             if (filter === 'dish_asc') {
                 filter = 'dish_desc';
-                await refreshHistory(filter);
-            } else if (filter === 'dish_desc') {
-                filter = 'dish_asc';
-                await refreshHistory(filter);
+                sortByNameButtonIcon.classList = `h-6 w-6`
+                sortByNameButtonIcon.src = sortNameDescUrl;
+                sortByNameButtonIcon.alt = 'Sort by name descending';
             } else {
                 filter = 'dish_asc';
-                await refreshHistory(filter);
+                sortByNameButtonIcon.classList = `h-6 w-6`
+                sortByNameButtonIcon.src = sortNameAscUrl;
+                sortByNameButtonIcon.alt = 'Sort by name ascending';
             }
+            await refreshHistory(filter);
         });
     }
 });

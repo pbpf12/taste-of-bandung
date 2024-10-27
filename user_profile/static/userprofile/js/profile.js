@@ -327,20 +327,24 @@ document.addEventListener('DOMContentLoaded', (event) => {
         userForm.addEventListener('submit', edit_profile);
     }
 
-    var filter = null;
+    let filter = null;
     const sortByNameButton = document.getElementById('sortByNameBtn');
+    const sortByNameButtonIcon = document.getElementById('sortByNameBtnIcon')
+    
     if (sortByNameButton) {
         sortByNameButton.addEventListener('click', async function() {
             if (filter === 'dish_asc') {
                 filter = 'dish_desc';
-                await refreshHistory(filter);
-            } else if (filter === 'dish_desc') {
-                filter = 'dish_asc';
-                await refreshHistory(filter);
+                sortByNameButtonIcon.classList = `h-6 w-6`
+                sortByNameButtonIcon.src = sortNameDescUrl;
+                sortByNameButtonIcon.alt = 'Sort by name descending';
             } else {
                 filter = 'dish_asc';
-                await refreshHistory(filter);
+                sortByNameButtonIcon.classList = `h-6 w-6`
+                sortByNameButtonIcon.src = sortNameAscUrl;
+                sortByNameButtonIcon.alt = 'Sort by name ascending';
             }
+            await refreshHistory(filter);
         });
     }
 });
