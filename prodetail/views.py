@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404
 from django.http import JsonResponse
-from main.models import Dish, Review, Bookmark, Restaurant, History, ReviewVote
+from main.models import Category, Restaurant, Suggestion, Dish, Review, ReviewVote, Bookmark, History
 from django.contrib.auth.decorators import login_required
 from django.utils.timezone import now, timedelta
 from django.db.models import Avg

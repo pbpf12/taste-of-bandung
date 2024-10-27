@@ -1,7 +1,8 @@
 from django.test import TestCase, Client
 from django.urls import reverse
 from django.contrib.auth import get_user_model
-from main.models import Dish, Review, Restaurant, Category, ReviewVote, Bookmark, History
+from main.models import Category, Restaurant, Suggestion, Dish, Review, ReviewVote, Bookmark, History
+
 
 User = get_user_model()
 

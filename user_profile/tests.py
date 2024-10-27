@@ -6,7 +6,7 @@ from django.contrib.messages.storage.fallback import FallbackStorage
 from django.contrib.sessions.middleware import SessionMiddleware
 from django.http import JsonResponse
 import json
-from main.models import History, Dish, Restaurant, Category
+from main.models import Category, Restaurant, Suggestion, Dish, Review, ReviewVote, Bookmark, History
 from user_profile.views import show_json, show_profile, delete_user, edit_profile, show_history_as_json, clear_history
 
 class UnitTest(TestCase):

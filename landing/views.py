@@ -1,7 +1,6 @@
-from landing.models import Suggestion
 from landing.forms import SuggestionForm
-from main.models import Dish
-from main.models import Restaurant
+from main.models import Category, Restaurant, Suggestion, Dish, Review, ReviewVote, Bookmark, History
+
 
 from django.shortcuts import render
 import smtplib
@@ -102,7 +101,7 @@ def add_suggestion_entry_ajax(request):
         return HttpResponse(b"Bad Request: Suggestion message is required", status=400)
 
     # Save suggestion with user information
-    new_suggestion = Suggestion(suggestionMessage=suggestionMessage)
+    new_suggestion = Suggestion(suggestionMessage=suggestionMessage, user=request.user)
     new_suggestion.save()
     print(f'Suggestion From User {name}')
 

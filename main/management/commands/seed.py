@@ -1,6 +1,10 @@
 from django.core.management.base import BaseCommand
 from django.contrib.auth.models import User
-from main.models import Restaurant, Dish, Category, Review, Bookmark, History
+from landing.models import *
+from search.models import *
+from prodetail.models import *
+from last_activities.models import *
+from user_profile.models import *
 from main.management.seeds.users import users_data
 from main.management.seeds.alex import *
 from main.management.seeds.figo import *

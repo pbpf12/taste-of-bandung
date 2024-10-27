@@ -5,13 +5,13 @@ from django.test import TestCase, Client
 from django.urls import reverse
 from django.contrib.auth.models import User
 from landing.models import Suggestion
-from main.models import Dish, Restaurant
 from unittest.mock import patch
 from django.http import HttpResponse
 
 from django.test import TestCase
 from django.contrib.auth.models import User
-from main.models import Restaurant, Dish, Review, Category
+from main.models import Category, Restaurant, Suggestion, Dish, Review, ReviewVote, Bookmark, History
+
 
 class RestaurantModelTest(TestCase):
     def setUp(self):

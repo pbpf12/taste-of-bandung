@@ -1,7 +1,7 @@
 from django.test import TestCase
 from django.urls import reverse
 from django.contrib.auth.models import User
-from main.models import Category, Restaurant, Dish
+from main.models import Category, Restaurant, Suggestion, Dish, Review, ReviewVote, Bookmark, History
 import json
 
 # Harus di set ulang usernya karena tiap fungsi terisolasi

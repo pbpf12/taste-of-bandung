@@ -6,6 +6,11 @@ from django.contrib import messages
 from django.contrib.auth import login
 import datetime
 from django.http import HttpResponseRedirect
+from landing.models import *
+from search.models import *
+from prodetail.models import *
+from last_activities.models import *
+from user_profile.models import *
 
 
 # Create your views here.
