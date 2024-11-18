@@ -27,7 +27,7 @@ SECRET_KEY = 'django-insecure-0-^up70)m=hy!#@-tg&bnm@(8vyemrf85=lv0i(tv)+ly5$pgb
 PRODUCTION = os.getenv("PRODUCTION", False)
 DEBUG = not PRODUCTION
 
-ALLOWED_HOSTS = ["localhost", "127.0.0.1", "rahardi-salim-tasteofbandung.pbp.cs.ui.ac.id"]
+ALLOWED_HOSTS = ["localhost", "127.0.0.1", '10.0.2.2', "rahardi-salim-tasteofbandung.pbp.cs.ui.ac.id"]
 
 
 # Application definition
@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'prodetail',
     'last_activities',
     'user_profile',
+    'authentication',
 ]
 
 MIDDLEWARE = [
@@ -145,3 +146,10 @@ MEDIA_ROOT = BASE_DIR / 'media'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOW_CREDENTIALS = True
+CSRF_COOKIE_SECURE = True
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SAMESITE = 'None'
+SESSION_COOKIE_SAMESITE = 'None'
