@@ -7,3 +7,4 @@ urllib3
 Pillow
 seed
 coverage
+django-cors-headers
