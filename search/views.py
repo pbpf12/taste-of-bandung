@@ -20,6 +20,7 @@ from search.forms import *
 def show_search_page(request):
     return render(request, 'search_page.html')
 
+@csrf_exempt
 def get_dishes(request):
     if request.method == "POST":
         # Mengambil JSON dari request body (POST request)
