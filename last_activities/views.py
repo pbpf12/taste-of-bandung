@@ -20,6 +20,7 @@ def last_activities_view(request):
                 else (bookmark.dish.restaurant.name if bookmark.dish and bookmark.dish.restaurant else 'No Restaurant')
             ),
             'dish__name': bookmark.dish.name if bookmark.dish else 'No Dish Linked',
+            'dish__id' : bookmark.dish.pk if bookmark.dish else 'No Dish Linked',
         }
         for bookmark in bookmarks
     ]
