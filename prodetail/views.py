@@ -1,5 +1,6 @@
 # lib/features/prodetail/views.py
 
+import json
 from django.shortcuts import render, get_object_or_404
 from django.http import JsonResponse
 from main.models import Category, Restaurant, Suggestion, Dish, Review, ReviewVote, Bookmark, History
