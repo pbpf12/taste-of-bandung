@@ -31,14 +31,26 @@ def last_activities_view(request):
 def last_activities_page(request):
     return render(request, 'last_activities_page.html')
 
-# View to handle bookmark deletion
 @csrf_exempt
 @require_POST
 def delete_bookmark(request):
     bookmark_id = request.POST.get('id')
-    
+
     try:
-        Bookmark.objects.get(id=bookmark_id).delete()
+        # Retrieve the bookmark by ID
+        bookmark = Bookmark.objects.get(id=bookmark_id)
+        
+        # Access the associated dish
+        dish = bookmark.dish
+
+        # Delete the bookmark
+        bookmark.delete()
+
+        # Update the bookmark count for the dish if it exists
+        if dish is not None:
+            dish.bookmark_count = max(0, dish.bookmark_count - 1)
+            dish.save()
+
         return JsonResponse({'status': 'Bookmark deleted successfully'})
     except Bookmark.DoesNotExist:
         return JsonResponse({'status': 'Bookmark not found'}, status=404)
